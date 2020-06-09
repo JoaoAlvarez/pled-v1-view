@@ -1,14 +1,14 @@
-# ngx-admin [<img src="https://i.imgur.com/oMcxwZ0.png" alt="Eva Design System" height="20px" />](https://hubs.ly/H0n4ZDy0) [![Build Status](https://travis-ci.org/akveo/ngx-admin.svg?branch=master)](https://travis-ci.org/akveo/ngx-admin) [![Dependency Status](https://david-dm.org/akveo/ngx-admin/status.svg)](https://david-dm.org/akveo/ng2-admin)
+<<<<<<< HEAD
+# ngx-admin [<img src="https://i.imgur.com/oMcxwZ0.png" alt="Eva Design System" height="20px" />](https://hubs.ly/H0n4ZDy0) [![Build Status](https://travis-ci.org/akveo/ngx-admin.svg?branch=master)](https://travis-ci.org/akveo/ngx-admin)
 
 [Who uses ngx-admin?](https://github.com/akveo/ngx-admin/issues/1645)| [Documentation](https://hubs.ly/H0n4Sfq0) | [Installation Guidelines](https://hubs.ly/H0n4Svc0)
 
 # New! Material theme for ngx-admin
 
-### Material admin theme is based on the most popular Angular dashboard template - [ngx-admin](https://hubs.ly/H0nJG1G0)
-### Included: Angular 9+, [Nebular](https://hubs.ly/H0nJG5g0) and [Eva design system](https://hubs.ly/H0nJGdC0). Free for personal and commercial usage.
-### Get material ngx-admin integrated with backend technology of your choice. [Check out our store](https://hubs.ly/H0n4Zvy0).
+Material admin theme is based on the most popular Angular dashboard template - [ngx-admin](https://hubs.ly/H0nJG1G0)
+To use material theme checkout `feat/material-theme` branch.
 
-<a target="_blank" href="https://hubs.ly/H0nxM3b0"><img src="https://i.imgur.com/67YAlhf.png"/></a>
+Get material ngx-admin integrated with backend technology of your choice. [Check out our store](https://hubs.ly/H0qwyl60).
 
 ## Key features
 
@@ -23,34 +23,24 @@
 <a target="_blank" href="https://hubs.ly/H0n4Sw20"><img src="https://i.imgur.com/mFdqvgG.png"/></a>
 
 ### Backend Integration Bundles
-Easy way to integrate ngx-admin with backend (.NET, Node.js, Java etc.).
+Easy way to integrate ngx-admin with any backend (PHP, .Net, .Net Core, Java etc. )
+<a href="https://hubs.ly/H0qwyl60"><img src="https://i.imgur.com/qbtASmP.png"></a>
 
-<a target="_blank" href="https://hubs.ly/H0n4ZxC0">
-  <img src="https://i.imgur.com/Ywbs8cl.png"/>
-</a>
-
-[Check out our Store](https://hubs.ly/H0n4Zvy0) for ready to use Backend Bundles.
+[Check out our Store](https://hubs.ly/H0qwyl60) for ready to use Backend Bundles.
 
 ### With 6 stunning visual themes
 
+| <a target="_blank" href="https://hubs.ly/H0nxM3b0"><img src="https://i.imgur.com/67YAlhf.png"/></a> | <a target="_blank" href="https://hubs.ly/H0nxNmv0"><img src="https://i.imgur.com/aQzw0hD.png"/></a> |
+| --- | --- |
+|  Material Dark | Material Light |
 
-#### Material Dark
-<a target="_blank" href="https://hubs.ly/H0nxM3b0"><img src="https://i.imgur.com/67YAlhf.png"/></a>
+| <a target="_blank" href="https://hubs.ly/H0n4Th20"><img src="https://i.imgur.com/9UkTGgr.png"/></a> | <a target="_blank" href="https://hubs.ly/H0n4Tgv0"><img src="https://i.imgur.com/Kn3xDKQ.png"/></a> |
+| --- | --- |
+|  Dark| Default |
 
-#### Material Light
-<a target="_blank" href="https://hubs.ly/H0nxNmv0"><img src="https://i.imgur.com/aQzw0hD.png"/></a>
-
-#### Default
-<a target="_blank" href="https://hubs.ly/H0n4Tgv0"><img src="https://i.imgur.com/Kn3xDKQ.png"/></a>
-
-#### Dark
-<a target="_blank" href="https://hubs.ly/H0n4Th20"><img src="https://i.imgur.com/FAn5iXY.png"/></a>
-
-#### Cosmic
-<a target="_blank" href="https://hubs.ly/H0n4Tj80"><img src="https://i.imgur.com/iJu2YDF.png"/></a>
-
-#### Corporate
-<a target="_blank" href="https://hubs.ly/H0n4TDQ0"><img src="https://i.imgur.com/GpUt6NW.png"/></a>
+| <a target="_blank" href="https://hubs.ly/H0n4Tj80"><img src="https://i.imgur.com/iJu2YDF.png"/></a> | <a target="_blank" href="https://hubs.ly/H0n4TDQ0"><img src="https://i.imgur.com/GpUt6NW.png"/></a> |
+| --- | --- |
+| Cosmic  | Corporate |
 
 ### What's included:
 
@@ -96,3 +86,25 @@ Visit [our homepage](https://hubs.ly/H0n4YJt0) or simply leave us a message to [
 ### From Developers
 Made with :heart: by [Akveo team](https://hubs.ly/H0n4YwQ0). Follow us on [Twitter](https://twitter.com/akveo_inc) to get the latest news first!
 We're always happy to receive your feedback!
+=======
+# Introduction 
+TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+
+# Getting Started
+TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+1.	Installation process
+2.	Software dependencies
+3.	Latest releases
+4.	API references
+
+# Build and Test
+TODO: Describe and show how to build your code and run the tests. 
+
+# Contribute
+TODO: Explain how other users and developers can contribute to make your code better. 
+
+If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
+- [ASP.NET Core](https://github.com/aspnet/Home)
+- [Visual Studio Code](https://github.com/Microsoft/vscode)
+- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+>>>>>>> 30b75f722ad4c0f2b92eedf9905f038915c4580d

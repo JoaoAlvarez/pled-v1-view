@@ -1,0 +1,13 @@
+<span
+  class="badge badge-light text-success"
+  *ngIf="renderValue == 'Aprovado' || renderValue == true"
+  >Aprovado</span
+>
+<span
+  class="badge badge-warning"
+  *ngIf="renderValue == 'Pendente' || renderValue == false"
+  >Pendente</span
+>
+<span class="badge badge-light text-danger" *ngIf="renderValue == 'Rejeitado'"
+  >Rejeitado</span
+>

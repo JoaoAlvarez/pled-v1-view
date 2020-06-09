@@ -5,4 +5,5 @@
  */
 export const environment = {
   production: true,
+  url: "https://users.gaveamarketplace.homolog.azure.pitang.com",
 };

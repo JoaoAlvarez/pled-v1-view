@@ -1,0 +1,98 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Adicionar instituição</h4>
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="submit()" action="">
+            <div class="form-group row">
+                <label for="nome" class="label col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="nome" placeholder="Nome da instituição"
+                        formControlName="nome">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cnpj" class="label col-sm-2 col-form-label">CNPJ</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="cnpj" placeholder="CNPJ" formControlName="cnpj">
+                </div>
+            </div>
+            <div formGroupName="responsavel">
+
+
+                <div class="form-group row">
+                    <label for="responsavel" class="label col-sm-2 col-form-label">Responsável</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="responsavel" placeholder="Nome do responsável"
+                            formControlName="nome">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="label col-sm-2 col-form-label">E-mail</label>
+                    <div class="col-sm-10">
+                        <input type="email" nbInput fullWidth id="email" placeholder="E-mail do responsável"
+                            formControlName="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="cpf" class="label col-sm-2 col-form-label">CPF</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="cpf" placeholder="CPF do responsável"
+                            formControlName="cpf" mask="000.000.000-00">
+                    </div>
+                </div>
+            </div>
+
+            <div formGroupName="endereco">
+
+
+                <div class="form-group row">
+                    <label for="endereco" class="label col-sm-2 col-form-label">Endereço</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="endereco" placeholder="Rua" formControlName="rua">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="bairro" class="label col-sm-2 col-form-label">Bairro</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="bairro" placeholder="Bairro" formControlName="bairro">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="cidade" class="label col-sm-2 col-form-label">Cidade</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="cidade" placeholder="Cidade" formControlName="cidade">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="numero" class="label col-sm-2 col-form-label">Número</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="numero" placeholder="Número" formControlName="numero">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="uf" class="label col-sm-2 col-form-label">UF</label>
+                    <div class="col-sm-10">
+                        <input type="text" nbInput fullWidth id="uf" placeholder="UF" formControlName="uf">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" nbButton status="primary"
+                        [disabled]="form.invalid || isLoading">Adicionar</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
