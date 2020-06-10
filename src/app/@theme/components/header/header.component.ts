@@ -6,14 +6,12 @@ import {
   NbThemeService,
 } from "@nebular/theme";
 
-import { UserData } from "../../../@core/data/users";
 import { LayoutService } from "../../../@core/utils";
 import { map, takeUntil, tap, finalize } from "rxjs/operators";
 import { Subject } from "rxjs";
 
 import { NbAuthJWTToken, NbAuthService, NbAuthResult } from "@nebular/auth";
 import { Router } from "@angular/router";
-import { HeaderService } from "./header.service";
 
 @Component({
   selector: "ngx-header",
@@ -53,18 +51,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private authService: NbAuthService,
     protected router: Router,
-    private headerService: HeaderService
   ) {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
 
       if (token.isValid()) {
         this.loggedUser = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
-        console.log("Logged user -->", this.loggedUser);
+        this.user = this.loggedUser;
       }
     });
 
@@ -74,13 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.currentTheme = this.themeService.currentTheme;
-    //this.getUsuarioLogado();
 
-    this.userService
-      .getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => (this.user = users.nick));
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService
@@ -93,13 +83,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
       );
 
-    this.themeService
-      .onThemeChange()
-      .pipe(
-        map(({ name }) => name),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((themeName) => (this.currentTheme = themeName));
 
     this.menuService.onItemClick().subscribe((event) => {
       if (event.item.title === "Log out") {
@@ -113,9 +96,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  changeTheme(themeName: string) {
-    this.themeService.changeTheme(themeName);
-  }
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, "menu-sidebar");
@@ -135,12 +115,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl("/auth/login");
   }
 
-  getUsuarioLogado() {
-    this.headerService
-      .getParticipante()
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        console.log(response);
-      });
-  }
 }

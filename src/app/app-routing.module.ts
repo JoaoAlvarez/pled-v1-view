@@ -1,58 +1,33 @@
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { AuthGuard } from "./auth-guard.service";
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from "@nebular/auth";
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   {
-    path: "pages",
+    path: "home",
+    component: HomeComponent,
+  },
+  {
+    path: "admin",
     loadChildren: () =>
-      import("./pages/pages.module").then((m) => m.PagesModule),
+      import("./admin/admin.module").then((m) => m.AdminModule),
     canActivate: [AuthGuard],
+    data: { roles: 'Administrador' }
+  },
+  {
+    path: "instituicao",
+    loadChildren: () =>
+      import("./instituicao/instituicao.module").then((m) => m.InstituicaoModule),
+    canActivate: [AuthGuard],
+    data: { roles: 'Instituição' }
   },
   {
     path: "auth",
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },
-  // {
-  //   path: "auth",
-  //   component: NbAuthComponent,
-  //   children: [
-  //     {
-  //       path: "",
-  //       component: NbLoginComponent,
-  //     },
-  //     {
-  //       path: "login",
-  //       component: NbLoginComponent,
-  //     },
-  //     {
-  //       path: "register",
-  //       component: NbRegisterComponent,
-  //     },
-  //     {
-  //       path: "logout",
-  //       component: NbLogoutComponent,
-  //     },
-  //     {
-  //       path: "request-password",
-  //       component: NbRequestPasswordComponent,
-  //     },
-  //     {
-  //       path: "reset-password",
-  //       component: NbResetPasswordComponent,
-  //     },
-  //   ],
-  // },
-  { path: "", redirectTo: "pages", pathMatch: "full" },
-  { path: "**", redirectTo: "pages" },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+  { path: "**", redirectTo: "home" },
 ];
 
 const config: ExtraOptions = {
@@ -63,4 +38,4 @@ const config: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
