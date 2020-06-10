@@ -17,9 +17,7 @@ export class AuthGuard implements CanActivate {
       }
     });
 
-    console.log(route.data.roles);
-
-    if (this.user) {
+    if (this.user && this.user > 0) {
       if (route.data.roles && route.data.roles.indexOf(this.user.user.perfil) === -1) {
         // role not authorised so redirect to home page
         this.router.navigate(['/']);
@@ -31,6 +29,7 @@ export class AuthGuard implements CanActivate {
     return this.authService.isAuthenticated().pipe(
       tap((authenticated) => {
         if (!authenticated) {
+          localStorage.removeItem("auth_app_token");
           this.router.navigate(["auth/login"]);
         }
       })
