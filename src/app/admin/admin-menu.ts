@@ -8,11 +8,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: "Listar instituições",
-        link: "/pages/instituicoes/listar",
+        link: "/admin/instituicoes/listar",
       },
       {
         title: "Adicionar instituição",
-        link: "/pages/instituicoes/adicionar",
+        link: "/admin/instituicoes/adicionar",
       },
     ],
   },

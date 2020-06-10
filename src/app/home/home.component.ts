@@ -23,12 +23,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.user){
     if (this.user.perfil == 'Administrador') {
       this.router.navigateByUrl('/admin');
     }
     if (this.user.perfil == 'Instituição') {
       this.router.navigateByUrl('/instituicao');
     }
+  }
   }
 
 }
