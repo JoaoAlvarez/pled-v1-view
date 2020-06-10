@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
         this.router.navigateByUrl('/instituicao');
       }
     } else {
+      localStorage.removeItem("auth_app_token");
       this.router.navigateByUrl('/auth/login');
     }
   }

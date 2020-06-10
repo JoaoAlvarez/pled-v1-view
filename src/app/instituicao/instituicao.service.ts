@@ -11,7 +11,7 @@ export class InstituicaoService {
   constructor(private httpClient: HttpClient) { }
 
   getInstituicoes(): Observable<any> {
-    return this.httpClient.get("/admin/instituicao/listar").pipe(
+    return this.httpClient.get("/instituicao/aluno/listar").pipe(
       map((response: any) => {
         console.log("response", response);
         if (response) {
@@ -22,7 +22,7 @@ export class InstituicaoService {
   }
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
-      .post("/admin/instituicao/salvar", dados)
+      .post("/instituicao/aluno/salvar", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);
