@@ -3,8 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { InstituicaoComponent } from './instituicao.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
-//import { AlunosComponent } from './usuarios/alunos/usuarios.component';
+
 import { AdicionarComponent } from './usuarios/adicionar/adicionar.component';
+
+import { CadastrarComponent } from './turmas/cadastrar/cadastrar.component';
+
+import { CadastroComponent } from './disciplinas/cadastrar/cadastrar.component';
+
 import { AuthGuard } from "../auth-guard.service";
 
 
@@ -14,12 +19,12 @@ const routes: Routes = [{
   children: [
     {
       path: "usuarios",
-      loadChildren: () => import("./usuarios/usuarios.module").then((m) => m.UsuariosModule)
+      loadChildren: () => import("./usuarios/alunos/alunos.module").then((m) => m.AlunosModule)
     },
 
     {
       path: "",
-      redirectTo: "usuarios",
+      redirectTo: "usuarios/alunos",
       pathMatch: "full",
     },
     {
@@ -34,6 +39,24 @@ const routes: Routes = [{
     {
       path: "usuarios/adicionar",
       component: AdicionarComponent,
+    },
+
+    {
+      path: "turmas/cadastrar",
+      component: CadastrarComponent,
+    },
+    {
+      path: "turmas",
+      loadChildren: () => import("./turmas/turmas.module").then((m) => m.TurmasModule)
+    },
+
+    {
+      path: "disciplinas/cadastrar",
+      component: CadastroComponent,
+    },
+    {
+      path: "disciplinas",
+      loadChildren: () => import("./disciplinas/disciplinas.module").then((m) => m.DisciplinasModule)
     },
     {
       path: "**",
@@ -50,5 +73,7 @@ const routes: Routes = [{
 export class InstituicaoRoutingModule { }
 export const routedComponents = [
   InstituicaoComponent,
-  AdicionarComponent
+  AdicionarComponent,
+  CadastrarComponent,
+  CadastroComponent
 ];

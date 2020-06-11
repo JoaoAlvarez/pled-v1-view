@@ -1,0 +1,51 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Cadastrar Turma</h4>
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="submit()" action="">
+            <div class="form-group row">
+                <label for="grupo" class="label col-sm-2 col-form-label">Grupo</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="grupo" placeholder="Grupo"
+                        formControlName="grupo">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="serie" class="label col-sm-2 col-form-label">Serie</label>
+                <div class="col-sm-10">
+                    <input type="number" nbInput id="serie" placeholder="Serie" min=1
+                        formControlName="serie">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nome" class="label col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="nome" placeholder="Nome"
+                        formControlName="nome">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="coordenador" class="label col-sm-2 col-form-label">Coordenador</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="coordenador" placeholder="Coordenador"
+                        formControlName="coordenador">
+                </div>
+            </div>
+            
+
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" nbButton status="primary"
+                        [disabled]="form.invalid || isLoading">Adicionar</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

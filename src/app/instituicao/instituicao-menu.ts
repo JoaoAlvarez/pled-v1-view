@@ -20,5 +20,40 @@ export const MENU_ITEMS: NbMenuItem[] = [
             }
 
         ],
+        
+    },
+    {
+        title: "Turmas",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Cadastrar Turma",
+                link: "/instituicao/turmas/cadastrar",
+            },
+            {
+                title: "Listar Turmas",
+                link: "/instituicao/turmas",
+            },
+
+        ],
+        
+    },
+
+    {
+        title: "Disciplinas",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Adicionar Disciplinas",
+                link: "/instituicao/disciplinas/cadastrar",
+            },
+            {
+                title: "Listar Disciplinas",
+                link: "/instituicao/disciplinas",
+            },
+
+
+        ],
+        
     },
 ];

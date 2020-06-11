@@ -26,7 +26,7 @@ import { ThemeModule } from "../../@theme/theme.module";
 import {
   UsuariosRoutingModule,
   routedComponents,
-} from "./usuarios-routing.module";
+} from "./turmas-routing.module";
 
 @NgModule({
   imports: [
@@ -50,4 +50,4 @@ import {
   ],
   declarations: [...routedComponents],
 })
-export class UsuariosModule { }
+export class TurmasModule { }

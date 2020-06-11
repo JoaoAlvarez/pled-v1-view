@@ -40,6 +40,7 @@ export class InstituicaoService {
       })
     );
   }
+  
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/usuario/salvar", dados)
@@ -51,5 +52,54 @@ export class InstituicaoService {
           }
         })
       );
+  }
+
+  inserirTurma(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/instituicao/turma/salvar", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+  getTurmas(): Observable<any> {
+    return this.httpClient.get("/instituicao/turma/listar").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
+  inserirDisciplina(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/instituicao/disciplina/salvar", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+
+  getDisciplinas(): Observable<any> {
+    return this.httpClient.get("/instituicao/disciplina/listar").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
   }
 }

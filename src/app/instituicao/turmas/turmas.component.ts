@@ -10,11 +10,11 @@ import { BadgeComponent } from "../../@theme/components/badge/badge.component";
 
 
 @Component({
-  selector: 'ngx-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'ngx-turmas',
+  templateUrl: './turmas.component.html',
+  styleUrls: ['./turmas.component.scss']
 })
-export class UsuariosComponent {
+export class TurmasComponent {
 
   settings = {
     hideSubHeader: true,
@@ -41,18 +41,23 @@ export class UsuariosComponent {
       confirmDelete: true,
     },
     columns: {
-      nome: {
-        title: "Nome",
+      grupo: {
+        title: "Grupo",
         type: "string",
         editable: true,
       },
-      cpf: {
-        title: "CPF",
+      serie: {
+        title: "Serie",
         type: "string",
         editable: false,
       },
-      email: {
-        title: "E-Mail",
+      nome: {
+        title: "Nome",
+        type: "string",
+        editable: false,
+      },
+      coordenador: {
+        title: "Coordenador",
         type: "string",
         editable: false,
       },
@@ -69,13 +74,13 @@ export class UsuariosComponent {
     const data = this.service.getData();
 
     //this.source.load(data);
-    this.getAlunos();
+    this.getTurmas();
 
   }
 
-  getAlunos() {
+  getTurmas() {
     this.InstituicaoService
-      .getAlunos()
+      .getTurmas()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);
@@ -94,11 +99,19 @@ export class UsuariosComponent {
             search: query,
           },
           {
-            field: "name",
+            field: "grupo",
             search: query,
           },
           {
-            field: "cpf",
+            field: "serie",
+            search: query,
+          },
+          {
+            field: "nome",
+            search: query,
+          },
+          {
+            field: "coordenador",
             search: query,
           },
           {
