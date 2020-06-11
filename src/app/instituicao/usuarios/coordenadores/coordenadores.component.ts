@@ -1,20 +1,20 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 
-import { SmartTableData } from "../../@core/data/smart-table";
-import { InstituicaoService } from "../instituicao.service";
+import { SmartTableData } from "../../../@core/data/smart-table";
+import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from "rxjs/operators";
 
-import { BadgeComponent } from "../../@theme/components/badge/badge.component";
+import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
 
 
 @Component({
-  selector: 'ngx-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'ngx-coordenadores',
+  templateUrl: './coordenadores.component.html',
+  styleUrls: ['./coordenadores.component.scss']
 })
-export class UsuariosComponent {
+export class CoordenadoresComponent {
 
   settings = {
     hideSubHeader: true,
@@ -74,12 +74,12 @@ export class UsuariosComponent {
   ) {
     const data = this.service.getData();
     //this.source.load(data);
-    this.getAlunos();
+    this.getCoordenadores();
   }
 
-  getAlunos() {
+  getCoordenadores() {
     this.InstituicaoService
-      .getAlunos()
+      .getCoordenadores()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);

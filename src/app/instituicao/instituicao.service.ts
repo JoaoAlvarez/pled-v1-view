@@ -10,8 +10,28 @@ export class InstituicaoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getInstituicoes(): Observable<any> {
+  getAlunos(): Observable<any> {
     return this.httpClient.get("/instituicao/aluno/listar").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+  getProfessores(): Observable<any> {
+    return this.httpClient.get("/instituicao/professor/listar").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+  getCoordenadores(): Observable<any> {
+    return this.httpClient.get("/instituicao/coodenador/listar").pipe(
       map((response: any) => {
         console.log("response", response);
         if (response) {
@@ -22,7 +42,7 @@ export class InstituicaoService {
   }
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
-      .post("/instituicao/aluno/salvar", dados)
+      .post("/instituicao/usuario/salvar", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);

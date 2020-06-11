@@ -1,20 +1,20 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 
-import { SmartTableData } from "../../@core/data/smart-table";
-import { InstituicaoService } from "../instituicao.service";
+import { SmartTableData } from "../../../@core/data/smart-table";
+import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from "rxjs/operators";
 
-import { BadgeComponent } from "../../@theme/components/badge/badge.component";
+import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
 
 
 @Component({
-  selector: 'ngx-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'ngx-professores',
+  templateUrl: './professores.component.html',
+  styleUrls: ['./professores.component.scss']
 })
-export class UsuariosComponent {
+export class ProfessoresComponent {
 
   settings = {
     hideSubHeader: true,
@@ -31,7 +31,7 @@ export class UsuariosComponent {
     },
     edit: {
       editButtonContent:
-        '<span class="btn btn-sm btn-secondary">Aprovar  <i class="fas fa-check text-warning"></i></span>',
+        '<span class="btn btn-sm btn-secondary">Editar  <i class="fas fa-check text-warning"></i></span>',
       saveButtonContent:
         '<span class="btn btn-sm btn-success">Confirmar <i class="nb-checkmark"></i></span>',
       // saveButtonContent: '<i class="nb-checkmark"></i>',
@@ -42,7 +42,7 @@ export class UsuariosComponent {
     },
     delete: {
       deleteButtonContent:
-        '<span class="btn btn-sm btn-outline-danger">Reprovar <i class="nb-close text-danger"></i></span>',
+        '<span class="btn btn-sm btn-outline-danger">Excluir <i class="nb-close text-danger"></i></span>',
       confirmDelete: true,
     },
     columns: {
@@ -50,6 +50,11 @@ export class UsuariosComponent {
         title: "Nome",
         type: "string",
         editable: true,
+      },
+      perfil: {
+        title: "Perfil",
+        type: "string",
+        editable: false,
       },
       cpf: {
         title: "CPF",
@@ -74,12 +79,12 @@ export class UsuariosComponent {
   ) {
     const data = this.service.getData();
     //this.source.load(data);
-    this.getAlunos();
+    this.getProfessores();
   }
 
-  getAlunos() {
+  getProfessores() {
     this.InstituicaoService
-      .getAlunos()
+      .getProfessores()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);
@@ -118,6 +123,10 @@ export class UsuariosComponent {
           },
           {
             field: "name",
+            search: query,
+          },
+          {
+            field: "perfil",
             search: query,
           },
           {
