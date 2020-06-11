@@ -30,19 +30,14 @@ export class ProfessoresComponent {
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     edit: {
-      editButtonContent:
-        '<span class="btn btn-sm btn-secondary">Editar  <i class="fas fa-check text-warning"></i></span>',
-      saveButtonContent:
-        '<span class="btn btn-sm btn-success">Confirmar <i class="nb-checkmark"></i></span>',
-      // saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent:
-        '<span class="btn btn-sm">Cancelar <i class="nb-close"></i></span>',
-      // cancelButtonContent: '<i class="nb-close"></i>',
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
       confirmSave: true,
     },
     delete: {
       deleteButtonContent:
-        '<span class="btn btn-sm btn-outline-danger">Excluir <i class="nb-close text-danger"></i></span>',
+        '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
     columns: {

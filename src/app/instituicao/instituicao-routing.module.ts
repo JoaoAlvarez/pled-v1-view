@@ -23,10 +23,6 @@ const routes: Routes = [{
       pathMatch: "full",
     },
     {
-      path: "usuarios/coordenadores",
-      loadChildren: () => import("./usuarios/coordenadores/coordenadores.module").then((m) => m.CoordenadoresModule)
-    },
-    {
       path: "usuarios/professores",
       loadChildren: () => import("./usuarios/professores/professores.module").then((m) => m.ProfessoresModule)
     },
