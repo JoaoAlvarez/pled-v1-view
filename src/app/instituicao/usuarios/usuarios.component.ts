@@ -30,19 +30,14 @@ export class UsuariosComponent {
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     edit: {
-      editButtonContent:
-        '<span class="btn btn-sm btn-secondary">Aprovar  <i class="fas fa-check text-warning"></i></span>',
-      saveButtonContent:
-        '<span class="btn btn-sm btn-success">Confirmar <i class="nb-checkmark"></i></span>',
-      // saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent:
-        '<span class="btn btn-sm">Cancelar <i class="nb-close"></i></span>',
-      // cancelButtonContent: '<i class="nb-close"></i>',
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
       confirmSave: true,
     },
     delete: {
       deleteButtonContent:
-        '<span class="btn btn-sm btn-outline-danger">Reprovar <i class="nb-close text-danger"></i></span>',
+        '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
     columns: {
@@ -61,19 +56,17 @@ export class UsuariosComponent {
         type: "string",
         editable: false,
       },
-      
+
     },
   };
 
   source: LocalDataSource = new LocalDataSource();
-  //source;
 
   constructor(
     private service: SmartTableData,
     private instituicoesService: InstituicaoService
   ) {
     const data = this.service.getData();
-    //this.source.load(data);
     this.getInstituicoes();
   }
 
@@ -84,25 +77,6 @@ export class UsuariosComponent {
       .subscribe((response) => {
         console.log(response);
         this.source.load(response);
-        // this.source.addFilter( // Filtrar pendentes
-        //   {
-        //     field: "onboardStatus",
-        //     search: "Pendente",
-        //   },
-
-        //   false
-        // );
-        this.source.setSort(
-          // Filtrar pendentes
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
-
-          false
-        );
         this.source.refresh();
       });
   }
