@@ -23,6 +23,7 @@ export class UsuariosComponent {
       position: "right",
       columnTitle: "Ações",
     },
+
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -50,16 +51,17 @@ export class UsuariosComponent {
         type: "string",
         editable: true,
       },
-      cnpj: {
-        title: "CNPJ",
+      cpf: {
+        title: "CPF",
         type: "string",
         editable: false,
       },
-      responsavel: {
-        title: "Responsável",
+      email: {
+        title: "E-Mail",
         type: "string",
         editable: false,
       },
+      
     },
   };
 
