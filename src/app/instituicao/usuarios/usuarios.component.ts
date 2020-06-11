@@ -67,12 +67,8 @@ export class UsuariosComponent {
     private InstituicaoService: InstituicaoService
   ) {
     const data = this.service.getData();
-<<<<<<< HEAD
     //this.source.load(data);
     this.getAlunos();
-=======
-    this.getInstituicoes();
->>>>>>> 3742b196aa8c5093f81c0aacf56a9b92f3231acf
   }
 
   getAlunos() {
