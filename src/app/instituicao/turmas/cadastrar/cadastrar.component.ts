@@ -5,28 +5,44 @@ import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { instituicao } from '../../../admin/instituicoes/adicionar/adicionar.component';
+import { isNgContainer } from '@angular/compiler';
 
 
 @Component({
-  selector: 'nb-select-clean',
+  selector: 'nb-select-showcase',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss']
 })
 
 export class CadastrarComponent implements OnInit {
 
+ 
   form!: FormGroup;
   isLoading: Boolean = false;
-
+  options =[];
 
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
-  ) { }
+  ) {}
+
 
   ngOnInit(): void {
-    this.createForm();
+    this.getCoordenadores();
+    
   }
 
+
+  getCoordenadores() {
+    this.InstituicaoService
+      .getCoordenadores()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        console.log(response);
+        this.options = response;
+        this.createForm();
+      });
+  }
 
   private createForm() {
     // this.form = this.formBuilder.group({
@@ -69,7 +85,9 @@ export class CadastrarComponent implements OnInit {
 
 
 }
+export class SelectShowcaseComponent {
 
+}
 export class turmas {
   grupo: string = '';
   serie: number = 1;

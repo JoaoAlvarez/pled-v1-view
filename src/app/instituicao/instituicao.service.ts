@@ -31,7 +31,7 @@ export class InstituicaoService {
     );
   }
   getCoordenadores(): Observable<any> {
-    return this.httpClient.get("/instituicao/coodenador/listar").pipe(
+    return this.httpClient.get("/instituicao/coordenador/listar").pipe(
       map((response: any) => {
         console.log("response", response);
         if (response) {
