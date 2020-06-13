@@ -1,31 +1,33 @@
 <nb-card>
-    <nb-card-header>
-      <div class="row">
-        <div class="col-md-5">
-          <h4>Turmas</h4>
-        </div>
-        <div class="col-md-5 ml-auto text-right">
-          <input nbInput #search class="search" type="text" placeholder="Search..."
-            (keydown.enter)="onSearch(search.value)" />
-        </div>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Turmas</h4>
       </div>
-    </nb-card-header>
-  
-    <nb-card-body>
+      <div class="col-md-5 ml-auto text-right">
+        <input nbInput #search class="search" type="text" placeholder="Search..."
+          (keydown.enter)="onSearch(search.value)" />
+      </div>
+    </div>
+  </nb-card-header>
 
-      {{lists | json}}
-      
-      <nb-accordion>
-        <nb-accordion-item *ngFor="let list of lists" [expanded]="list.expanded">
-         <nb-accordion-item-header>{{list.grupo}}</nb-accordion-item-header>
-         <nb-accordion-item-body>
-          <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-          (editConfirm)="onEditConfirm($event)">
-        </ng2-smart-table>
-         </nb-accordion-item-body>
-        </nb-accordion-item>
-       </nb-accordion>
-    </nb-card-body>
-    
-  </nb-card>
-  
+  <nb-card-body>
+
+    {{lists | json}}
+
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let list of lists">
+        <nb-accordion-item-header>{{list.grupo}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div *ngFor="let serie of list.series; let i = index">
+            <h6>Serie {{serie.serie}}</h6>
+            <ng2-smart-table [settings]="settings" [source]="turmas[i]" (deleteConfirm)="onDeleteConfirm($event)"
+              (editConfirm)="onEditConfirm($event)">
+            </ng2-smart-table>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+
+</nb-card>

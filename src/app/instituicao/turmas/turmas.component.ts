@@ -5,19 +5,12 @@ import { SmartTableData } from "../../@core/data/smart-table";
 import { InstituicaoService } from "../instituicao.service";
 import { finalize } from "rxjs/operators";
 
-import { BadgeComponent } from "../../@theme/components/badge/badge.component";
-import { NgForOf } from '@angular/common';
-//import { instituicoesAnexosComponent } from "../components/anexos.component";
-
-
 @Component({
   selector: 'ngx-turmas',
   templateUrl: './turmas.component.html',
   styleUrls: ['./turmas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
-
 
 export class TurmasComponent {
 
@@ -69,85 +62,69 @@ export class TurmasComponent {
 
     },
   };
- lists = [{grupo:'a'}];
- list1 = [];
-  source: LocalDataSource = new LocalDataSource();
-  turmas =[];
- 
+  lists = [{}];
+  //source: LocalDataSource = new LocalDataSource();
+  turmas = [];
+
 
   constructor(
     private service: SmartTableData,
     private InstituicaoService: InstituicaoService
   ) {
-    const data = this.service.getData();
-
-    //this.source.load(data);
     this.getTurmas();
-
   }
 
   getTurmas() {
     this.InstituicaoService
       .getTurmas()
-      .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response);
         this.lists = response;
         response.forEach(element => {
-          this.list1.push(element);
           element.series.forEach(element2 => {
-            this.turmas.push(element2);
-            element2.turmas.forEach(element3 => {
-            
-
+            this.turmas.push(element2.turmas);
           });
-          
+
+
         });
-        
-        
-      });
-      console.log(this.turmas);
-        this.source.load(response);
-        this.source.refresh();
-    })
+      })
   }
 
-  onSearch(query: string = "") {
-    if (query != "") {
-      this.source.setFilter(
-        [
-          // fields we want to include in the search
-          {
-            field: "id",
-            search: query,
-          },
-          {
-            field: "grupo",
-            search: query,
-          },
-          {
-            field: "serie",
-            search: query,
-          },
-          {
-            field: "nome",
-            search: query,
-          },
-          {
-            field: "coordenador",
-            search: query,
-          },
-          {
-            field: "onboardStatus",
-            search: query,
-          },
-        ],
-        false
-      );
-    } else {
-      this.source.reset();
-    }
-  }
+  // onSearch(query: string = "") {
+  //   if (query != "") {
+  //     this.source.setFilter(
+  //       [
+  //         // fields we want to include in the search
+  //         {
+  //           field: "id",
+  //           search: query,
+  //         },
+  //         {
+  //           field: "grupo",
+  //           search: query,
+  //         },
+  //         {
+  //           field: "serie",
+  //           search: query,
+  //         },
+  //         {
+  //           field: "nome",
+  //           search: query,
+  //         },
+  //         {
+  //           field: "coordenador",
+  //           search: query,
+  //         },
+  //         {
+  //           field: "onboardStatus",
+  //           search: query,
+  //         },
+  //       ],
+  //       false
+  //     );
+  //   } else {
+  //     this.source.reset();
+  //   }
+  // }
 
   onDeleteConfirm(event): void {
     console.log(event);
@@ -156,13 +133,6 @@ export class TurmasComponent {
         "Tem certeza que deseja exclulir esta turma?"
       )
     ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
     } else {
       event.confirm.reject();
     }
