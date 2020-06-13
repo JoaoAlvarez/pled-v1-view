@@ -9,7 +9,6 @@ import { finalize } from "rxjs/operators";
   selector: 'ngx-turmas',
   templateUrl: './turmas.component.html',
   styleUrls: ['./turmas.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class TurmasComponent {
@@ -62,8 +61,7 @@ export class TurmasComponent {
 
     },
   };
-  lists = [{}];
-  //source: LocalDataSource = new LocalDataSource();
+  lists = [];
   turmas = [];
 
 
@@ -71,6 +69,10 @@ export class TurmasComponent {
     private service: SmartTableData,
     private InstituicaoService: InstituicaoService
   ) {
+
+  }
+
+  ngOnInit() {
     this.getTurmas();
   }
 

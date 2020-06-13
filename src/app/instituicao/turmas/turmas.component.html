@@ -13,10 +13,9 @@
 
   <nb-card-body>
 
-    {{lists | json}}
 
-    <nb-accordion>
-      <nb-accordion-item *ngFor="let list of lists">
+    <nb-accordion *ngIf="lists">
+      <nb-accordion-item *ngFor="let list of lists async">
         <nb-accordion-item-header>{{list.grupo}}</nb-accordion-item-header>
         <nb-accordion-item-body>
           <div *ngFor="let serie of list.series; let i = index">
