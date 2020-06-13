@@ -19,14 +19,22 @@
             <div class="form-group row">
                 <label for="grupo" class="label col-sm-2 col-form-label">Grupo</label>
                 <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="grupo" placeholder="Grupo" formControlName="grupo">
+                    <nb-select placeholder="Select Showcase" id="grupo" formControlName="grupo"
+                        placeholder="Grupo">
+                        <nb-option value="">Selecione uma Serie</nb-option>
+                        <nb-option value="Educação Infantil">Educação Infantil</nb-option>
+                        <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
+                        <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
+                        <nb-option value="Ensino Médio">Ensino Médio</nb-option>
+                        <nb-option value="Pré-Vestibular">Pré-Vestibular</nb-option>
+                    </nb-select>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="serie" class="label col-sm-2 col-form-label">Serie</label>
                 <div class="col-sm-10">
-                    <input type="number" nbInput id="serie" placeholder="Serie" min=1 formControlName="serie">
+                    <input type="number" nbInput id="serie" placeholder="Serie" formControlName="serie">
                 </div>
             </div>
 

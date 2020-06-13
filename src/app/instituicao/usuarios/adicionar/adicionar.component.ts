@@ -54,7 +54,7 @@ export class AdicionarComponent implements OnInit {
 
         if (response) {
           Swal.fire('Ok', 'Usuário adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/usuarios");
+          this.router.navigateByUrl("/instituicao/usuarios/alunos");
 
         }
 

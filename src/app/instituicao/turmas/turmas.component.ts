@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 
 import { SmartTableData } from "../../@core/data/smart-table";
@@ -6,14 +6,19 @@ import { InstituicaoService } from "../instituicao.service";
 import { finalize } from "rxjs/operators";
 
 import { BadgeComponent } from "../../@theme/components/badge/badge.component";
+import { NgForOf } from '@angular/common';
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
 
 
 @Component({
   selector: 'ngx-turmas',
   templateUrl: './turmas.component.html',
-  styleUrls: ['./turmas.component.scss']
+  styleUrls: ['./turmas.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
+
+
 export class TurmasComponent {
 
   settings = {
@@ -64,8 +69,11 @@ export class TurmasComponent {
 
     },
   };
-
+ lists = [{grupo:'a'}];
+ list1 = [];
   source: LocalDataSource = new LocalDataSource();
+  turmas =[];
+ 
 
   constructor(
     private service: SmartTableData,
@@ -84,9 +92,24 @@ export class TurmasComponent {
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);
+        this.lists = response;
+        response.forEach(element => {
+          this.list1.push(element);
+          element.series.forEach(element2 => {
+            this.turmas.push(element2);
+            element2.turmas.forEach(element3 => {
+            
+
+          });
+          
+        });
+        
+        
+      });
+      console.log(this.turmas);
         this.source.load(response);
         this.source.refresh();
-      });
+    })
   }
 
   onSearch(query: string = "") {
@@ -130,7 +153,7 @@ export class TurmasComponent {
     console.log(event);
     if (
       window.confirm(
-        "Tem certeza que deseja rejeitar a aprovação deste usuário?"
+        "Tem certeza que deseja exclulir esta turma?"
       )
     ) {
       // this.instituicoesService
@@ -151,3 +174,4 @@ export class TurmasComponent {
 
   }
 }
+

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TurmasComponent } from './turmas.component';
+import { AccordionShowcaseComponent } from './turmas.component';
 
 describe('TurmasComponent', () => {
   let component: TurmasComponent;
@@ -8,7 +9,7 @@ describe('TurmasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TurmasComponent ]
+      declarations: [ TurmasComponent, AccordionShowcaseComponent, ]
     })
     .compileComponents();
   }));

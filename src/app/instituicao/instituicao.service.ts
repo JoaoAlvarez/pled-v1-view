@@ -30,6 +30,18 @@ export class InstituicaoService {
       })
     );
   }
+
+  getSeries(): Observable<any> {
+    return this.httpClient.get("/grupo-series").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
   getCoordenadores(): Observable<any> {
     return this.httpClient.get("/instituicao/coordenador/listar").pipe(
       map((response: any) => {

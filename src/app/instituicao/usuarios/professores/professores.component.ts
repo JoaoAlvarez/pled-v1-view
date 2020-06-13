@@ -144,7 +144,7 @@ export class ProfessoresComponent {
     console.log(event);
     if (
       window.confirm(
-        "Tem certeza que deseja rejeitar a aprovação deste usuário?"
+        "Tem certeza que deseja excluir este usuário?"
       )
     ) {
       // this.instituicoesService

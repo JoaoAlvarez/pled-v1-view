@@ -21,17 +21,27 @@ export class CadastrarComponent implements OnInit {
   form!: FormGroup;
   isLoading: Boolean = false;
   options =[];
-
+  series =[];
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) {}
 
 
   ngOnInit(): void {
+    //this.getSeries();
     this.getCoordenadores();
     
   }
 
+  getSeries() {
+    this.InstituicaoService
+      .getSeries()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        console.log(response);
+        this.series = response;
+      });
+  }
 
   getCoordenadores() {
     this.InstituicaoService
@@ -72,8 +82,8 @@ export class CadastrarComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Usuário adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/turmas/listar");
+          Swal.fire('Ok', 'Turma adicionada com sucesso', 'success');
+          this.router.navigateByUrl("/instituicao/turmas");
 
         }
 

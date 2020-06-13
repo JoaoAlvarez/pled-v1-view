@@ -5,8 +5,9 @@ import { TurmasComponent } from './turmas.component';
 const routes: Routes = [
     {
         path: "",
-        component: TurmasComponent,
+        component: TurmasComponent, 
     },
+    
 ];
 
 @NgModule({

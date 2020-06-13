@@ -51,17 +51,11 @@ export class CadastroComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Usuário adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/disciplina/listar");
-
+          Swal.fire('Ok', 'Disciplina adicionada com sucesso', 'success');
+          this.router.navigateByUrl("/instituicao/disciplinas");
         }
-
-
-
       });
-
   }
-
 
 }
 
