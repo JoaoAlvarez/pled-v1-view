@@ -56,7 +56,11 @@ export class AlunosComponent {
         type: "string",
         editable: false,
       },
-      
+      turma: {
+        title: "Turma",
+        type: "string",
+        editable: false,
+      },
     },
   };
 
@@ -117,6 +121,10 @@ export class AlunosComponent {
           },
           {
             field: "cpf",
+            search: query,
+          },
+          {
+            field: "turma",
             search: query,
           },
           {

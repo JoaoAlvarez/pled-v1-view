@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormArray, FormControl } from '@angular/forms';
 import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from 'rxjs/operators';
+import { LocalDataSource } from "ng2-smart-table";
 import { Product, SellingPoint } from './products';
 
 import Swal from 'sweetalert2';
@@ -37,8 +38,29 @@ export class AdicionarComponent implements OnInit {
       selling_points2: this.fb.array([this.fb.group({point:''})])
     })
     
-
+    this.getDisciplinas();
+    this.getTurmas();
     this.createForm();
+
+
+  }
+tlist=[];
+list=[];
+  getTurmas() {
+    this.InstituicaoService
+      .getTurmas()
+      .subscribe((response) => {
+        this.tlist = response;
+    });
+  }
+  getDisciplinas() {
+    this.InstituicaoService
+      .getDisciplinas()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        console.log(response);
+        this.list=response;
+      });
   }
 
   get sellingPoints() {
@@ -72,8 +94,8 @@ export class AdicionarComponent implements OnInit {
       perfil: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      turmas: ['', Validators.required],
-      disciplionas: ['', Validators.required],
+      turmas: [''],
+      disciplionas: [''],
     });
   }
 

@@ -46,8 +46,7 @@
                     Turmas:</label> 
                 <div class="form-group row">
                     <div *ngFor="let item of sellingPoints.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
-                        <nb-select fullWidth id="turmas" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="turmas">
-                            <nb-option value="">Selecione uma Turma</nb-option>
+                        <nb-select fullWidth id="turmas" placeholder="Selecione uma Turmar" [(selected)]="selectedItem2" formControlName="turmas">
                             <nb-option value="Educação Infantil">Educação Infantil</nb-option>
                             <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
                             <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
@@ -64,14 +63,11 @@
                 <label for ="Disciplinas" class="label col-sm-2 col-form-label"  >
                     Disciplinas:</label> 
                 <div  class="form-group row">
+                    
                     <div *ngFor="let item of sellingPoints2.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
-                        <nb-select fullWidth id="disciplinas" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="disciplinas">
-                            <nb-option value="">Selecione uma Turma</nb-option>
-                            <nb-option value="Educação Infantil">Educação Infantil</nb-option>
-                            <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
-                            <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
-                            <nb-option value="Ensino Médio">Ensino Médio</nb-option>
-                            <nb-option value="Pré-Vestibular">Pré-Vestibular</nb-option>
+                        <nb-select fullWidth id="disciplinas" placeholder="Selecione uma Disciplina" [(selected)]="selectedItem3" formControlName="disciplinas">
+                            
+                            <nb-option *ngFor="let l of list" value="l._id">{{l.nome}}</nb-option>
                         </nb-select>
                     </div>
                     <button type="submit" nbButton status="primary" (click)="addSellingPoint2()" ><nb-icon icon="plus-outline"></nb-icon></button>

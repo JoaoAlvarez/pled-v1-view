@@ -19,9 +19,9 @@
             <div class="form-group row">
                 <label for="turma" class="label col-sm-2 col-form-label">Turma</label>
                 <div class="col-sm-10">
-                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="turma">
-                        <nb-option *ngFor="let o of sgrupo" [value]="o">
-                            {{ o }}</nb-option>
+                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turma" [(selected)]="selectedItem" formControlName="turma">
+                        <nb-option *ngFor="let n of ngrupo;" [value]="n[1]">
+                            {{ n[0] }}</nb-option>
                     </nb-select>
                 </div>
             </div>

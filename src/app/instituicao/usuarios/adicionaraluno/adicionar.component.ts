@@ -24,7 +24,8 @@ export class AdicionarAlunoComponent implements OnInit {
   ) { }
   lists = [];
   turmas = [];
-  sgrupo =[];
+  ngrupo =[];
+  idgrupo =[];
 
 
   ngOnInit(): void {
@@ -39,13 +40,14 @@ export class AdicionarAlunoComponent implements OnInit {
         this.lists.forEach(element => {
           element.series.forEach(element2 => {
             this.turmas.push(element2.turmas);
-            
+            console.log(this.turmas);
             this.turmas.forEach(element3 => {
               element3.forEach(element4 => {
-                if (!this.sgrupo.find(o => o === element4.nome)){
+                var a = element4;
+                if (!this.ngrupo.find(o => o[0] === element4.nome)){
 
-                    this.sgrupo.push(element4.nome)
-                    console.log(this.sgrupo);
+                    this.ngrupo.push([element4.nome,element4.id])
+                    console.log(this.ngrupo);
                 }
                 
               });
@@ -63,6 +65,7 @@ export class AdicionarAlunoComponent implements OnInit {
     // });
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
+      perfil: ['Aluno'],
       turma: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
@@ -96,6 +99,7 @@ export class AdicionarAlunoComponent implements OnInit {
 
 export class usuario {
   nome: string = ''
+  perfil: string = 'Aluno'
   turma: string = ''
   cpf: string = ''
   email: string = '';
