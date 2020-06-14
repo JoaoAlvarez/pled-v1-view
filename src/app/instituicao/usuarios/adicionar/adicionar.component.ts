@@ -39,20 +39,12 @@ export class AdicionarComponent implements OnInit {
     })
     
     this.getDisciplinas();
-    this.getTurmas();
     this.createForm();
 
 
   }
-tlist=[];
 list=[];
-  getTurmas() {
-    this.InstituicaoService
-      .getTurmas()
-      .subscribe((response) => {
-        this.tlist = response;
-    });
-  }
+
   getDisciplinas() {
     this.InstituicaoService
       .getDisciplinas()
@@ -94,7 +86,9 @@ list=[];
       perfil: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      turmas: [''],
+      turmas: this.formBuilder.group({
+
+      }),
       disciplionas: [''],
     });
   }
@@ -102,6 +96,8 @@ list=[];
   Adicionar() {
     this.isLoading = true;
     const result: usuario = Object.assign({}, this.form.value);
+    console.log(this.productForm.value);
+    console.log(this.productForm2.value);
     this.InstituicaoService
       .inserirInstituicao(result)
       .pipe(finalize(() => { this.isLoading = false; }))
