@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-5">
-                <h4>Adicionar Usuário</h4>
+                <h4>Adicionar Professores e Coordenadores</h4>
             </div>
 
         </div>
@@ -16,17 +16,7 @@
                         formControlName="nome">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="perfil" class="label col-sm-2 col-form-label">Perfil</label>
-                <div class="col-sm-10">
-                    <nb-select fullWidth id="perfil" placeholder="Perfil" [(selected)]="selectedItem" formControlName="perfil">
-                        <nb-option value="">Selecione um Perfil</nb-option>
-                        <nb-option value="Coordenador">Coordenador</nb-option>
-                        <nb-option value="Professor">Professor</nb-option>
-                        <nb-option value="Aluno">Aluno</nb-option>
-                    </nb-select>
-                </div>
-            </div>
+            
             <div class="form-group row">
                 <label for="cpf" class="label col-sm-2 col-form-label">CPF</label>
                 <div class="col-sm-10">
@@ -41,14 +31,61 @@
                         formControlName="email">
                 </div>
             </div>
-            
-
+            <div class="form-group row">
+                <label for="perfil" class="label col-sm-2 col-form-label">Perfil</label>
+                <div class="col-sm-10">
+                    <nb-select fullWidth id="perfil" placeholder="Perfil" [(selected)]="selectedItem" formControlName="perfil">
+                        <nb-option value="">Selecione um Perfil</nb-option>
+                        <nb-option value="Coordenador">Coordenador</nb-option>
+                        <nb-option value="Professor">Professor</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div formArrayName="selling_points" class="form-group row">
+                <label for ="Turmas" class="label col-sm-2 col-form-label"   >
+                    Turmas:</label> 
+                <div class="form-group row">
+                    <div *ngFor="let item of sellingPoints.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
+                        <nb-select fullWidth id="turmas" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="turmas">
+                            <nb-option value="">Selecione uma Turma</nb-option>
+                            <nb-option value="Educação Infantil">Educação Infantil</nb-option>
+                            <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
+                            <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
+                            <nb-option value="Ensino Médio">Ensino Médio</nb-option>
+                            <nb-option value="Pré-Vestibular">Pré-Vestibular</nb-option>
+                        </nb-select>
+                    </div>
+                    <button type="submit" nbButton status="primary" (click)="addSellingPoint()" ><nb-icon icon="plus-outline"></nb-icon></button>
+                    <button type="submit" nbButton status="primary" (click)="deleteSellingPoint(pointIndex)"><nb-icon icon="minus-outline"></nb-icon></button>
+                </div>
+                
+            </div>
+            <div formArrayName="selling_points2" class="form-group row">
+                <label for ="Disciplinas" class="label col-sm-2 col-form-label"  >
+                    Disciplinas:</label> 
+                <div  class="form-group row">
+                    <div *ngFor="let item of sellingPoints2.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
+                        <nb-select fullWidth id="disciplinas" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="disciplinas">
+                            <nb-option value="">Selecione uma Turma</nb-option>
+                            <nb-option value="Educação Infantil">Educação Infantil</nb-option>
+                            <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
+                            <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
+                            <nb-option value="Ensino Médio">Ensino Médio</nb-option>
+                            <nb-option value="Pré-Vestibular">Pré-Vestibular</nb-option>
+                        </nb-select>
+                    </div>
+                    <button type="submit" nbButton status="primary" (click)="addSellingPoint2()" ><nb-icon icon="plus-outline"></nb-icon></button>
+                    <button type="submit" nbButton status="primary" (click)="deleteSellingPoint2(pointIndex)"><nb-icon icon="minus-outline"></nb-icon></button>
+                </div>
+                
+            </div>
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" nbButton status="primary"
+                    <button type="submit" (click)="Adicionar()" nbButton status="primary"
                         [disabled]="form.invalid || isLoading">Adicionar</button>
                 </div>
             </div>
+            
         </form>
     </nb-card-body>
 </nb-card>

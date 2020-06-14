@@ -52,6 +52,19 @@ export class InstituicaoService {
       })
     );
   }
+
+  inserirAluno(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/instituicao/usuario/salvar", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
   
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient

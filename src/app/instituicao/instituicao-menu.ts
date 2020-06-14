@@ -7,7 +7,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: "people-outline",
         children: [
             {
-                title: "Adicionar Usuário",
+                title: "Adicionar Alunos",
+                link: "/instituicao/usuarios/adicionaraluno",
+            },
+            {
+                title: "Adicionar Professores e Coordenadores",
                 link: "/instituicao/usuarios/adicionar",
             },
             {

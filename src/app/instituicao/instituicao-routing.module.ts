@@ -6,6 +6,8 @@ import { NotFoundComponent } from "../miscellaneous/not-found/not-found.componen
 
 import { AdicionarComponent } from './usuarios/adicionar/adicionar.component';
 
+import { AdicionarAlunoComponent } from './usuarios/adicionaraluno/adicionar.component';
+
 import { CadastrarComponent } from './turmas/cadastrar/cadastrar.component';
 
 import { CadastroComponent } from './disciplinas/cadastrar/cadastrar.component';
@@ -39,6 +41,10 @@ const routes: Routes = [{
     {
       path: "usuarios/adicionar",
       component: AdicionarComponent,
+    },
+    {
+      path: "usuarios/adicionaraluno",
+      component: AdicionarAlunoComponent,
     },
 
     {
@@ -74,6 +80,7 @@ export class InstituicaoRoutingModule { }
 export const routedComponents = [
   InstituicaoComponent,
   AdicionarComponent,
+  AdicionarAlunoComponent,
   CadastrarComponent,
   CadastroComponent
 ];
