@@ -22,11 +22,38 @@ export class AdicionarAlunoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
+  lists = [];
+  turmas = [];
+  sgrupo =[];
+
 
   ngOnInit(): void {
+    this.getTurmas();
     this.createForm();
   }
+  getTurmas() {
+    this.InstituicaoService
+      .getTurmas()
+      .subscribe((response) => {
+        this.lists = response;
+        this.lists.forEach(element => {
+          element.series.forEach(element2 => {
+            this.turmas.push(element2.turmas);
+            
+            this.turmas.forEach(element3 => {
+              element3.forEach(element4 => {
+                if (!this.sgrupo.find(o => o === element4.nome)){
 
+                    this.sgrupo.push(element4.nome)
+                    console.log(this.sgrupo);
+                }
+                
+              });
+            });
+          });
+        });
+      })
+  }
 
   private createForm() {
     // this.form = this.formBuilder.group({
@@ -69,6 +96,7 @@ export class AdicionarAlunoComponent implements OnInit {
 
 export class usuario {
   nome: string = ''
+  turma: string = ''
   cpf: string = ''
   email: string = '';
 

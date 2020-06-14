@@ -20,12 +20,8 @@
                 <label for="turma" class="label col-sm-2 col-form-label">Turma</label>
                 <div class="col-sm-10">
                     <nb-select fullWidth id="turma" placeholder="Selecione uma Turmar" [(selected)]="selectedItem" formControlName="turma">
-                        <nb-option value="">Selecione uma Turma</nb-option>
-                        <nb-option value="Educação Infantil">Educação Infantil</nb-option>
-                        <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
-                        <nb-option value="Ensino Fundamental 2">Ensino Fundamental 2</nb-option>
-                        <nb-option value="Ensino Médio">Ensino Médio</nb-option>
-                        <nb-option value="Pré-Vestibular">Pré-Vestibular</nb-option>
+                        <nb-option *ngFor="let o of sgrupo" [value]="o">
+                            {{ o }}</nb-option>
                     </nb-select>
                 </div>
             </div>

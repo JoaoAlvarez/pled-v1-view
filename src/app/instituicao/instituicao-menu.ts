@@ -11,7 +11,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
                 link: "/instituicao/usuarios/adicionaraluno",
             },
             {
-                title: "Adicionar Professores e Coordenadores",
+                title: "Adicionar Professores",
                 link: "/instituicao/usuarios/adicionar",
             },
             {

@@ -81,6 +81,8 @@ export class TurmasComponent {
         this.lists.forEach(element => {
           element.series.forEach(element2 => {
             this.turmas.push(element2.turmas);
+            console.log(this.turmas);
+            
           });
 
 
