@@ -31,18 +31,71 @@
                         formControlName="tipo">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="questoes" class="label col-sm-2 col-form-label">Questões</label>
-                <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="questoes" placeholder="Questões"
-                        formControlName="questoes">
-                </div>
-            </div>
-            
+            <div formArrayName="questoes" class="form-group row">
+                <label for="questao" class="label col-sm-2 col-form-label">
+                    Questões:</label>
 
+                <div class="col-sm-10">
+                    <div *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i"
+                        class="row mb-2">
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <input type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
+                                formControlName="enunciado">
+                            </div>
+                            <div class="row">
+                                <input type="number" min="1" max="10" nbInput fullWidth id="pontos" placeholder="Pontos"
+                                formControlName="pontos">
+                            </div>
+                            <div class="row">
+                                <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha" (checkedChange)="toggle($event)">É de mutipla escolha?</nb-checkbox>
+                            </div>
+                            <div class="row">
+                                <input type="text" nbInput fullWidth id="resposta1" placeholder="Resposta 1"
+                                formControlName="resposta1">
+                                <input type="text" nbInput fullWidth id="resposta2" placeholder="Resposta 2"
+                                formControlName="resposta2">
+                                <input type="text" nbInput fullWidth id="resposta3" placeholder="Resposta 3"
+                                formControlName="resposta3">
+                                <input type="text" nbInput fullWidth id="resposta4" placeholder="Resposta 4"
+                                formControlName="resposta4">
+                                <input type="text" nbInput fullWidth id="resposta5" placeholder="Resposta 5"
+                                formControlName="resposta5">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button type="button" nbButton status="primary" (click)="deleteQuestoes(i)">
+                                <nb-icon icon="minus-outline"></nb-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="form-group row">
+
+
+                <div class="offset-sm-2 col-sm-10 mb-4">
+                    <button type="button" nbButton status="primary" (click)="addQuestoes()">
+                        <nb-icon icon="plus-outline"></nb-icon>
+                    </button>
+                </div>
+
+                <div class="offset-sm-2 col-sm-10 mb-4">
+                    <nb-card>
+                        <nb-card-header>
+                            <h1 class="h5">Prazo: {{ date | date }}</h1>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <nb-calendar-range [(range)]="range"></nb-calendar-range>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+
+
                 <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" nbButton status="primary"
+                    <button type="submit" (click)="Adicionar()" nbButton status="primary"
                         [disabled]="form.invalid || isLoading">Adicionar</button>
                 </div>
             </div>

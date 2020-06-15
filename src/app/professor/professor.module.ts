@@ -12,7 +12,9 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbCalendarModule,
+  NbCalendarRangeModule,
 } from "@nebular/theme";
 import { NgxMaskModule } from 'ngx-mask';
 import { Ng2SmartTableModule } from "ng2-smart-table";
@@ -49,7 +51,9 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
     ThemeModule,
     NbMenuModule,
     ReactiveFormsModule,
-    MiscellaneousModule
+    MiscellaneousModule,
+    NbCalendarModule,
+    NbCalendarRangeModule,
     
   ],
 })

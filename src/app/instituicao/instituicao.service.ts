@@ -68,7 +68,7 @@ export class InstituicaoService {
   
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
-      .post("/instituicao/usuario/salvar", dados)
+      .post("/instituicao/professor/salvar", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);

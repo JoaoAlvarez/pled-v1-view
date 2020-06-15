@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 import { LocalDataSource } from "ng2-smart-table";
-import { Product, SellingPoint } from './products';
+
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
