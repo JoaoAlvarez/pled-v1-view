@@ -24,6 +24,13 @@ export const routes: Routes = [
     data: { roles: 'Instituição' }
   },
   {
+    path: "professor",
+    loadChildren: () =>
+      import("./professor/professor.module").then((m) => m.ProfessorModule),
+    canActivate: [AuthGuard],
+    data: { roles: 'Professor' }
+  },
+  {
     path: "auth",
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },

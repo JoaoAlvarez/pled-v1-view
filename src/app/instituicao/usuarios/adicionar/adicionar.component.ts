@@ -81,17 +81,22 @@ list=[];
     //   cnpj: ['', Validators.required],
     //   responsavel: ['', Validators.required],
     // });
+    /**/
+
     this.form = this.formBuilder.group({
+      
       nome: ['', Validators.required],
       perfil: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      turmas: this.formBuilder.group({
-
-      }),
-      disciplionas: [''],
+      //turmas: [''],
+      //disciplionas: [''],
     });
+    
+        
   }
+
+
 
   Adicionar() {
     this.isLoading = true;
@@ -104,7 +109,7 @@ list=[];
       .subscribe((response) => {
 
         this.isLoading = false;
-
+        
         if (response) {
           Swal.fire('Ok', 'Usuário adicionada com sucesso', 'success');
           this.router.navigateByUrl("/instituicao/usuarios/professores");
@@ -121,12 +126,13 @@ list=[];
 }
 
 export class usuario {
+  
   nome: string = ''
   cpf: string = ''
   email: string = '';
   perfil: string = '';
-  turmas: string = '';
-  disciplinas: string = '';
+  //turmas: FormArray;
+  //disciplinas: string = '';
 
 }
 

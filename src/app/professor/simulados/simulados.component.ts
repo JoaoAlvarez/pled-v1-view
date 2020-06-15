@@ -1,20 +1,20 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 
-import { SmartTableData } from "../../../@core/data/smart-table";
-import { InstituicaoService } from "../../instituicao.service";
+import { SmartTableData } from "../../@core/data/smart-table";
+import { ProfessorService } from "../professor.service";
 import { finalize } from "rxjs/operators";
 
-import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
+import { BadgeComponent } from "../../@theme/components/badge/badge.component";
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
 
 
 @Component({
-  selector: 'ngx-alunos',
-  templateUrl: './alunos.component.html',
-  styleUrls: ['./alunos.component.scss']
+  selector: 'ngx-simulados',
+  templateUrl: './simulados.component.html',
+  styleUrls: ['./simulados.component.scss']
 })
-export class AlunosComponent {
+export class SimuladosComponent {
 
   settings = {
     hideSubHeader: true,
@@ -41,69 +41,51 @@ export class AlunosComponent {
       confirmDelete: true,
     },
     columns: {
-      nome: {
-        title: "Nome",
-        type: "string",
-        editable: true,
-      },
-      cpf: {
-        title: "CPF",
+
+      titulo: {
+        title: "Título",
         type: "string",
         editable: false,
       },
-      email: {
-        title: "E-Mail",
+      descricao: {
+        title: "Descrição",
         type: "string",
         editable: false,
       },
-      turma: {
-        title: "Turma",
+      tipo: {
+        title: "Tipo",
         type: "string",
-        valuePrepareFunction: (turma) => {
-          return turma.nome;
-        }
+        editable: false,
       },
+      questoes: {
+        title: "Questões",
+        type: "string",
+        editable: false,
+      },
+
     },
   };
 
   source: LocalDataSource = new LocalDataSource();
-  //source;
 
   constructor(
     private service: SmartTableData,
-    private InstituicaoService: InstituicaoService
+    private ProfessorService: ProfessorService
   ) {
     const data = this.service.getData();
+
     //this.source.load(data);
-    this.getAlunos();
+    this.getSimulados();
+
   }
 
-  getAlunos() {
-    this.InstituicaoService
-      .getAlunos()
+  getSimulados() {
+    this.ProfessorService
+      .getSimulados()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);
         this.source.load(response);
-        // this.source.addFilter( // Filtrar pendentes
-        //   {
-        //     field: "onboardStatus",
-        //     search: "Pendente",
-        //   },
-
-        //   false
-        // );
-        this.source.setSort(
-          // Filtrar pendentes
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
-
-          false
-        );
         this.source.refresh();
       });
   }
@@ -117,16 +99,21 @@ export class AlunosComponent {
             field: "id",
             search: query,
           },
+
           {
-            field: "name",
+            field: "nome",
             search: query,
           },
           {
-            field: "cpf",
+            field: "descricao",
             search: query,
           },
           {
-            field: "turma",
+            field: "tipo",
+            search: query,
+          },
+          {
+            field: "questoes",
             search: query,
           },
           {
@@ -145,7 +132,7 @@ export class AlunosComponent {
     console.log(event);
     if (
       window.confirm(
-        "Tem certeza que deseja excluir este usuário?"
+        "Tem certeza que deseja rejeitar a aprovação deste usuário?"
       )
     ) {
       // this.instituicoesService
