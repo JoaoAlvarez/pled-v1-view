@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbAuthService } from '@nebular/auth';
 
 
 @Component({
@@ -13,16 +14,35 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignupComponent implements OnInit {
   user: any = {};
   form!: FormGroup;
-  isLoading: Boolean = false;
+  erro = '';
+  id = '';
+  isLoading: Boolean = true;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder, private nbAuthService: NbAuthService, private router: Router) {
     this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
       this.getInfo(params.get('id'));
+
     });
+
+
 
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem("auth_app_token")) {
+      localStorage.removeItem("auth_app_token");
+      this.router.navigate(["auth/signup/" + this.id]);
+    }
+    // this.nbAuthService.isAuthenticated().pipe(
+    //   tap((authenticated) => {
+    //     console.log("authenticated");
+    //     if (!authenticated) {
+    //       this.router.navigate(["auth/signup"]);
+    //     } else {
+    //     }
+    //   })
+    // );
   }
 
   private createForm(data, token) {
@@ -47,7 +67,11 @@ export class SignupComponent implements OnInit {
         console.log(response);
         this.createForm(response, id);
         this.isLoading = false;
-      });
+      }, (error) => {
+        this.erro = error;
+        this.isLoading = false;
+
+      })
   }
 
   getConfigValue(key: string): any {

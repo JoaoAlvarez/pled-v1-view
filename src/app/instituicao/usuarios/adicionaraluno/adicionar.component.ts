@@ -17,15 +17,14 @@ export class AdicionarAlunoComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = false;
-
+  turmas = [];
+  ngrupo = [];
+  idgrupo = [];
 
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
-  lists = [];
-  turmas = [];
-  ngrupo =[];
-  idgrupo =[];
+
 
 
   ngOnInit(): void {
@@ -36,21 +35,13 @@ export class AdicionarAlunoComponent implements OnInit {
     this.InstituicaoService
       .getTurmas()
       .subscribe((response) => {
-        this.lists = response;
-        this.lists.forEach(element => {
-          element.series.forEach(element2 => {
-            this.turmas.push(element2.turmas);
-            console.log(this.turmas);
-            this.turmas.forEach(element3 => {
-              element3.forEach(element4 => {
-                var a = element4;
-                if (!this.ngrupo.find(o => o[0] === element4.nome)){
+        response.forEach(grupos => {
+          grupos.series.forEach(series => {
+            series.turmas.forEach(turma => {
 
-                    this.ngrupo.push([element4.nome,element4.id])
-                    console.log(this.ngrupo);
-                }
-                
-              });
+
+              this.turmas.push(turma)
+
             });
           });
         });

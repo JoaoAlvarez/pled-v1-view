@@ -60,6 +60,9 @@ export class AlunosComponent {
         title: "Turma",
         type: "string",
         editable: false,
+        valuePrepareFunction: (data) => {
+          return data.nome;
+        }
       },
     },
   };

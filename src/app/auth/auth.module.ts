@@ -10,7 +10,8 @@ import {
   NbButtonModule,
   NbCheckboxModule,
   NbInputModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbCardModule
 } from "@nebular/theme";
 
 import { NgxLoginComponent } from "./login/login.component";
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbInputModule,
     NbButtonModule,
     NbCheckboxModule,
+    NbCardModule,
     NgxAuthRoutingModule,
     ReactiveFormsModule,
     NbAuthModule,

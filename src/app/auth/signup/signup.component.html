@@ -59,18 +59,13 @@
     </button>
 </form>
 
-<section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
-    or enter with:
-    <div class="socials">
-        <ng-container *ngFor="let socialLink of socialLinks">
-            <a *ngIf="socialLink.link" [routerLink]="socialLink.link" [attr.target]="socialLink.target"
-                [attr.class]="socialLink.icon" [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-            <a *ngIf="socialLink.url" [attr.href]="socialLink.url" [attr.target]="socialLink.target"
-                [attr.class]="socialLink.icon" [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-        </ng-container>
-    </div>
-</section>
+<nb-card accent="danger" [nbSpinner]="isLoading" nbSpinnerStatus="danger" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-card-body class="text-center">
+        {{erro}}
+    </nb-card-body>
+</nb-card>
+
 
 <section class="another-action" aria-label="Sign in">
-    Already have an account? <a class="text-link" routerLink="../login">Log in</a>
+    Tem uma conta? <a class="text-link" routerLink="auth/login">Faça o login</a>
 </section>
