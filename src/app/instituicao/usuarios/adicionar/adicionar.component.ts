@@ -77,27 +77,18 @@ export class AdicionarComponent implements OnInit {
   }
 
   private createForm() {
-    // this.form = this.formBuilder.group({
-    //   nome: ['', Validators.required],
-    //   cnpj: ['', Validators.required],
-    //   responsavel: ['', Validators.required],
-    // });
-    /**/
 
     this.form = this.formBuilder.group({
-      
       nome: ['', Validators.required],
       perfil: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      //turmas: [''],
-      //disciplionas: [''],
+      turmasDisciplinas: this.formBuilder.array([this.formBuilder.group({
+        turma: ['', Validators.required],
+        disciplina: ['', Validators.required]
+      })])
     });
-    
-        
   }
-
-
 
   Adicionar() {
     this.isLoading = true;
@@ -108,7 +99,7 @@ export class AdicionarComponent implements OnInit {
       .subscribe((response) => {
 
         this.isLoading = false;
-        
+
         if (response) {
           Swal.fire('Ok', 'Professor adicionada com sucesso', 'success');
           this.router.navigateByUrl("/instituicao/usuarios/professores");
@@ -125,13 +116,10 @@ export class AdicionarComponent implements OnInit {
 }
 
 export class usuario {
-  
   nome: string = ''
   cpf: string = ''
   email: string = '';
   perfil: string = '';
-  //turmas: FormArray;
-  //disciplinas: string = '';
-
+  turmasDisciplinas: any = [];
 }
 
