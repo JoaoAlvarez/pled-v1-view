@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
       if (this.user.perfil == 'Instituição') {
         this.router.navigateByUrl('/instituicao');
       }
+      if (this.user.perfil == 'Professor') {
+        this.router.navigateByUrl('/professor');
+      }
     } else {
       localStorage.removeItem("auth_app_token");
       this.router.navigateByUrl('/auth/login');

@@ -24,6 +24,8 @@ import Swal from 'sweetalert2';
   providedIn: "root",
 })
 export class HttpRequestInterceptor implements HttpInterceptor {
+  constructor(private router: Router) { }
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -60,6 +62,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
 
+      }
+
+      if (error.status === 401) {
+        localStorage.removeItem("auth_app_token");
+        this.router.navigate(["auth/login"]);
       }
 
       Swal.fire('Erro', errorMessage, 'error');
