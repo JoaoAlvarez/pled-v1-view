@@ -33,13 +33,30 @@ export class CriarComponent implements OnInit {
   get questoes() {
     return this.form.get('questoes') as FormArray;
   }
+  get alternativas() {
+    return this.form.get('alternativas') as FormArray;
+  }
 
-  addQuestoes() {
-    this.questoes.push(this.formBuilder.group({
-      turma: ['', Validators.required],
-      disciplina: ['', Validators.required]
+  addAlternativas() {
+    
+    this.alternativas.push(this.formBuilder.group({
+          texto: ['questão'],
+          isResposta: [false],
     }));
   }
+  addQuestoes() {
+    
+    this.questoes.push(this.formBuilder.group({
+      enunciado: ['', Validators.required],
+        pontos: ['', Validators.required],
+        isMultiplaEscolha: [''],
+        alternativas: [this.formBuilder.array([this.formBuilder.group({
+          texto: ['questão'],
+          isResposta: [false],
+        })])]
+    }));
+  }
+
 
   deleteQuestoes(index) {
     this.questoes.removeAt(index);
@@ -57,20 +74,15 @@ export class CriarComponent implements OnInit {
       tipo: ['', Validators.required],
       questoes: this.formBuilder.array([this.formBuilder.group({
         enunciado: ['', Validators.required],
-        pontos: ['', Validators.required],
-        isMultiplaEscolha: ['', Validators.required],
+        pontos: [1, Validators.required],
+        isMultiplaEscolha: [false,Validators.required],
         alternativas: this.formBuilder.array([this.formBuilder.group({
-          texto: ['', Validators.required],
-          isResposta: ['', Validators.required],
-          resposta1: ['', Validators.required],
-          resposta2: ['', Validators.required],
-          resposta3: ['', Validators.required],
-          resposta4: ['', Validators.required],
-          resposta5: ['', Validators.required],
+          texto: ['questão'],
+          isResposta: [false],
         })])
       })]),
-      prazoInicial : ['', Validators.required],
-      prazoFinal : ['', Validators.required],
+      //prazoInicial : ['', Validators.required],
+      //prazoFinal : ['', Validators.required],
     });
   }
 
@@ -99,8 +111,8 @@ export class simulado {
   descricao: string = '';
   titulo: string = '';
   questoes: any = [];
-  prazoInicial: string = '';
-  prazoFinal: string = '';
+  //prazoInicial: string = '';
+  //prazoFinal: string = '';
 }
 /*
 export class CalendarShowcaseComponent {

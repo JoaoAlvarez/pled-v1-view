@@ -41,7 +41,6 @@ export class SimuladosComponent {
       confirmDelete: true,
     },
     columns: {
-
       titulo: {
         title: "Título",
         type: "string",
@@ -101,7 +100,7 @@ export class SimuladosComponent {
           },
 
           {
-            field: "nome",
+            field: "titulo",
             search: query,
           },
           {
