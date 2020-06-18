@@ -50,13 +50,31 @@
                             <div class="row">
                                 <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha" (checkedChange)="toggle($event)">É de mutipla escolha?</nb-checkbox>
                             </div>
-                            <div formArrayName="alternativas" class="form-group row">
-                                <div class="row">
-                                    <input type="text" nbInput fullWidth id="texto" placeholder="Resposta"
-                                    formControlName="texto">
-                                    <nb-checkbox id="isResposta" formControlName="isResposta" (checkedChange)="toggle($event)">Essa é a resposta certa?</nb-checkbox>
-                                </div>
+
+                            <div class="row">
+                                <input type="text" nbInput fullWidth id="resposta1" placeholder="Resposta 1"
+                                formControlName="resposta1">
+                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta1"
+                                formControlName="isResposta1">Esta é a resposta certa?</nb-checkbox>
+                                <input type="text" nbInput fullWidth id="resposta2" placeholder="Resposta 2"
+                                formControlName="resposta2">
+                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta2"
+                                formControlName="isResposta2">Esta é a resposta certa?</nb-checkbox>
+                                <input type="text" nbInput fullWidth id="resposta3" placeholder="Resposta 3"
+                                formControlName="resposta3">
+                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta3"
+                                formControlName="isResposta3">Esta é a resposta certa?</nb-checkbox>
+                                <input type="text" nbInput fullWidth id="resposta4" placeholder="Resposta 4"
+                                formControlName="resposta4">
+                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta4"
+                                formControlName="isResposta4">Esta é a resposta certa?</nb-checkbox>
+                                <input type="text" nbInput fullWidth id="resposta5" placeholder="Resposta 5"
+                                formControlName="resposta5">
+                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta5"
+                                formControlName="isResposta5">Esta é a resposta certa?</nb-checkbox>
                             </div>
+                            
+
                         </div>
 
                         <div class="col-sm-2">
@@ -72,20 +90,16 @@
 
 
                 <div class="offset-sm-2 col-sm-10 mb-4">
-                    <button type="button" nbButton status="primary" (click)=" addQuestoes();addAlternativas()">
+                    <button type="button" nbButton status="primary" (click)=" addQuestoes()">
                         <nb-icon icon="plus-outline"></nb-icon>
                     </button>
                 </div>
 
                 <div class="offset-sm-2 col-sm-10 mb-4">
-                    <nb-card>
-                        <nb-card-header>
-                            <h1 class="h5">Prazo: {{ data | date }}</h1>
-                        </nb-card-header>
-                        <nb-card-body>
-                            <nb-calendar-range [(range)]="range"></nb-calendar-range>
-                        </nb-card-body>
-                    </nb-card>
+                    <input nbInput id="prazoInicial" placeholder="Prazo Inicial" formControlName="prazoInicial" [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <input nbInput id="prazoFinal" placeholder="Prazo Final" formControlName="prazoFinal" [nbDatepicker]="formpicker2">
+                    <nb-datepicker #formpicker2></nb-datepicker>
                 </div>
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" (click)="Adicionar()" nbButton status="primary"

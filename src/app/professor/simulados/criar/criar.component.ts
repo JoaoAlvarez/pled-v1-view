@@ -33,27 +33,23 @@ export class CriarComponent implements OnInit {
   get questoes() {
     return this.form.get('questoes') as FormArray;
   }
-  get alternativas() {
-    return this.form.get('alternativas') as FormArray;
-  }
+  
 
-  addAlternativas() {
-    
-    this.alternativas.push(this.formBuilder.group({
-          texto: ['questão'],
-          isResposta: [false],
-    }));
-  }
   addQuestoes() {
-    
     this.questoes.push(this.formBuilder.group({
-      enunciado: ['', Validators.required],
-        pontos: ['', Validators.required],
-        isMultiplaEscolha: [''],
-        alternativas: [this.formBuilder.array([this.formBuilder.group({
-          texto: ['questão'],
-          isResposta: [false],
-        })])]
+        enunciado: ['', Validators.required],
+        pontos: [1, Validators.required],
+        isMultiplaEscolha: [true, Validators.required],
+        resposta1: ['', Validators.required],
+        isResposta1: [false, Validators.required],
+        resposta2: ['', Validators.required],
+        isResposta2: [false, Validators.required],
+        resposta3: ['', Validators.required],
+        isResposta3: [false, Validators.required],
+        resposta4: ['', Validators.required],
+        isResposta4: [false, Validators.required],
+        resposta5: ['', Validators.required],
+        isResposta5: [false, Validators.required],
     }));
   }
 
@@ -69,23 +65,29 @@ export class CriarComponent implements OnInit {
     //   responsavel: ['', Validators.required],
     // });
     this.form = this.formBuilder.group({
-      titulo: ['', Validators.required],
-      descricao: ['', Validators.required],
-      tipo: ['', Validators.required],
-      questoes: this.formBuilder.array([this.formBuilder.group({
+        titulo: ['', Validators.required],
+        descricao: ['', Validators.required],
+        tipo: ['', Validators.required],
+        questoes: this.formBuilder.array([this.formBuilder.group({
         enunciado: ['', Validators.required],
         pontos: [1, Validators.required],
-        isMultiplaEscolha: [false,Validators.required],
-        alternativas: this.formBuilder.array([this.formBuilder.group({
-          texto: ['questão'],
-          isResposta: [false],
-        })])
+        isMultiplaEscolha: [true, Validators.required],
+        resposta1: ['', Validators.required],
+        isResposta1: [false, Validators.required],
+        resposta2: ['', Validators.required],
+        isResposta2: [false, Validators.required],
+        resposta3: ['', Validators.required],
+        isResposta3: [false, Validators.required],
+        resposta4: ['', Validators.required],
+        isResposta4: [false, Validators.required],
+        resposta5: ['', Validators.required],
+        isResposta5: [false, Validators.required],
       })]),
-      //prazoInicial : ['', Validators.required],
-      //prazoFinal : ['', Validators.required],
+      prazoInicial : ['', Validators.required],
+      prazoFinal : ['', Validators.required],
     });
   }
-
+  
   Adicionar() {
     this.isLoading = true;
     const result: simulado = Object.assign({}, this.form.value);
@@ -105,14 +107,13 @@ export class CriarComponent implements OnInit {
 
 }
 
-
 export class simulado {
   nome: string = '';
   descricao: string = '';
   titulo: string = '';
   questoes: any = [];
-  //prazoInicial: string = '';
-  //prazoFinal: string = '';
+  prazoInicial: string = '';
+  prazoFinal: string = '';
 }
 /*
 export class CalendarShowcaseComponent {
@@ -125,15 +126,18 @@ export class CalendarRangeShowcaseComponent {
     this.range = {
       start: this.dateService.addDay(this.monthStart, 3),
       end: this.dateService.addDay(this.monthEnd, -3),
+      
     };
   }
 
   get monthStart(): Date {
     return this.dateService.getMonthStart(new Date());
+    
   }
 
   get monthEnd(): Date {
     return this.dateService.getMonthEnd(new Date());
   }
+  
 }
 

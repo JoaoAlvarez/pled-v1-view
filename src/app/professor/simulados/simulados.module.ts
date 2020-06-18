@@ -11,7 +11,8 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbCalendarRangeModule,
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -46,8 +47,10 @@ import {
     Ng2SmartTableModule,
     ReactiveFormsModule,
     NgxMaskModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbCalendarRangeModule,
   ],
   declarations: [...routedComponents],
 })
 export class SimuladosModule { }
+export class PageModule { }
