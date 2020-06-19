@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
       if (this.user.perfil == 'Instituição') {
         this.router.navigateByUrl('/instituicao');
       }
-      if (this.user.perfil == 'Professor') {
+      if (this.user.perfil == 'Professor' || this.user.perfil == 'Coordenador') {
         this.router.navigateByUrl('/professor');
       }
     } else {

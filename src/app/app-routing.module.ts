@@ -28,7 +28,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./professor/professor.module").then((m) => m.ProfessorModule),
     canActivate: [AuthGuard],
-    data: { roles: 'Professor' }
+    data: { roles: ['Professor', 'Coordenador'] }
   },
   {
     path: "auth",

@@ -83,10 +83,7 @@ export class AdicionarComponent implements OnInit {
       perfil: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      turmasDisciplinas: this.formBuilder.array([this.formBuilder.group({
-        turma: ['', Validators.required],
-        disciplina: ['', Validators.required]
-      })])
+      turmasDisciplinas: this.formBuilder.array([])
     });
   }
 
