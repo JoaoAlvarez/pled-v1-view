@@ -35,6 +35,7 @@ export const routes: Routes = [
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },
   { path: "", redirectTo: "home", pathMatch: "full" },
+  { path: 'aluno', loadChildren: () => import('./aluno/aluno.module').then(m => m.AlunoModule) },
   { path: "**", redirectTo: "home" },
 ];
 

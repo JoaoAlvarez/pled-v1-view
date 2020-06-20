@@ -10,5 +10,5 @@
 
 export const environment = {
   production: false,
-  url: "https://eply-dev.herokuapp.com",
+  url: "http://localhost:3000",
 };
