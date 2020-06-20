@@ -26,7 +26,11 @@
             <div class="form-group row">
                 <label for="tipo" class="label col-sm-2 col-form-label">Tipo</label>
                 <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="tipo" placeholder="Tipo" formControlName="tipo">
+                    <nb-select fullWidth id="tipo" placeholder="Selecione um Tipo" [(selected)]="selectedItem"
+                        formControlName="tipo">
+                        <nb-option value="Exercicio">Exercício</nb-option>
+                        <nb-option value="Prova">Prova</nb-option>
+                    </nb-select>
                 </div>
             </div>
             <div formArrayName="questoes" class="form-group row">
