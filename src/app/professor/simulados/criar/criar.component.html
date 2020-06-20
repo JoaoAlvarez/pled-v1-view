@@ -9,12 +9,11 @@
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="form" (ngSubmit)="submit()" action="">
-            
+
             <div class="form-group row">
                 <label for="titulo" class="label col-sm-2 col-form-label">Título</label>
                 <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="titulo" placeholder="Título"
-                        formControlName="titulo">
+                    <input type="text" nbInput fullWidth id="titulo" placeholder="Título" formControlName="titulo">
                 </div>
             </div>
             <div class="form-group row">
@@ -27,8 +26,7 @@
             <div class="form-group row">
                 <label for="tipo" class="label col-sm-2 col-form-label">Tipo</label>
                 <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="tipo" placeholder="Tipo"
-                        formControlName="tipo">
+                    <input type="text" nbInput fullWidth id="tipo" placeholder="Tipo" formControlName="tipo">
                 </div>
             </div>
             <div formArrayName="questoes" class="form-group row">
@@ -36,44 +34,40 @@
                     Questões:</label>
 
                 <div class="col-sm-10">
-                    <div *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i"
-                        class="row mb-2">
+                    <div *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i" class="row mb-2">
                         <div class="col-sm-10">
                             <div class="row">
                                 <input type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
-                                formControlName="enunciado">
+                                    formControlName="enunciado">
                             </div>
                             <div class="row">
                                 <input type="number" min="1" max="10" nbInput fullWidth id="pontos" placeholder="Pontos"
-                                formControlName="pontos">
+                                    formControlName="pontos">
                             </div>
                             <div class="row">
-                                <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha" (checkedChange)="toggle($event)">É de mutipla escolha?</nb-checkbox>
+                                <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha">É de mutipla
+                                    escolha?</nb-checkbox>
                             </div>
 
-                            <div class="row">
-                                <input type="text" nbInput fullWidth id="resposta1" placeholder="Resposta 1"
-                                formControlName="resposta1">
-                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta1"
-                                formControlName="isResposta1">Esta é a resposta certa?</nb-checkbox>
-                                <input type="text" nbInput fullWidth id="resposta2" placeholder="Resposta 2"
-                                formControlName="resposta2">
-                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta2"
-                                formControlName="isResposta2">Esta é a resposta certa?</nb-checkbox>
-                                <input type="text" nbInput fullWidth id="resposta3" placeholder="Resposta 3"
-                                formControlName="resposta3">
-                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta3"
-                                formControlName="isResposta3">Esta é a resposta certa?</nb-checkbox>
-                                <input type="text" nbInput fullWidth id="resposta4" placeholder="Resposta 4"
-                                formControlName="resposta4">
-                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta4"
-                                formControlName="isResposta4">Esta é a resposta certa?</nb-checkbox>
-                                <input type="text" nbInput fullWidth id="resposta5" placeholder="Resposta 5"
-                                formControlName="resposta5">
-                                <nb-checkbox (checkedChange)="toggle($event)" id="isResposta5"
-                                formControlName="isResposta5">Esta é a resposta certa?</nb-checkbox>
+                            <div formArrayName="alternativas">
+                                <div *ngFor="let alternativa of item.get('alternativas').controls; let j=index">
+                                    <div [formGroupName]="j">
+                                        <input type="text" nbInput fullWidth placeholder="Resposta 1"
+                                            formControlName="texto">
+                                        <nb-checkbox formControlName="isResposta">Esta é a resposta certa?</nb-checkbox>
+                                        <button type="button" nbButton status="primary"
+                                            (click)="deleteAlternativa(item.controls.alternativas, j)">
+                                            <nb-icon icon="minus-outline"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button nbButton status="primary" type="button"
+                                    (click)="addAlternativa(item.controls.alternativas)">
+                                    <nb-icon icon="plus-outline"></nb-icon> Adicionar alternativa
+                                </button>
                             </div>
-                            
+
 
                         </div>
 
@@ -91,14 +85,16 @@
 
                 <div class="offset-sm-2 col-sm-10 mb-4">
                     <button type="button" nbButton status="primary" (click)=" addQuestoes()">
-                        <nb-icon icon="plus-outline"></nb-icon>
+                        <nb-icon icon="plus-outline"></nb-icon> Adicionar questão
                     </button>
                 </div>
 
                 <div class="offset-sm-2 col-sm-10 mb-4">
-                    <input nbInput id="prazoInicial" placeholder="Prazo Inicial" formControlName="prazoInicial" [nbDatepicker]="formpicker">
+                    <input nbInput id="prazoInicial" placeholder="Prazo Inicial" formControlName="prazoInicial"
+                        [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
-                    <input nbInput id="prazoFinal" placeholder="Prazo Final" formControlName="prazoFinal" [nbDatepicker]="formpicker2">
+                    <input nbInput id="prazoFinal" placeholder="Prazo Final" formControlName="prazoFinal"
+                        [nbDatepicker]="formpicker2">
                     <nb-datepicker #formpicker2></nb-datepicker>
                 </div>
                 <div class="offset-sm-2 col-sm-10">
