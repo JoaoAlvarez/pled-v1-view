@@ -61,6 +61,7 @@ export class SimuladosComponent {
         type: "string",
         editable: false,
       },
+      
 
     },
   };
@@ -151,4 +152,8 @@ export class SimuladosComponent {
 
 
   }
+  onUserRowSelect(event, modal) {
+    event => this.source = event;
+    console.log (event.settings);
+    }
 }
