@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'alunos',
-  templateUrl: './alunos.component.html'
+  templateUrl: './alunos.component.html',
+  styleUrls: ['./alunos.component.scss']
+
 })
 export class AlunosListarComponent {
 
@@ -19,11 +21,15 @@ export class AlunosListarComponent {
     hideSubHeader: true,
 
     actions: {
-      add: false,
       position: "right",
       columnTitle: "Ações",
+      add: false,
       edit: false,
-      custom: [{ name: 'ourCustomAction', title: '<i class="nb-edit"></i>' }],
+      delete: false,
+      custom: [
+        { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'delete', title: '<i class="nb-trash"></i>' }
+      ],
 
     },
 

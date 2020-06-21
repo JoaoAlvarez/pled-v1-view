@@ -10,27 +10,27 @@ import { isNgContainer } from '@angular/compiler';
 
 
 @Component({
-  selector: 'nb-select-showcase',
+  selector: 'turmas-cadastrar',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss']
 })
 
-export class CadastrarComponent implements OnInit {
+export class TurmasCadastrarComponent implements OnInit {
 
- 
+
   form!: FormGroup;
   isLoading: Boolean = true;
-  options =[];
-  series =[];
+  options = [];
+  series = [];
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
     //this.getSeries();
     this.getCoordenadores();
-    
+
   }
 
   getSeries() {
@@ -48,7 +48,7 @@ export class CadastrarComponent implements OnInit {
       .getCoordenadores()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.log(response);
         this.options = response;
         this.createForm();
@@ -71,7 +71,7 @@ export class CadastrarComponent implements OnInit {
 
   submit() {
 
-    console.log("response",this.form.value)
+    console.log("response", this.form.value)
 
     this.isLoading = true;
     const result: turmas = Object.assign({}, this.form.value);

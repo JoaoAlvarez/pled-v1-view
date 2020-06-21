@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { InstituicaoComponent } from './instituicao.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
 
-import { CadastrarComponent } from './turmas/cadastrar/cadastrar.component';
-import { CadastroComponent } from './disciplinas/cadastrar/cadastrar.component';
-
 import { AuthGuard } from "../auth-guard.service";
 
 
@@ -33,17 +30,8 @@ const routes: Routes = [{
       loadChildren: () => import("./usuarios/alunos/alunos.module").then((m) => m.AlunosModule)
     },
     {
-      path: "turmas/cadastrar",
-      component: CadastrarComponent,
-    },
-    {
       path: "turmas",
       loadChildren: () => import("./turmas/turmas.module").then((m) => m.TurmasModule)
-    },
-
-    {
-      path: "disciplinas/cadastrar",
-      component: CadastroComponent,
     },
     {
       path: "disciplinas",
@@ -63,7 +51,5 @@ const routes: Routes = [{
 })
 export class InstituicaoRoutingModule { }
 export const routedComponents = [
-  InstituicaoComponent,
-  CadastrarComponent,
-  CadastroComponent
+  InstituicaoComponent
 ];

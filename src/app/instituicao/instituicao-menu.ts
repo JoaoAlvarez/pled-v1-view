@@ -36,7 +36,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
             },
             {
                 title: "Listar Turmas",
-                link: "/instituicao/turmas",
+                link: "/instituicao/turmas/listar",
             },
 
         ],
@@ -53,7 +53,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
             },
             {
                 title: "Listar Disciplinas",
-                link: "/instituicao/disciplinas",
+                link: "/instituicao/disciplinas/listar",
             },
 
 
