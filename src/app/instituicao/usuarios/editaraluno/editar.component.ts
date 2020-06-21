@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class EditarAlunoComponent implements OnInit {
 
   form!: FormGroup;
-  isLoading: Boolean = false;
+  isLoading: Boolean = true;
   turmas = [];
   ngrupo = [];
   idgrupo = [];
@@ -57,6 +57,7 @@ export class EditarAlunoComponent implements OnInit {
       .getAlunos()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
+        this.isLoading=false;
          response.forEach(alunos => {
            var t =this.router.url.split("/",5);
           if(alunos.id==t[4]){

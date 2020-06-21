@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class AdicionarComponent implements OnInit {
 
   form!: FormGroup;
-  isLoading: Boolean = false;
+  isLoading: Boolean = true;
   productForm: FormGroup;
   turmas = [];
   disciplinas = [];
@@ -37,7 +37,7 @@ export class AdicionarComponent implements OnInit {
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         //this.turmas = response;
-
+        this.isLoading=false;
         response.forEach(element => {
           element.series.forEach(element => {
             element.turmas.forEach(element => {

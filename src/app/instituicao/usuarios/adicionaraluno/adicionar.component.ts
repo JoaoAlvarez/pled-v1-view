@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class AdicionarAlunoComponent implements OnInit {
 
   form!: FormGroup;
-  isLoading: Boolean = false;
+  isLoading: Boolean = true;
   turmas = [];
   ngrupo = [];
   idgrupo = [];
@@ -35,6 +35,7 @@ export class AdicionarAlunoComponent implements OnInit {
     this.InstituicaoService
       .getTurmas()
       .subscribe((response) => {
+        this.isLoading=false;
         response.forEach(grupos => {
           grupos.series.forEach(series => {
             series.turmas.forEach(turma => {

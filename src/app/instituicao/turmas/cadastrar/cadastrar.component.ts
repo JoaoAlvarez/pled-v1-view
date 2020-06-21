@@ -19,7 +19,7 @@ export class CadastrarComponent implements OnInit {
 
  
   form!: FormGroup;
-  isLoading: Boolean = false;
+  isLoading: Boolean = true;
   options =[];
   series =[];
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
@@ -48,6 +48,7 @@ export class CadastrarComponent implements OnInit {
       .getCoordenadores()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
+        this.isLoading=false;
         console.log(response);
         this.options = response;
         this.createForm();
