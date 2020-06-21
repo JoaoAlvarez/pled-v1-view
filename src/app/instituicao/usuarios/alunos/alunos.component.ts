@@ -5,6 +5,8 @@ import { SmartTableData } from "../../../@core/data/smart-table";
 import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from "rxjs/operators";
 
+import { Router } from '@angular/router';
+
 import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
 
@@ -18,10 +20,14 @@ export class AlunosComponent {
 
   settings = {
     hideSubHeader: true,
+    
     actions: {
       add: false,
       position: "right",
       columnTitle: "Ações",
+      edit: false,
+      custom: [{ name: 'ourCustomAction', title: '<i class="nb-edit"></i>' }],
+
     },
 
     add: {
@@ -71,13 +77,14 @@ export class AlunosComponent {
 
   constructor(
     private service: SmartTableData,
-    private InstituicaoService: InstituicaoService
+    private InstituicaoService: InstituicaoService,
+    private router: Router,
   ) {
     const data = this.service.getData();
     //this.source.load(data);
     this.getAlunos();
   }
-
+  
   getAlunos() {
     this.InstituicaoService
       .getAlunos()
@@ -159,10 +166,32 @@ export class AlunosComponent {
       event.confirm.reject();
     }
   }
-
+  onEdit(event): void{
+    console.log(event);
+    this.router.navigateByUrl("/instituicao/usuarios/editaraluno");
+  }
+  onCustomAction(event): void  {
+    console.log(event);
+    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+    this.router.navigateByUrl("/instituicao/usuarios/editaraluno/"+event.data.id);
+  }
   onEditConfirm(event): void {
     console.log(event);
-
+    if (
+      window.confirm(
+        "Tem certeza que deseja editar este usuário?"
+      )
+    ) {
+       this.InstituicaoService
+         .inserirAluno(event.data.id)
+         .pipe(finalize(() => { }))
+         .subscribe((response) => {
+           event.confirm.resolve();
+           this.getAlunos();
+         });
+    } else {
+      event.confirm.reject();
+    }
 
   }
 }

@@ -8,6 +8,8 @@ import { AdicionarComponent } from './usuarios/adicionar/adicionar.component';
 
 import { AdicionarAlunoComponent } from './usuarios/adicionaraluno/adicionar.component';
 
+import { EditarAlunoComponent } from './usuarios/editaraluno/editar.component';
+
 import { CadastrarComponent } from './turmas/cadastrar/cadastrar.component';
 
 import { CadastroComponent } from './disciplinas/cadastrar/cadastrar.component';
@@ -46,7 +48,10 @@ const routes: Routes = [{
       path: "usuarios/adicionaraluno",
       component: AdicionarAlunoComponent,
     },
-
+    {
+      path: "usuarios/editaraluno/:id",
+      component: EditarAlunoComponent,
+    },
     {
       path: "turmas/cadastrar",
       component: CadastrarComponent,
@@ -81,6 +86,7 @@ export const routedComponents = [
   InstituicaoComponent,
   AdicionarComponent,
   AdicionarAlunoComponent,
+  EditarAlunoComponent,
   CadastrarComponent,
   CadastroComponent
 ];

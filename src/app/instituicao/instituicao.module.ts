@@ -12,7 +12,7 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbSpinnerModule
+  NbSpinnerModule,
 } from "@nebular/theme";
 import { NgxMaskModule } from 'ngx-mask';
 import { Ng2SmartTableModule } from "ng2-smart-table";
@@ -23,7 +23,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InstituicaoRoutingModule, routedComponents } from './instituicao-routing.module';
 import { InstituicaoComponent } from './instituicao.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
-
 
 @NgModule({
   declarations: [InstituicaoComponent, ...routedComponents],
@@ -49,8 +48,7 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
     ThemeModule,
     NbMenuModule,
     ReactiveFormsModule,
-    MiscellaneousModule
-    
+    MiscellaneousModule,
   ],
 })
 export class InstituicaoModule { }
