@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InstituicaoService } from "../../instituicao.service";
+import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
@@ -8,28 +8,26 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'nb-select-clean',
-  templateUrl: './editar.component.html',
-  styleUrls: ['./editar.component.scss']
+  selector: 'alunos-adicionar',
+  templateUrl: './adicionar.component.html',
+  styleUrls: ['./adicionar.component.scss']
 })
 
-export class EditarAlunoComponent implements OnInit {
+export class AlunosAdicionarComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = true;
   turmas = [];
   ngrupo = [];
   idgrupo = [];
-  aluno=[];
 
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
 
-  
-  
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
     this.getTurmas();
     this.createForm();
   }
@@ -37,6 +35,7 @@ export class EditarAlunoComponent implements OnInit {
     this.InstituicaoService
       .getTurmas()
       .subscribe((response) => {
+        this.isLoading = false;
         response.forEach(grupos => {
           grupos.series.forEach(series => {
             series.turmas.forEach(turma => {
@@ -49,36 +48,13 @@ export class EditarAlunoComponent implements OnInit {
         });
       })
   }
-  
 
-  id:string;
   private createForm() {
-    this.InstituicaoService
-      .getAlunos()
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        this.isLoading=false;
-         response.forEach(alunos => {
-           var t =this.router.url.split("/",5);
-          if(alunos.id==t[4]){
-
-              //this.aluno.push(alunos)
-
-              this.form = this.formBuilder.group({
-                nome: [alunos.nome],
-                perfil: ['Aluno'],
-                turma: [alunos.turma.id],
-                email: [alunos.email],
-                cpf: [alunos.cpf],
-              });
-            this.aluno.push(alunos.id,alunos.nome,alunos.turma.id,alunos.cpf,alunos.email)
-            
-          }
-          
-        });
-      });
-    
-    console.log(this.aluno.length);
+    // this.form = this.formBuilder.group({
+    //   nome: ['', Validators.required],
+    //   cnpj: ['', Validators.required],
+    //   responsavel: ['', Validators.required],
+    // });
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       perfil: ['Aluno'],
@@ -86,7 +62,6 @@ export class EditarAlunoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     });
-  
   }
 
   submit() {
@@ -100,7 +75,7 @@ export class EditarAlunoComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Aluno atualizado com sucesso', 'success');
+          Swal.fire('Ok', 'Aluno adicionada com sucesso', 'success');
           this.router.navigateByUrl("/instituicao/usuarios/alunos");
 
         }

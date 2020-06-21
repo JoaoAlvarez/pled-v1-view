@@ -7,24 +7,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: "people-outline",
         children: [
             {
-                title: "Adicionar Alunos",
-                link: "/instituicao/usuarios/adicionaraluno",
-            },
-            {
-                title: "Adicionar Professores",
-                link: "/instituicao/usuarios/adicionar",
-            },
-            {
                 title: "Alunos",
-                link: "/instituicao/usuarios/alunos",
+                link: "/instituicao/usuarios/alunos/listar",
+            },
+            {
+                title: "Adicionar Alunos",
+                link: "/instituicao/usuarios/alunos/adicionar",
             },
             {
                 title: "Professores e Coordenadores",
-                link: "/instituicao/usuarios/professores",
+                link: "/instituicao/usuarios/professores/listar",
+            },
+            {
+                title: "Adicionar Professores",
+                link: "/instituicao/usuarios/professores/adicionar",
             }
 
         ],
-        
+
     },
     {
         title: "Turmas",
@@ -40,7 +40,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
             },
 
         ],
-        
+
     },
 
     {
@@ -58,6 +58,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
 
         ],
-        
+
     },
 ];

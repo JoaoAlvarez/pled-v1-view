@@ -9,8 +9,8 @@ import { map, catchError } from "rxjs/operators";
 export class InstituicaoService {
 
   constructor(private httpClient: HttpClient) { }
-  getAlunoId(): Observable<any> {
-    return this.httpClient.get("/user/id/5eebf913fe265628cf6205c5").pipe(
+  getAlunoId(id): Observable<any> {
+    return this.httpClient.get("/user/id/" + id).pipe(
       map((response: any) => {
         console.log("response", response);
         if (response) {
@@ -74,7 +74,7 @@ export class InstituicaoService {
         })
       );
   }
-  
+
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/professor/salvar", dados)

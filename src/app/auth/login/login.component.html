@@ -3,17 +3,18 @@
     <img src="assets/images/logo.png" class="login_logo" alt="" />
   </div>
   <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-    <p class="alert-title"><b>Oh snap!</b></p>
+    <p class="alert-title"><b>Oh não!</b></p>
     <ul class="alert-message-list">
-      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+      <li class="alert-message">Algo deu errado :(</li>
+      <li class="alert-message">Que tal tentar novamente?</li>
     </ul>
   </nb-alert>
 
   <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
     <p class="alert-title"><b>Muito bom!</b></p>
     <ul class="alert-message-list">
-      <li *ngFor="let message of messages" class="alert-message">
-        {{ message }}
+      <li class="alert-message">
+        Seja muito bem vindo a sua plataforma de ensino :)
       </li>
     </ul>
   </nb-alert>

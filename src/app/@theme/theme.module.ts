@@ -33,8 +33,7 @@ import {
 } from "./pipes";
 import {
   OneColumnLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
+  FluidLayoutComponent,
 } from "./layouts";
 import { DEFAULT_THEME } from "./styles/theme.default";
 import { COSMIC_THEME } from "./styles/theme.cosmic";
@@ -63,8 +62,7 @@ const COMPONENTS = [
   SearchInputComponent,
   TinyMCEComponent,
   OneColumnLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
+  FluidLayoutComponent,
   BadgeComponent,
 ];
 const PIPES = [

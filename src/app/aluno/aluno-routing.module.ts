@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AlunoComponent } from './aluno.component';
+import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
+
 
 const routes: Routes = [{ path: '', component: AlunoComponent }];
 
@@ -10,3 +12,7 @@ const routes: Routes = [{ path: '', component: AlunoComponent }];
   exports: [RouterModule]
 })
 export class AlunoRoutingModule { }
+export const routedComponents = [
+  AlunoComponent
+];
+

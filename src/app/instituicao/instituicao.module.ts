@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { 
-  NbMenuModule, 
+import {
+  NbMenuModule,
   NbCardModule,
   NbIconModule,
   NbInputModule,
@@ -52,4 +52,3 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
   ],
 })
 export class InstituicaoModule { }
-export class PageModule { }

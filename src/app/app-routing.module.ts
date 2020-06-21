@@ -30,12 +30,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Professor', 'Coordenador'] }
   },
+  { path: 'aluno', loadChildren: () => import('./aluno/aluno.module').then(m => m.AlunoModule) },
   {
     path: "auth",
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: 'aluno', loadChildren: () => import('./aluno/aluno.module').then(m => m.AlunoModule) },
   { path: "**", redirectTo: "home" },
 ];
 

@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InstituicaoService } from "../../instituicao.service";
+import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'nb-select-clean',
-  templateUrl: './adicionar.component.html',
-  styleUrls: ['./adicionar.component.scss']
+  selector: 'alunos-editar',
+  templateUrl: './editar.component.html',
+  styleUrls: ['./editar.component.scss']
 })
 
-export class AdicionarAlunoComponent implements OnInit {
+export class AlunosEditarComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = true;
   turmas = [];
   ngrupo = [];
   idgrupo = [];
+  aluno = [];
 
-  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
 
@@ -29,13 +30,16 @@ export class AdicionarAlunoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTurmas();
-    this.createForm();
+    this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      this.createForm();
+    });
   }
+
   getTurmas() {
     this.InstituicaoService
       .getTurmas()
       .subscribe((response) => {
-        this.isLoading=false;
         response.forEach(grupos => {
           grupos.series.forEach(series => {
             series.turmas.forEach(turma => {
@@ -49,12 +53,37 @@ export class AdicionarAlunoComponent implements OnInit {
       })
   }
 
+
+  id: string;
+
   private createForm() {
-    // this.form = this.formBuilder.group({
-    //   nome: ['', Validators.required],
-    //   cnpj: ['', Validators.required],
-    //   responsavel: ['', Validators.required],
-    // });
+    this.InstituicaoService
+      .getAlunos()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        response.forEach(alunos => {
+          var t = this.router.url.split("/", 5);
+
+          if (alunos.id == this.id) {
+
+            //this.aluno.push(alunos)
+
+            this.form = this.formBuilder.group({
+              nome: [alunos.nome],
+              perfil: ['Aluno'],
+              turma: [alunos.turma.id],
+              email: [alunos.email],
+              cpf: [alunos.cpf],
+            });
+            this.aluno.push(alunos.id, alunos.nome, alunos.turma.id, alunos.cpf, alunos.email)
+
+          }
+
+        });
+      });
+
+    console.log(this.aluno.length);
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       perfil: ['Aluno'],
@@ -62,6 +91,7 @@ export class AdicionarAlunoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     });
+
   }
 
   submit() {
@@ -75,7 +105,7 @@ export class AdicionarAlunoComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Aluno adicionada com sucesso', 'success');
+          Swal.fire('Ok', 'Aluno atualizado com sucesso', 'success');
           this.router.navigateByUrl("/instituicao/usuarios/alunos");
 
         }

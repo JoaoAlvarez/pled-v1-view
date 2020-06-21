@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-aluno',
+  selector: 'aluno',
   templateUrl: './aluno.component.html',
   styleUrls: ['./aluno.component.scss']
 })

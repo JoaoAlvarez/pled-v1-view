@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { InstituicaoService } from "../../instituicao.service";
+import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 import { LocalDataSource } from "ng2-smart-table";
 
@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'nb-select-clean',
+  selector: 'professores-adicionar',
   templateUrl: './adicionar.component.html',
   styleUrls: ['./adicionar.component.scss']
 })
 
-export class AdicionarComponent implements OnInit {
+export class ProfessoresAdicionarComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = true;
@@ -37,7 +37,7 @@ export class AdicionarComponent implements OnInit {
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         //this.turmas = response;
-        this.isLoading=false;
+        this.isLoading = false;
         response.forEach(element => {
           element.series.forEach(element => {
             element.turmas.forEach(element => {
