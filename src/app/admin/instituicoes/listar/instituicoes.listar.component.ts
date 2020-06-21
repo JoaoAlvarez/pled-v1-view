@@ -51,7 +51,9 @@ export class instituicoesListarComponent {
       responsavel: {
         title: "Responsável",
         type: "string",
-        editable: false,
+        valuePrepareFunction: (responsavel) => {
+          return responsavel.nome;
+        }
       },
     },
   };

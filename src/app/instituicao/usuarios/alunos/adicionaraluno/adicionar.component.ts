@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray  } from '@angular/forms';
 import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 
@@ -48,6 +48,20 @@ export class AlunosAdicionarComponent implements OnInit {
         });
       })
   }
+  get phones() {
+    return this.form.get('phones') as FormArray;
+  }
+
+  addPhone() {
+    this.phones.push(this.formBuilder.group({
+      phoneNumber: ['', Validators.required],
+    }));
+  }
+
+
+  deletePhone(index) {
+    this.phones.removeAt(index);
+  }
 
   private createForm() {
     // this.form = this.formBuilder.group({
@@ -61,10 +75,12 @@ export class AlunosAdicionarComponent implements OnInit {
       turma: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      dataNascimento: ['', Validators.required],
+      phones: this.formBuilder.array([]),
     });
   }
 
-  submit() {
+  Adicionar() {
     this.isLoading = true;
     const result: usuario = Object.assign({}, this.form.value);
     this.InstituicaoService
@@ -95,6 +111,8 @@ export class usuario {
   turma: string = ''
   cpf: string = ''
   email: string = '';
+  dataNascimento: string = '';
+  phones: any = [];
 
 }
 

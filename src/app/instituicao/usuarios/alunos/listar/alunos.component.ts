@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
+import { DatePipe } from '@angular/common';
 
 import { SmartTableData } from "../../../../@core/data/smart-table";
 import { InstituicaoService } from "../../../instituicao.service";
@@ -63,6 +64,20 @@ export class AlunosListarComponent {
         type: "string",
         valuePrepareFunction: (turma) => {
           return turma.nome;
+        }
+      },
+      dataNascimento: {
+        title: "Data de Nascimento",
+        type: "string",
+        valuePrepareFunction: (dataNascimento) => {
+          return new DatePipe('en-US').transform(dataNascimento, 'dd/MM/yyyy');
+        }
+      },
+      phones: {
+        title: "Telefone",
+        type: "string",
+        valuePrepareFunction: (phones) => {
+          return new String(phones[0].phoneNumber);
         }
       },
     },

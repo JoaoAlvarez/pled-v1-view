@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
+import { DatePipe } from '@angular/common';
 
 import { SmartTableData } from "../../@core/data/smart-table";
 import { ProfessorService } from "../professor.service";
@@ -56,10 +57,20 @@ export class SimuladosComponent {
         type: "string",
         editable: false,
       },
-      questoes: {
-        title: "Questões",
+      
+      prazoInicial:{
+        title: "Prazo Inicial",
         type: "string",
-        editable: false,
+        valuePrepareFunction: (prazoInicial) => {
+          return new DatePipe('en-US').transform(prazoInicial, 'dd/MM/yyyy');
+        }
+      },
+      prazoFinal: {
+        title: "Prazo Final",
+        type: "string",
+        valuePrepareFunction: (prazoFinal) => {
+          return new DatePipe('en-US').transform(prazoFinal, 'dd/MM/yyyy');
+        }
       },
       
 
@@ -113,7 +124,11 @@ export class SimuladosComponent {
             search: query,
           },
           {
-            field: "questoes",
+            field: "prazoInicial",
+            search: query,
+          },
+          {
+            field: "prazoFinal",
             search: query,
           },
           {

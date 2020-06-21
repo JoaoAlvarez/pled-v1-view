@@ -1,0 +1,111 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Editar Professores e Coordenadores</h4>
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="submit()" action="">
+            <div class="form-group row">
+                <label for="nome" class="label col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="nome" placeholder="Nome" formControlName="nome">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cpf" class="label col-sm-2 col-form-label">CPF</label>
+                <div class="col-sm-10">
+                    <input type="text" nbInput fullWidth id="cpf" placeholder="CPF" formControlName="cpf"
+                        mask="000.000.000-00">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="label col-sm-2 col-form-label">E-mail</label>
+                <div class="col-sm-10">
+                    <input type="email" nbInput fullWidth id="email" placeholder="E-mail" formControlName="email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="perfil" class="label col-sm-2 col-form-label">Perfil</label>
+                <div class="col-sm-10">
+                    <nb-select fullWidth id="perfil" placeholder="Selecione um Perfil" [(selected)]="selectedItem"
+                        formControlName="perfil">
+                        <nb-option value="Coordenador">Coordenador</nb-option>
+                        <nb-option value="Professor">Professor</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+
+            <div formArrayName="turmasDisciplinas" class="form-group row">
+                <label for="turma" class="label col-sm-2 col-form-label">
+                    Turmas e Disciplinas:</label>
+
+                <div class="col-sm-10">
+                    <div *ngFor="let item of turmasDisciplinas.controls; let i=index" [formGroupName]="i"
+                        class="row mb-2">
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <nb-select fullWidth id="turma" placeholder="Selecione uma Turma"
+                                    formControlName="turma" class="col-sm-6">
+                                    <nb-option *ngFor="let turma of turmas" [value]="turma.id">
+                                        {{turma.nome}}
+                                    </nb-option>
+                                </nb-select>
+                                <nb-select fullWidth id="disciplina" placeholder="Selecione uma Disciplina"
+                                    formControlName="disciplina" class="col-sm-6">
+
+                                    <nb-option *ngFor="let disciplina of disciplinas" [value]="disciplina._id">
+                                        {{disciplina.nome}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button type="button" nbButton status="primary" (click)="deleteTurmasDisciplinas(i)">
+                                <nb-icon icon="minus-outline"></nb-icon>
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- <div formArrayName="selling_points2" class="form-group row">
+                <label for="disciplina" class="label col-sm-2 col-form-label"  >
+                    Disciplina:</label> 
+                <div  class="form-group row">
+                    
+                    <div *ngFor="let item of sellingPoints2.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
+                        
+                    </div>
+                    <button type="submit" nbButton status="primary" (click)="addSellingPoint2()" ><nb-icon icon="plus-outline"></nb-icon></button>
+                    <button type="submit" nbButton status="primary" (click)="deleteSellingPoint2(pointIndex)"><nb-icon icon="minus-outline"></nb-icon></button>
+                </div>
+                
+            </div> -->
+            <div class="form-group row">
+
+
+                <div class="offset-sm-2 col-sm-10 mb-4">
+                    <button type="button" nbButton status="primary" (click)="addTurmasDisciplinas()">
+                        <nb-icon icon="plus-outline"></nb-icon>
+                    </button>
+                </div>
+
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" (click)="Adicionar()" nbButton status="primary"
+                        [disabled]="form.invalid || isLoading">Atualizar</button>
+                </div>
+
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>
