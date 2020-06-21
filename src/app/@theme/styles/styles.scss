@@ -30,3 +30,13 @@
 
   @include nb-overrides();
 }
+
+.ng2-smart-actions {
+  height: auto !important;
+
+  ng2-st-tbody-custom {
+    display: flex !important;
+    align-items: center;
+
+  }
+}

@@ -3,8 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AlunosComponent } from './alunos.component';
 import { AlunosListarComponent } from './listar/alunos.component';
-import { AlunosAdicionarComponent } from './adicionaraluno/adicionar.component';
-import { AlunosEditarComponent } from './editaraluno/editar.component';
+import { AlunosAdicionarComponent } from './adicionar/adicionar.component';
+import { AlunosEditarComponent } from './editar/editar.component';
 const routes: Routes = [
     {
         path: "",

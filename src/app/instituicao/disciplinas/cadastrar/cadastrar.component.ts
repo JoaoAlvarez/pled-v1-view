@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'nb-select-clean',
+  selector: 'disciplinas-cadastrar',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss']
 })
 
-export class CadastroComponent implements OnInit {
+export class DisciplinasCadastrarComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = false;
