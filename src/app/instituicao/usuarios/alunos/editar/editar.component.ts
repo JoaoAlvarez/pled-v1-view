@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray   } from '@angular/forms';
 import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,9 +19,7 @@ export class AlunosEditarComponent implements OnInit {
   form!: FormGroup;
   isLoading: Boolean = true;
   turmas = [];
-  ngrupo = [];
-  idgrupo = [];
-  aluno = [];
+  id: string;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
@@ -52,9 +51,9 @@ export class AlunosEditarComponent implements OnInit {
         });
       })
   }
-
-
-  id: string;
+  get phones() {
+    return this.form.get('phones') as FormGroup;
+  }
 
   private createForm() {
     this.InstituicaoService
@@ -63,33 +62,37 @@ export class AlunosEditarComponent implements OnInit {
       .subscribe((response) => {
         this.isLoading = false;
         response.forEach(alunos => {
-          var t = this.router.url.split("/", 5);
 
           if (alunos.id == this.id) {
-
-            //this.aluno.push(alunos)
-
             this.form = this.formBuilder.group({
               nome: [alunos.nome],
               perfil: ['Aluno'],
               turma: [alunos.turma.id],
               email: [alunos.email],
               cpf: [alunos.cpf],
+              dataNascimento: [new DatePipe('en-US').transform(alunos.dataNascimento, 'dd/MM/yyyy')],
+              phones: this.formBuilder.group({
+                ddd: [alunos.phones[0].ddd],
+                phoneNumber: [alunos.phones[0].phoneNumber],
+              }),
             });
-            this.aluno.push(alunos.id, alunos.nome, alunos.turma.id, alunos.cpf, alunos.email)
-
           }
 
         });
       });
 
-    console.log(this.aluno.length);
+
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       perfil: ['Aluno'],
       turma: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      dataNascimento: ['', Validators.required],
+      phones: this.formBuilder.group({
+        ddd: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+      }),
     });
 
   }

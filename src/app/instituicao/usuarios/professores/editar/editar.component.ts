@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { InstituicaoService } from "../../instituicao.service";
+import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 import { LocalDataSource } from "ng2-smart-table";
 

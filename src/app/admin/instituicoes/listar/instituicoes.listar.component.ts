@@ -1,9 +1,12 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { instituicoesService } from "../instituicoes.service";
 import { finalize } from "rxjs/operators";
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
 import { instituicoesAnexosComponent } from "../components/anexos.component";
@@ -17,9 +20,15 @@ export class instituicoesListarComponent {
   settings = {
     hideSubHeader: true,
     actions: {
-      add: false,
       position: "right",
       columnTitle: "Ações",
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'status', title: '<i class="nb-trash"></i>' }
+      ],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -59,11 +68,14 @@ export class instituicoesListarComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
+  newStatus:FormGroup;
   //source;
 
   constructor(
+    private formBuilder: FormBuilder,
     private service: SmartTableData,
-    private instituicoesService: instituicoesService
+    private instituicoesService: instituicoesService,
+    private router: Router,
   ) {
     const data = this.service.getData();
     //this.source.load(data);
@@ -128,7 +140,32 @@ export class instituicoesListarComponent {
       this.source.reset();
     }
   }
+  onCustomAction(event): void {
+    switch ( event.action) {
+      case 'edit':
+        this.router.navigateByUrl("/instituicoes/editar/" + event.data.id);
+        break;
+     case 'status':{
 
+       this.newStatus = this.formBuilder.group({
+        institucao : [event.data.id] ,
+        status: [true]
+      });
+      const result: status = Object.assign({}, this.newStatus.value);
+      this.instituicoesService
+        .mudarStatus(result)
+        .pipe(finalize(() => {  }))
+        .subscribe((response) => {
+          if (response) {
+            Swal.fire('Ok', 'Escola adicionada com sucesso', 'success');
+            this.router.navigateByUrl("/instituicoes/listar");
+  
+          }
+        });
+     }
+    }
+
+  }
   onDeleteConfirm(event): void {
     console.log(event);
     if (
@@ -153,4 +190,9 @@ export class instituicoesListarComponent {
 
 
   }
+}
+export class status {
+  instituicao: string = ''
+  status: boolean
+
 }

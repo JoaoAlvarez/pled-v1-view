@@ -49,20 +49,11 @@ export class AlunosAdicionarComponent implements OnInit {
       })
   }
   get phones() {
-    return this.form.get('phones') as FormArray;
+    return this.form.get('phones') as FormGroup;
   }
 
-  addPhone() {
-    this.phones.push(this.formBuilder.group({
-      phoneNumber: ['', Validators.required],
-    }));
-  }
-
-
-  deletePhone(index) {
-    this.phones.removeAt(index);
-  }
-
+  phonelist=[];
+  
   private createForm() {
     // this.form = this.formBuilder.group({
     //   nome: ['', Validators.required],
@@ -76,7 +67,10 @@ export class AlunosAdicionarComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       dataNascimento: ['', Validators.required],
-      phones: this.formBuilder.array([]),
+      phones: this.formBuilder.group({
+        ddd: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+      }),
     });
   }
 

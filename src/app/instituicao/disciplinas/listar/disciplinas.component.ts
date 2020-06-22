@@ -7,7 +7,7 @@ import { finalize } from "rxjs/operators";
 
 import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
 //import { instituicoesAnexosComponent } from "../components/anexos.component";
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'disciplinas-listar',
@@ -19,9 +19,15 @@ export class DisciplinasListarComponent {
   settings = {
     hideSubHeader: true,
     actions: {
-      add: false,
       position: "right",
       columnTitle: "Ações",
+      add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'delete', title: '<i class="nb-trash"></i>' }
+      ],
     },
 
     add: {
@@ -60,7 +66,8 @@ export class DisciplinasListarComponent {
 
   constructor(
     private service: SmartTableData,
-    private InstituicaoService: InstituicaoService
+    private InstituicaoService: InstituicaoService,
+    private router: Router,
   ) {
     const data = this.service.getData();
 
@@ -109,7 +116,11 @@ export class DisciplinasListarComponent {
       this.source.reset();
     }
   }
-
+  onCustomAction(event): void {
+    console.log(event);
+    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+    this.router.navigateByUrl("/instituicao/disciplinas/editar/" + event.data._id);
+  }
   onDeleteConfirm(event): void {
     console.log(event);
     if (

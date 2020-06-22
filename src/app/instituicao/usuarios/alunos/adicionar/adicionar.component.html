@@ -41,38 +41,16 @@
             <div class="form-group row">
                 <label for="dataNascimento" class="label col-sm-2 col-form-label">Data de Nascimento</label>
                 <div class="col-sm-10">
-                    <input type="date" nbInput fullWidth id="dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento">
+                    <input type="text" nbInput fullWidth id="dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" mask="00/00/0000">
                 </div>
             </div>
-            <div formArrayName="phones" class="form-group row">
-                <label for="telefone" class="label col-sm-2 col-form-label">
-                    Telefones para Contado:</label>
+            <div [formGroup]="phones" class="form-group row">
+                <label for="phone" class="label col-sm-2 col-form-label">Telefone para Contato</label>
                 <div class="col-sm-10">
-                    <div *ngFor="let item of phones.controls; let i=index" [formGroupName]="i" class="row mb-2">
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <input type="text" nbInput fullWidth id="phoneNumber" placeholder="Telefone para Contato" formControlName="phoneNumber" mask="(00)0.0000-0000">
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" nbButton status="primary" (click)="deletePhone(i)">
-                                <nb-icon icon="minus-outline"></nb-icon>
-                            </button>
-                        </div>
-
-                    </div>
-
-                    
+                    <input type="text" nbInput id="ddd" placeholder="(00)" formControlName="ddd" mask="(00)">
+                    <input type="text" nbInput id="phoneNumber" placeholder="0.0000-0000" formControlName="phoneNumber" mask="0.0000-0000">
                 </div>
-            </div>
-            <div class="form-group row">
-
-
-                <div class="offset-sm-2 col-sm-10 mb-4">
-                    <button type="button" nbButton status="primary" (click)=" addPhone()">
-                        <nb-icon icon="plus-outline"></nb-icon>
-                    </button>
-                </div>
+                
             </div>
 
             <div class="form-group row">

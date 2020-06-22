@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class AlunosListarComponent {
 
   settings = {
+    
     hideSubHeader: true,
 
     actions: {
@@ -80,18 +81,20 @@ export class AlunosListarComponent {
         }
       },
       phones: {
+        
         title: "Telefone",
         type: "string",
         valuePrepareFunction: (phones) => {
-          return new String(phones[0].phoneNumber);
+          return phones.lenght;
         }
       },
+
     },
   };
-
+  
   source: LocalDataSource = new LocalDataSource();
   //source;
-
+  
   constructor(
     private service: SmartTableData,
     private InstituicaoService: InstituicaoService,
@@ -107,7 +110,7 @@ export class AlunosListarComponent {
       .getAlunos()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response);
+        console.log(response.phones);
         this.source.load(response);
         // this.source.addFilter( // Filtrar pendentes
         //   {
@@ -182,11 +185,6 @@ export class AlunosListarComponent {
     } else {
       event.confirm.reject();
     }
-  }
-
-  onEdit(event): void {
-    console.log(event);
-    this.router.navigateByUrl("/instituicao/usuarios/editaraluno");
   }
 
   onCustomAction(event): void {

@@ -9,7 +9,7 @@ import { map, catchError } from "rxjs/operators";
 export class InstituicaoService {
 
   constructor(private httpClient: HttpClient) { }
-  getAlunoId(id): Observable<any> {
+  getUserId(id): Observable<any> {
     return this.httpClient.get("/user/id/" + id).pipe(
       map((response: any) => {
         console.log("response", response);
@@ -74,6 +74,18 @@ export class InstituicaoService {
         })
       );
   }
+  editarAluno(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/instituicao/aluno", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
@@ -115,6 +127,18 @@ export class InstituicaoService {
   inserirDisciplina(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/disciplina/salvar", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+  editarDisciplina(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/instituicao/disciplina", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);

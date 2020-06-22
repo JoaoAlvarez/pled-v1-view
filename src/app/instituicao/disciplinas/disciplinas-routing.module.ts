@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { DisciplinasComponent } from './disciplinas.component';
 import { DisciplinasListarComponent } from './listar/disciplinas.component';
+import { DisciplinasEditarComponent } from './editar/editar.component';
 import { DisciplinasCadastrarComponent } from './cadastrar/cadastrar.component';
 const routes: Routes = [
     {
@@ -13,6 +14,10 @@ const routes: Routes = [
             {
                 path: "listar",
                 component: DisciplinasListarComponent
+            },
+            {
+                path: "editar/:_id",
+                component: DisciplinasEditarComponent
             },
             {
                 path: "cadastrar",
@@ -31,6 +36,7 @@ export class UsuariosRoutingModule { }
 export const routedComponents = [
     DisciplinasComponent,
     DisciplinasListarComponent,
+    DisciplinasEditarComponent,
     DisciplinasCadastrarComponent
 
 ];
