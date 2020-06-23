@@ -26,6 +26,10 @@ const routes: Routes = [{
       path: "simulados/criar",
       component: CriarComponent,
     },
+    {
+      path: "turmas",
+      loadChildren: () => import("./turmas/turmas.module").then((m) => m.TurmasModule)
+    },
 
     {
       path: "**",

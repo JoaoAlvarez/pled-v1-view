@@ -16,7 +16,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
             },
 
         ],
-        
+
     },
-    
+
+    {
+        title: "Turmas",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Listar",
+                link: "/professor/turmas",
+            },
+
+        ],
+
+    },
+
 ];

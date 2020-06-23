@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { finalize, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbAuthService } from '@nebular/auth';
+import { NbAuthService, NbTokenService } from '@nebular/auth';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,15 +19,11 @@ export class SignupComponent implements OnInit {
   id = '';
   isLoading: Boolean = true;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder, private nbAuthService: NbAuthService, private router: Router) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder, private nbTokenService: NbTokenService, private router: Router) {
     this.route.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
       this.getInfo(params.get('id'));
-
     });
-
-
-
   }
 
   ngOnInit(): void {
@@ -34,15 +31,6 @@ export class SignupComponent implements OnInit {
       localStorage.removeItem("auth_app_token");
       this.router.navigate(["auth/signup/" + this.id]);
     }
-    // this.nbAuthService.isAuthenticated().pipe(
-    //   tap((authenticated) => {
-    //     console.log("authenticated");
-    //     if (!authenticated) {
-    //       this.router.navigate(["auth/signup"]);
-    //     } else {
-    //     }
-    //   })
-    // );
   }
 
   private createForm(data, token) {
@@ -64,7 +52,6 @@ export class SignupComponent implements OnInit {
       .getInfo(id)
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response);
         this.createForm(response, id);
         this.isLoading = false;
       }, (error) => {
@@ -89,13 +76,19 @@ export class SignupComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          //Swal.fire('Ok', 'Escola adicionada com sucesso', 'success');
-          //this.router.navigateByUrl("/instituicoes/listar");
           console.log(response);
+          const data = {
+            email: result.email,
+            password: result.password
+          }
+
+          Swal.fire('Ok', 'Cadastro realizado com sucesso', 'success');
+          this.router.navigateByUrl("/auth/login");
+          // this.authService.signIn(data).subscribe((response) => {
+          //   //this.nbTokenService.set(response.token);
+          // })
 
         }
-
-
 
       });
 

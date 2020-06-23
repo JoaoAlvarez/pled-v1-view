@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ProfessorService } from "../../professor.service";
 import { finalize } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   selector: 'nb-select-clean',
   templateUrl: './criar.component.html',
   styleUrls: ['./criar.component.scss'],
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CriarComponent implements OnInit {
@@ -40,7 +40,7 @@ export class CriarComponent implements OnInit {
   addQuestoes() {
     this.questoes.push(this.formBuilder.group({
       enunciado: ['', Validators.required],
-      pontos: [1, Validators.required],
+      pontos: ['', Validators.required],
       isMultiplaEscolha: [true, Validators.required],
       alternativas: this.formBuilder.array([]),
     }));

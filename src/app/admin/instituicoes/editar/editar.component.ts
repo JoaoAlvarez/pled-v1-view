@@ -21,7 +21,7 @@ export class instituicoesEditarComponent implements OnInit {
   id: string;
 
 
-  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder, private instituicoesService: instituicoesService, protected router: Router,
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private instituicoesService: instituicoesService, protected router: Router,
 
   ) { }
 

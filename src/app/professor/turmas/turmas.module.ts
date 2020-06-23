@@ -25,10 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from "ng2-smart-table";
 
 import { ThemeModule } from "../../@theme/theme.module";
-import {
-  SimuladosRoutingModule,
-  routedComponents,
-} from "./simulados-routing.module";
+
+import { TurmasRoutingModule, routedComponents } from './turmas-routing.module';
+
 
 @NgModule({
   imports: [
@@ -44,7 +43,7 @@ import {
     NbUserModule,
     ThemeModule,
     NbButtonModule,
-    SimuladosRoutingModule,
+    TurmasRoutingModule,
     Ng2SmartTableModule,
     ReactiveFormsModule,
     NgxMaskModule,
@@ -54,5 +53,4 @@ import {
   ],
   declarations: [...routedComponents],
 })
-export class SimuladosModule { }
-export class PageModule { }
+export class TurmasModule { }

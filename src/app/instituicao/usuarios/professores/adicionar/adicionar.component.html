@@ -40,11 +40,20 @@
                 </div>
             </div>
 
-            <div formArrayName="turmasDisciplinas" class="form-group row">
+            <div formArrayName="turmasDisciplinas" class="form-group row"
+                *ngIf="form.controls['perfil'].value == 'Professor'">
                 <label for="turma" class="label col-sm-2 col-form-label">
                     Turmas e Disciplinas:</label>
 
-                <div class="col-sm-10">
+                <div class="col-sm-10" *ngIf="turmas.length == 0 || disciplinas.length == 0">Você
+                    precisa
+                    cadastrar as
+                    <a routerLink="/instituicao/turmas/cadastrar">turmas</a> e <a
+                        routerLink="/instituicao/disciplinas/cadastrar">disciplinas</a> antes de cadastrar um
+                    Professor
+                </div>
+
+                <div class="col-sm-10" *ngIf="turmas.length > 0 && disciplinas.length > 0">
                     <div *ngFor="let item of turmasDisciplinas.controls; let i=index" [formGroupName]="i"
                         class="row mb-2">
                         <div class="col-sm-10">
@@ -93,9 +102,10 @@
             <div class="form-group row">
 
 
-                <div class="offset-sm-2 col-sm-10 mb-4">
+                <div class="offset-sm-2 col-sm-10 mb-4"
+                    *ngIf="turmas.length > 0 && disciplinas.length > 0 && form.controls['perfil'].value == 'Professor'">
                     <button type="button" nbButton status="primary" (click)="addTurmasDisciplinas()">
-                        <nb-icon icon="plus-outline"></nb-icon>
+                        <nb-icon icon="plus-outline"></nb-icon> Adicionar Turma e Disciplina
                     </button>
                 </div>
 

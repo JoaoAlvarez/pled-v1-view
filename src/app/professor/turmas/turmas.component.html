@@ -1,0 +1,19 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Turmas</h4>
+            </div>
+            <div class="col-md-5 ml-auto text-right">
+                <input nbInput #search class="search" type="text" placeholder="Search..."
+                    (keydown.enter)="onSearch(search.value)" />
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onEditConfirm($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

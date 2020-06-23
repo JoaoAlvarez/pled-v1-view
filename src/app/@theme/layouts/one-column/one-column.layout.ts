@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
       </nb-sidebar>
 
       <nb-layout-column>
+
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
@@ -23,4 +24,4 @@ import { Component } from '@angular/core';
     </nb-layout>
   `,
 })
-export class OneColumnLayoutComponent {}
+export class OneColumnLayoutComponent { }

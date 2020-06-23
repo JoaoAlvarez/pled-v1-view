@@ -68,7 +68,7 @@ export class instituicoesListarComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
-  newStatus:FormGroup;
+  newStatus: FormGroup;
   //source;
 
   constructor(
@@ -141,28 +141,30 @@ export class instituicoesListarComponent {
     }
   }
   onCustomAction(event): void {
-    switch ( event.action) {
+    console.log(event);
+    switch (event.action) {
       case 'edit':
-        this.router.navigateByUrl("/instituicoes/editar/" + event.data.id);
+        console.log('oi');
+        this.router.navigateByUrl("/admin/instituicoes/editar/" + event.data.id);
         break;
-     case 'status':{
+      case 'status': {
 
-       this.newStatus = this.formBuilder.group({
-        institucao : [event.data.id] ,
-        status: [true]
-      });
-      const result: status = Object.assign({}, this.newStatus.value);
-      this.instituicoesService
-        .mudarStatus(result)
-        .pipe(finalize(() => {  }))
-        .subscribe((response) => {
-          if (response) {
-            Swal.fire('Ok', 'Escola adicionada com sucesso', 'success');
-            this.router.navigateByUrl("/instituicoes/listar");
-  
-          }
+        this.newStatus = this.formBuilder.group({
+          institucao: [event.data.id],
+          status: [true]
         });
-     }
+        const result: status = Object.assign({}, this.newStatus.value);
+        this.instituicoesService
+          .mudarStatus(result)
+          .pipe(finalize(() => { }))
+          .subscribe((response) => {
+            if (response) {
+              Swal.fire('Ok', 'Escola adicionada com sucesso', 'success');
+              this.router.navigateByUrl("/admin/instituicoes/listar");
+
+            }
+          });
+      }
     }
 
   }

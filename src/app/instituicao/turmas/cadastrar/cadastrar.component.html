@@ -19,8 +19,7 @@
             <div class="form-group row">
                 <label for="grupo" class="label col-sm-2 col-form-label">Grupo</label>
                 <div class="col-sm-10">
-                    <nb-select placeholder="Select Showcase" id="grupo" formControlName="grupo"
-                        placeholder="Grupo">
+                    <nb-select placeholder="Select Showcase" id="grupo" formControlName="grupo" placeholder="Grupo">
                         <nb-option value="">Selecione uma Serie</nb-option>
                         <nb-option value="Educação Infantil">Educação Infantil</nb-option>
                         <nb-option value="Ensino Fundamental 1">Ensino Fundamental 1</nb-option>
@@ -40,7 +39,12 @@
 
             <div class="form-group row">
                 <label for="coordenador" class="label col-sm-2 col-form-label">Coordenador</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10" *ngIf="options.length == 0">Você
+                    precisa
+                    cadastrar um
+                    <a routerLink="/instituicao/usuarios/professores/adicionar">Coordenador</a>
+                </div>
+                <div class="col-sm-10" *ngIf="options.length > 0">
                     <nb-select placeholder="Select Showcase" id="coordenador" formControlName="coordenador"
                         placeholder="Coordenador">
                         <nb-option *ngFor="let o of options" [value]="o.id">

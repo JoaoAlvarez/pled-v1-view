@@ -33,4 +33,17 @@ export class AuthService {
         })
       );
   }
+
+  signIn(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/user/signin", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 }

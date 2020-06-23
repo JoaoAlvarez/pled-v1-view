@@ -33,54 +33,88 @@
                     </nb-select>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="prazo" class="label col-sm-2 col-form-label">Prazo</label>
+                <div class="col-sm-10 d-flex">
+                    <div class="mr-2">
+                        <input nbInput id="prazoInicial" placeholder="Prazo Inicial" formControlName="prazoInicial"
+                            [nbDatepicker]="formpicker">
+                        <nb-datepicker #formpicker></nb-datepicker>
+                    </div>
+                    <div>
+                        <input nbInput id="prazoFinal" placeholder="Prazo Final" formControlName="prazoFinal"
+                            [nbDatepicker]="formpicker2">
+                        <nb-datepicker #formpicker2></nb-datepicker>
+                    </div>
+                </div>
+            </div>
             <div formArrayName="questoes" class="form-group row">
                 <label for="questao" class="label col-sm-2 col-form-label">
                     Questões:</label>
 
                 <div class="col-sm-10">
-                    <div *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i" class="row mb-2">
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <input type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
-                                    formControlName="enunciado">
-                            </div>
-                            <div class="row">
-                                <input type="number" min="1" max="10" nbInput fullWidth id="pontos" placeholder="Pontos"
-                                    formControlName="pontos">
-                            </div>
-                            <div class="row">
-                                <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha">É de mutipla
-                                    escolha?</nb-checkbox>
-                            </div>
-
-                            <div formArrayName="alternativas">
-                                <div *ngFor="let alternativa of item.get('alternativas').controls; let j=index">
-                                    <div [formGroupName]="j">
-                                        <input type="text" nbInput fullWidth placeholder="Resposta 1"
-                                            formControlName="texto">
-                                        <nb-checkbox formControlName="isResposta">Esta é a resposta certa?</nb-checkbox>
-                                        <button type="button" nbButton status="primary"
-                                            (click)="deleteAlternativa(item.controls.alternativas, j)">
-                                            <nb-icon icon="minus-outline"></nb-icon>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <button nbButton status="primary" type="button"
-                                    (click)="addAlternativa(item.controls.alternativas)">
-                                    <nb-icon icon="plus-outline"></nb-icon> Adicionar alternativa
-                                </button>
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-sm-2">
-                            <button type="button" nbButton status="primary" (click)="deleteQuestoes(i)">
+                    <nb-card *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i" class=" mb-2">
+                        <nb-card-header class="d-flex">
+                            <h6>Questão {{i+1}}</h6>
+                            <button type="button" nbButton status="danger" (click)="deleteQuestoes(i)" class="ml-auto">
                                 <nb-icon icon="minus-outline"></nb-icon>
                             </button>
-                        </div>
-                    </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="form-group ">
+                                <textarea type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
+                                    formControlName="enunciado"></textarea>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="number" min="1" max="10" nbInput fullWidth id="pontos"
+                                        placeholder="Pontos" formControlName="pontos">
+                                </div>
+                                <div class="col-sm-6">
+                                    <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha">É de
+                                        mutipla
+                                        escolha?</nb-checkbox>
+                                </div>
+                            </div>
+
+
+                            <nb-card formArrayName="alternativas">
+                                <nb-card-header>
+                                    <h6>Alternativas</h6>
+                                </nb-card-header>
+                                <nb-card-body>
+                                    <nb-card *ngFor="let alternativa of item.get('alternativas').controls; let j=index">
+                                        <nb-card-header class="d-flex">
+                                            <div class="subtitle">Resposta {{j+1}}</div>
+
+                                            <button type="button" nbButton status="primary" class="ml-auto"
+                                                (click)="deleteAlternativa(item.controls.alternativas, j)">
+                                                <nb-icon icon="minus-outline"></nb-icon>
+                                            </button>
+
+                                        </nb-card-header>
+                                        <nb-card-body [formGroupName]="j">
+                                            <div class="form-group">
+                                                <input type="text" nbInput fullWidth placeholder="Resposta {{j+1}}"
+                                                    formControlName="texto">
+                                            </div>
+                                            <nb-checkbox formControlName="isResposta">Esta é a resposta certa?
+                                            </nb-checkbox>
+
+                                        </nb-card-body>
+                                    </nb-card>
+
+                                    <button nbButton status="primary" type="button"
+                                        (click)="addAlternativa(item.controls.alternativas)">
+                                        <nb-icon icon="plus-outline"></nb-icon> Adicionar alternativa
+                                    </button>
+                                </nb-card-body>
+                            </nb-card>
+                        </nb-card-body>
+
+                    </nb-card>
                 </div>
 
             </div>
@@ -93,14 +127,7 @@
                     </button>
                 </div>
 
-                <div class="offset-sm-2 col-sm-10 mb-4">
-                    <input nbInput id="prazoInicial" placeholder="Prazo Inicial" formControlName="prazoInicial"
-                        [nbDatepicker]="formpicker">
-                    <nb-datepicker #formpicker></nb-datepicker>
-                    <input nbInput id="prazoFinal" placeholder="Prazo Final" formControlName="prazoFinal"
-                        [nbDatepicker]="formpicker2">
-                    <nb-datepicker #formpicker2></nb-datepicker>
-                </div>
+
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" (click)="Adicionar()" nbButton status="primary"
                         [disabled]="form.invalid || isLoading">Adicionar</button>
