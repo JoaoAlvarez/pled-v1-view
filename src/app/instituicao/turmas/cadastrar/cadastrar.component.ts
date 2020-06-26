@@ -65,6 +65,7 @@ export class TurmasCadastrarComponent implements OnInit {
       grupo: ['', Validators.required],
       serie: [1, Validators.required],
       nome: ['', Validators.required],
+      turno: ['', Validators.required],
       coordenador: ['', Validators.required],
     });
   }
@@ -103,6 +104,7 @@ export class turmas {
   grupo: string = '';
   serie: number = 1;
   nome: string = '';
+  turno: string = '';
   coordenador: string = '';
 
 }

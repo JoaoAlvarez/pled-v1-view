@@ -25,6 +25,10 @@ const routes: Routes = [
         pathMatch: "full",
       },
       {
+        path: "usuarios",
+        loadChildren: () => import("./usuario/usuarios.module").then((m) => m.UsuariosModule)
+      },
+      {
         path: "**",
         component: NotFoundComponent,
       },

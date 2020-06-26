@@ -16,4 +16,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: "Usuários",
+    icon: "people-outline",
+    children: [
+        {
+            title: "Listar",
+            link: "/admin/usuario/listar",
+        },
+
+    ],
+
+},
 ];

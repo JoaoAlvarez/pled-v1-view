@@ -54,4 +54,14 @@ export class instituicoesService {
         })
       );
   }
+  getTurmas(): Observable<any> {
+    return this.httpClient.get("/professor/turma").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
 }
