@@ -22,7 +22,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
         {
             title: "Listar",
-            link: "/admin/usuario/listar",
+            link: "/admin/usuarios/listar",
         },
 
     ],
