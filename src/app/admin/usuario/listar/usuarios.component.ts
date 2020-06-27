@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 
 })
 export class UsuariosListarComponent {
-
+  
   settings = {
     
     hideSubHeader: true,
@@ -102,6 +102,7 @@ export class UsuariosListarComponent {
   ) {
     const data = this.service.getData();
     //this.source.load(data);
+    
     this.getUsuarios();
   }
 
