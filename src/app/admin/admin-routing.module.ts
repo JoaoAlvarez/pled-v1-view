@@ -28,7 +28,6 @@ const routes: Routes = [
         redirectTo: "instituicoes",
         pathMatch: "full",
       },
-
       {
         path: "**",
         component: NotFoundComponent,
