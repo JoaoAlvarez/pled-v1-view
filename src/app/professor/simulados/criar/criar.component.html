@@ -73,14 +73,14 @@
                                         placeholder="Pontos" formControlName="pontos">
                                 </div>
                                 <div class="col-sm-6">
-                                    <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha">É de
-                                        mutipla
-                                        escolha?</nb-checkbox>
+                                    <nb-checkbox id="isMultiplaEscolha" formControlName="isMultiplaEscolha">Tem
+                                        alternativas?</nb-checkbox>
                                 </div>
                             </div>
 
+                            {{item.get('isMultiplaEscolha').value}}
 
-                            <nb-card formArrayName="alternativas">
+                            <nb-card *ngIf="item.get('isMultiplaEscolha').value" formArrayName="alternativas">
                                 <nb-card-header>
                                     <h6>Alternativas</h6>
                                 </nb-card-header>
