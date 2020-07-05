@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class UsuariosListarComponent {
 
   settings = {
-    
+
     hideSubHeader: true,
 
     actions: {
@@ -66,35 +66,29 @@ export class UsuariosListarComponent {
         type: "string",
         editable: false,
       },
-      turma: {
-        title: "Turma",
+      perfil: {
+        title: "Perfil",
         type: "string",
-        valuePrepareFunction: (turma) => {
-          return turma.nome;
-        }
       },
-      dataNascimento: {
-        title: "Data de Nascimento",
+      isAtivo: {
+        title: "Status",
         type: "string",
-        valuePrepareFunction: (dataNascimento) => {
-          return new DatePipe('en-US').transform(dataNascimento, 'dd/MM/yyyy');
-        }
-      },
-      phones: {
-        
-        title: "Telefone",
-        type: "string",
-        valuePrepareFunction: (phones) => {
-          return phones.lenght;
+        valuePrepareFunction: (isAtivo) => {
+          if (isAtivo) {
+            return 'Ativo'
+          } else {
+
+            return 'Inativo'
+          }
         }
       },
 
     },
   };
-  
+
   source: LocalDataSource = new LocalDataSource();
   //source;
-  
+
   constructor(
     private service: SmartTableData,
     private UsuariosService: UsuariosService,

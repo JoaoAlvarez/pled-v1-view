@@ -40,8 +40,7 @@
                 </div>
             </div>
 
-            <div formArrayName="turmasDisciplinas" class="form-group row"
-                *ngIf="form.controls['perfil'].value == 'Professor'">
+            <div formArrayName="turmasDisciplinas" class="form-group row">
                 <label for="turma" class="label col-sm-2 col-form-label">
                     Turmas e Disciplinas:</label>
 
@@ -102,9 +101,9 @@
             <div class="form-group row">
 
 
-                <div class="offset-sm-2 col-sm-10 mb-4"
-                    *ngIf="turmas.length > 0 && disciplinas.length > 0 && form.controls['perfil'].value == 'Professor'">
-                    <button type="button" nbButton status="primary" (click)="addTurmasDisciplinas()">
+                <div class="offset-sm-2 col-sm-10 mb-4" *ngIf="turmas.length > 0 && disciplinas.length > 0">
+                    <button type="button" nbButton status="primary" (click)="addTurmasDisciplinas()"
+                        [disabled]="form.controls['perfil'].value != 'Professor'">
                         <nb-icon icon="plus-outline"></nb-icon> Adicionar Turma e Disciplina
                     </button>
                 </div>

@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class AlunosListarComponent {
 
   settings = {
-    
+
     hideSubHeader: true,
 
     actions: {
@@ -72,29 +72,14 @@ export class AlunosListarComponent {
         valuePrepareFunction: (turma) => {
           return turma.nome;
         }
-      },
-      dataNascimento: {
-        title: "Data de Nascimento",
-        type: "string",
-        valuePrepareFunction: (dataNascimento) => {
-          return new DatePipe('en-US').transform(dataNascimento, 'dd/MM/yyyy');
-        }
-      },
-      phones: {
-        
-        title: "Telefone",
-        type: "string",
-        valuePrepareFunction: (phones) => {
-          return phones.lenght;
-        }
-      },
+      }
 
     },
   };
-  
+
   source: LocalDataSource = new LocalDataSource();
   //source;
-  
+
   constructor(
     private service: SmartTableData,
     private InstituicaoService: InstituicaoService,
