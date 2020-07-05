@@ -60,4 +60,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
         ],
 
     },
+    {
+        title: "Grupos",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Cadastrar Grupo",
+                link: "/instituicao/grupos/cadastrar",
+            },
+            {
+                title: "Listar Grupo",
+                link: "/instituicao/grupos/listar",
+            },
+
+        ],
+
+    },
 ];

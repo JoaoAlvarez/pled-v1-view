@@ -34,6 +34,10 @@ const routes: Routes = [{
       loadChildren: () => import("./turmas/turmas.module").then((m) => m.TurmasModule)
     },
     {
+      path: "grupos",
+      loadChildren: () => import("./grupos/grupos.module").then((m) => m.GruposModule)
+    },
+    {
       path: "disciplinas",
       loadChildren: () => import("./disciplinas/disciplinas.module").then((m) => m.DisciplinasModule)
     },

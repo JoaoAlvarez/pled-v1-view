@@ -160,4 +160,39 @@ export class InstituicaoService {
       })
     );
   }
+
+  getGrupos(): Observable<any> {
+    return this.httpClient.get("/instituicao/gruposdeensino").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+  inserirGrupo(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/instituicao/gruposdeensino", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+  editarGrupo(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/instituicao/gruposdeensino", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 }
