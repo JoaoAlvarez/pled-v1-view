@@ -42,6 +42,18 @@ export class instituicoesService {
         })
       );
   }
+  editarInstituicao(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/admin/instituicao", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
   inserirInstituicao(dados: any): Observable<any> {
     return this.httpClient
       .post("/admin/instituicao/salvar", dados)
