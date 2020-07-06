@@ -3,6 +3,8 @@ import { Component } from "@angular/core";
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { InstituicaoService } from "../../instituicao.service";
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'turmas-listar',
   templateUrl: './turmas.component.html',
@@ -15,6 +17,12 @@ export class TurmasListarComponent {
     hideSubHeader: true,
     actions: {
       add: false,
+      edit: false,
+      delete: false,
+      custom: [
+        { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'delete', title: '<i class="nb-trash"></i>' }
+      ],
       position: "right",
       columnTitle: "Ações",
     },
@@ -62,7 +70,8 @@ export class TurmasListarComponent {
 
   constructor(
     private service: SmartTableData,
-    private InstituicaoService: InstituicaoService
+    private InstituicaoService: InstituicaoService,
+    private router: Router,
   ) {
 
   }
@@ -123,7 +132,11 @@ export class TurmasListarComponent {
      } else {
        this.source.reset();
      }
-   }*/
+   }*/onCustomAction(event): void {
+    console.log(event);
+    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+    this.router.navigateByUrl("/instituicao/turmas/editar/" + event.data.id);
+  }
 
   onDeleteConfirm(event): void {
     console.log(event);

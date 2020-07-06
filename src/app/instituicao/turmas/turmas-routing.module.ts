@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { TurmasComponent } from './turmas.component';
 import { TurmasListarComponent } from './listar/turmas.component';
 import { TurmasCadastrarComponent } from './cadastrar/cadastrar.component';
+import { TurmasEditarComponent } from './editar/editar.component';
 const routes: Routes = [
     {
         path: "",
@@ -17,6 +18,10 @@ const routes: Routes = [
             {
                 path: "cadastrar",
                 component: TurmasCadastrarComponent
+            },
+            {
+                path: "editar/:id",
+                component: TurmasEditarComponent
             }
         ]
     },
@@ -32,5 +37,6 @@ export class UsuariosRoutingModule { }
 export const routedComponents = [
     TurmasComponent,
     TurmasListarComponent,
-    TurmasCadastrarComponent
+    TurmasCadastrarComponent,
+    TurmasEditarComponent
 ];

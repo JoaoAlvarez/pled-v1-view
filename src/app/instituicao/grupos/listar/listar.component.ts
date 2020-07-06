@@ -159,12 +159,14 @@ export class GruposListarComponent {
     event.source.data.forEach(element => {
       if(element==event.data){
         event.confirm.resolve(); 
-        var a =event.newData.nome;
-        event.newData=a;
-        console.log(event);
+        var nome =event.data;
+        var novoNome = event.newData.nome;
+        var editgroup ={nome, novoNome}
+        //event.newData=a;
+        console.log(editgroup);
         event.confirm.resolve();
         this.isLoading = true;
-      const result = Object.assign({}, a);
+      const result: grupo =  Object.assign({},editgroup);
       this.InstituicaoService
       .editarGrupo(result)
       .pipe(finalize(() => { this.isLoading = false; }))
@@ -189,4 +191,5 @@ export class GruposListarComponent {
 
 export class grupo {
   nome: string = '';
+  novoNome: string = '';
 }

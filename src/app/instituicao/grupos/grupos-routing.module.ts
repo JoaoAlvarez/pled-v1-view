@@ -3,7 +3,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { GruposComponent } from './grupos.component';
 import { GruposListarComponent } from './listar/listar.component';
-import { GruposEditarComponent } from './editar/editar.component';
 import { GruposCadastrarComponent } from './cadastrar/cadastrar.component';
 const routes: Routes = [
     {
@@ -14,10 +13,6 @@ const routes: Routes = [
             {
                 path: "listar",
                 component: GruposListarComponent
-            },
-            {
-                path: "editar/:_id",
-                component: GruposEditarComponent
             },
             {
                 path: "cadastrar",
@@ -36,7 +31,6 @@ export class UsuariosRoutingModule { }
 export const routedComponents = [
     GruposComponent,
     GruposListarComponent,
-    GruposEditarComponent,
     GruposCadastrarComponent
 
 ];

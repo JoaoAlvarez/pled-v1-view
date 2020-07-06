@@ -21,8 +21,7 @@
           <div *ngFor="let serie of list.series;let i = index">
             <h6>Serie {{serie.serie}}</h6>
             {{serie.turmas[0].nome}}
-            <ng2-smart-table [settings]="settings" [source]="turmas[i]" (deleteConfirm)="onDeleteConfirm($event)"
-              (editConfirm)="onEditConfirm($event)">
+            <ng2-smart-table [settings]="settings" [source]="turmas[i]" (custom)="onCustomAction($event)">
             </ng2-smart-table>
           </div>
         </nb-accordion-item-body>

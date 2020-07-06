@@ -4,26 +4,26 @@ import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { instituicao } from '../../../admin/instituicoes/adicionar/adicionar.component';
 import { isNgContainer } from '@angular/compiler';
 
 
 @Component({
-  selector: 'turmas-cadastrar',
-  templateUrl: './cadastrar.component.html',
-  styleUrls: ['./cadastrar.component.scss']
+  selector: 'turmas-editar',
+  templateUrl: './editar.component.html',
+  styleUrls: ['./editar.component.scss']
 })
 
-export class TurmasCadastrarComponent implements OnInit {
+export class TurmasEditarComponent implements OnInit {
 
-
+  id: string;
   form!: FormGroup;
   isLoading: Boolean = true;
   options = [];
   series = [];
   grupos = [];
-  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
+  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
 
@@ -32,6 +32,10 @@ export class TurmasCadastrarComponent implements OnInit {
     //this.getSeries();
     this.getCoordenadores();
     this.getGrupos();
+    this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      this.createForm();
+    });
   }
   getGrupos() {
     this.InstituicaoService
@@ -63,16 +67,31 @@ export class TurmasCadastrarComponent implements OnInit {
         this.isLoading = false;
         console.log(response);
         this.options = response;
-        this.createForm();
+
       });
   }
 
   private createForm() {
-    // this.form = this.formBuilder.group({
-    //   nome: ['', Validators.required],
-    //   cnpj: ['', Validators.required],
-    //   responsavel: ['', Validators.required],
-    // });
+    this.InstituicaoService
+      .getTurmas()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        console.log(response);
+        response.forEach(turmas => {
+
+          if (turmas.id == this.id) {
+            this.form = this.formBuilder.group({
+              grupo: [turmas.series.grupo],
+              serie: [turmas.series.serie],
+              nome: [turmas.series.turmas.nome],
+              coordenador: [turmas.series.turmas.coordenador.nome],
+            });
+          }
+
+        });
+      });
+
     this.form = this.formBuilder.group({
       grupo: ['', Validators.required],
       serie: [1, Validators.required],
