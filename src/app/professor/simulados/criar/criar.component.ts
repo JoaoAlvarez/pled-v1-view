@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ProfessorService } from "../../professor.service";
 import { finalize } from 'rxjs/operators';
@@ -11,20 +11,23 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'nb-select-clean',
   templateUrl: './criar.component.html',
-  styleUrls: ['./criar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./criar.component.scss']
 })
 
 export class CriarComponent implements OnInit {
 
   form!: FormGroup;
-  isLoading: Boolean = false;
+  formSimuladoTurma!: FormGroup;
+  isLoading: Boolean = true;
+  turmas = [];
+  disciplinas = [];
 
-  constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router,) {
+  constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router) {
 
   }
 
   ngOnInit(): void {
+    this.getTurmasProfessor();
     this.createForm();
   }
 
@@ -32,10 +35,24 @@ export class CriarComponent implements OnInit {
     return this.form.get('questoes') as FormArray;
   }
 
-  // get questoes() {
-  //   return this.form.get('questoes') as FormArray;
-  // }
+  getTurmasProfessor() {
+    this.ProfessorService
+      .getTurmas()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.turmas = response;
+      });
+  }
 
+  getDetalhesProfessor() {
+    this.ProfessorService
+      .getProfessorDetalhes()
+      .subscribe((response) => {
+        console.log('Disciplinas', response);
+        this.isLoading = false;
+        this.disciplinas = response;
+      });
+  }
 
   addQuestoes() {
     this.questoes.push(this.formBuilder.group({
@@ -72,6 +89,19 @@ export class CriarComponent implements OnInit {
       questoes: this.formBuilder.array([]),
       prazoInicial: ['', Validators.required],
       prazoFinal: ['', Validators.required],
+      turmas: ['', Validators.required],
+      disciplina: ['', Validators.required]
+
+    });
+
+
+  }
+
+  createFormSimuladoTurma() {
+    this.formSimuladoTurma = this.formBuilder.group({
+      idSimulado: ['', Validators.required],
+      turmas: ['', Validators.required],
+      disciplina: ['', Validators.required]
     });
   }
 
@@ -102,4 +132,3 @@ export class simulado {
   prazoInicial: string = '';
   prazoFinal: string = '';
 }
-

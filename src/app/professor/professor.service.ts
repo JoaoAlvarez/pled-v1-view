@@ -13,7 +13,6 @@ export class ProfessorService {
   getSimulados(): Observable<any> {
     return this.httpClient.get("/professor/simulado/listar").pipe(
       map((response: any) => {
-        console.log("response", response);
         if (response) {
           return response;
         }
@@ -25,7 +24,6 @@ export class ProfessorService {
       .post("/professor/simulado/novo", dados)
       .pipe(
         map((response: any) => {
-          console.log("response", response);
           if (response) {
             return response;
           }
@@ -35,7 +33,15 @@ export class ProfessorService {
   getTurmas(): Observable<any> {
     return this.httpClient.get("/professor/turma").pipe(
       map((response: any) => {
-        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+  getProfessorDetalhes(): Observable<any> {
+    return this.httpClient.get("/professor/detalhado").pipe(
+      map((response: any) => {
         if (response) {
           return response;
         }

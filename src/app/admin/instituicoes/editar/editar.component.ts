@@ -43,12 +43,11 @@ export class instituicoesEditarComponent implements OnInit {
 
           if (instituicoes.id == this.id) {
             this.form = this.formBuilder.group({
+              id:[instituicoes.id],
               nome: [instituicoes.nome],
               cnpj: [instituicoes.cnpj],
               responsavel: this.formBuilder.group({
-                nome: [instituicoes.responsavel.nome],
-                email: [instituicoes.responsavel.email],
-                cpf: [instituicoes.responsavel.cpf],
+                id: [instituicoes.responsavel.id],
               }),
               endereco: this.formBuilder.group({
                 rua: [instituicoes.endereco.rua],
@@ -69,9 +68,7 @@ export class instituicoesEditarComponent implements OnInit {
       nome: ['', Validators.required],
       cnpj: ['', Validators.required],
       responsavel: this.formBuilder.group({
-        nome: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        id: ['', Validators.required],
       }),
       endereco: this.formBuilder.group({
         rua: ['', Validators.required],
@@ -87,7 +84,7 @@ export class instituicoesEditarComponent implements OnInit {
     this.isLoading = true;
     const result: instituicao = Object.assign({}, this.form.value);
     this.instituicoesService
-      .inserirInstituicao(result)
+      .editarInstituicao(result)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 

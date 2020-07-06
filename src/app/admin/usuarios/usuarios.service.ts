@@ -6,6 +6,7 @@ import { map, catchError } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
+
 export class UsuariosService {
   constructor(private httpClient: HttpClient) { }
 

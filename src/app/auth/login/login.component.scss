@@ -3,4 +3,10 @@
     max-height: 100px;
     margin-bottom: 30px;
   }
+
+
+}
+
+::ng-deep .navigation .link nb-icon {
+  display: none !important;
 }

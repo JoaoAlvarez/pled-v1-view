@@ -1,9 +1,7 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { LocalDataSource } from "ng2-smart-table";
+import { Component } from "@angular/core";
 
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { InstituicaoService } from "../../instituicao.service";
-import { finalize } from "rxjs/operators";
 
 @Component({
   selector: 'turmas-listar',

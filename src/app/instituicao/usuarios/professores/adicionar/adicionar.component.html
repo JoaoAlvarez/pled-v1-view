@@ -40,7 +40,8 @@
                 </div>
             </div>
 
-            <div formArrayName="turmasDisciplinas" class="form-group row">
+            <div formArrayName="turmasDisciplinas" class="form-group row"
+                *ngIf="form.controls['perfil'].value == 'Professor'">
                 <label for="turma" class="label col-sm-2 col-form-label">
                     Turmas e Disciplinas:</label>
 

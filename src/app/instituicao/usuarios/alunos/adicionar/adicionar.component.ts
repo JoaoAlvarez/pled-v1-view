@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 
@@ -20,6 +20,7 @@ export class AlunosAdicionarComponent implements OnInit {
   turmas = [];
   ngrupo = [];
   idgrupo = [];
+  phonelist = [];
 
   constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
@@ -52,8 +53,7 @@ export class AlunosAdicionarComponent implements OnInit {
     return this.form.get('phones') as FormGroup;
   }
 
-  phonelist=[];
-  
+
   private createForm() {
     // this.form = this.formBuilder.group({
     //   nome: ['', Validators.required],
