@@ -5,8 +5,9 @@
         <h4>Turmas</h4>
       </div>
       <div class="col-md-5 ml-auto text-right">
-        <input nbInput #search class="search" type="text" placeholder="Search..."
-          (keydown.enter)="onSearch(search.value)" />
+        <button type="button" nbButton status="primary" [routerLink]="['/instituicao/turmas/cadastrar']">
+          <nb-icon icon="plus-outline"></nb-icon> Cadastrar turma
+        </button>
       </div>
     </div>
   </nb-card-header>
@@ -18,11 +19,12 @@
       <nb-accordion-item *ngFor="let list of lists">
         <nb-accordion-item-header>{{list.grupo}}</nb-accordion-item-header>
         <nb-accordion-item-body>
-          <div *ngFor="let serie of list.series;let i = index">
+          <div *ngFor="let serie of list.series; let i = index">
             <h6>Serie {{serie.serie}}</h6>
-            {{serie.turmas[0].nome}}
-            <ng2-smart-table [settings]="settings" [source]="turmas[i]" (custom)="onCustomAction($event)">
+            <br>
+            <ng2-smart-table [settings]="settings" [source]="serie.turmas" (custom)="onCustomAction($event)">
             </ng2-smart-table>
+            <br>
           </div>
         </nb-accordion-item-body>
       </nb-accordion-item>

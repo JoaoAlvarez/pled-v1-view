@@ -20,6 +20,7 @@ export class CriarComponent implements OnInit {
   formSimuladoTurma!: FormGroup;
   isLoading: Boolean = true;
   turmas = [];
+  turmasFiltered = [];
   disciplinas = [];
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router) {
@@ -28,7 +29,16 @@ export class CriarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTurmasProfessor();
+    this.getDetalhesProfessor();
     this.createForm();
+
+    this.form.get("disciplina").valueChanges.subscribe(selectedValue => {
+
+      this.turmasFiltered = this.turmas.filter(
+        turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == selectedValue
+        ));
+
+    })
   }
 
   get questoes() {
@@ -48,9 +58,8 @@ export class CriarComponent implements OnInit {
     this.ProfessorService
       .getProfessorDetalhes()
       .subscribe((response) => {
-        console.log('Disciplinas', response);
         this.isLoading = false;
-        this.disciplinas = response;
+        this.disciplinas = response.disciplinas;
       });
   }
 
@@ -78,6 +87,10 @@ export class CriarComponent implements OnInit {
 
   deleteAlternativa(control, index) {
     control.removeAt(index);
+  }
+
+  filterDisciplinas(event) {
+    console.log(event);
   }
 
   private createForm() {
@@ -116,12 +129,37 @@ export class CriarComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Simulado adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/simulados");
+          this.inserirSimuladoTurma(response._id);
+
         }
       });
   }
 
+
+  inserirSimuladoTurma(idSimulado) {
+    this.isLoading = true;
+
+    let dados = {
+      idSimulado: idSimulado,
+      turmas: this.form.controls['turmas'].value,
+      idDisciplinaProfessor: this.form.controls['disciplina'].value
+    }
+
+    console.log(dados);
+    this.ProfessorService
+      .inserirSimuladoTurma(dados)
+      .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((response) => {
+
+        this.isLoading = false;
+
+        if (response) {
+          Swal.fire('Ok', 'Simulado adicionada com sucesso', 'success');
+          this.router.navigateByUrl("/simulados");
+        }
+      });
+
+  }
 }
 
 export class simulado {

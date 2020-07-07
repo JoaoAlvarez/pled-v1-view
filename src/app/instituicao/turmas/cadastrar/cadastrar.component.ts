@@ -23,9 +23,7 @@ export class TurmasCadastrarComponent implements OnInit {
   options = [];
   series = [];
   grupos = [];
-  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
-
-  ) { }
+  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) { }
 
 
   ngOnInit(): void {
@@ -33,6 +31,7 @@ export class TurmasCadastrarComponent implements OnInit {
     this.getCoordenadores();
     this.getGrupos();
   }
+
   getGrupos() {
     this.InstituicaoService
       .getGrupos()
@@ -40,7 +39,7 @@ export class TurmasCadastrarComponent implements OnInit {
       .subscribe((response) => {
         response.forEach(element => {
           this.grupos.push(element);
-          
+
         });
       });
   }

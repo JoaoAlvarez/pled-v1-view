@@ -49,4 +49,12 @@ export class ProfessorService {
     );
   }
 
+  inserirSimuladoTurma(data): Observable<any> {
+    return this.httpClient.post("/professor/simulado/turma", data).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
+
 }
