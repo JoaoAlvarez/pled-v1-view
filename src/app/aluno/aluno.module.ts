@@ -16,6 +16,7 @@ import {
   NbSpinnerModule,
   NbCalendarModule,
   NbCalendarRangeModule,
+  NbLayoutModule,
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -52,7 +53,8 @@ import { AlunoComponent } from './aluno.component';
     ThemeModule,
     NbMenuModule,
     ReactiveFormsModule,
-    MiscellaneousModule
+    MiscellaneousModule,
+    NbLayoutModule
   ]
 })
 export class AlunoModule { }

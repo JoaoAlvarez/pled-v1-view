@@ -40,7 +40,6 @@ export const routes: Routes = [
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: 'turmas', loadChildren: () => import('./professor/turmas/turmas.module').then(m => m.TurmasModule) },
   { path: "**", redirectTo: "home" },
 ];
 

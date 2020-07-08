@@ -2,16 +2,19 @@
     <nb-layout-header fixed>
         <ngx-header></ngx-header>
     </nb-layout-header>
+
     <nb-layout-header class="header-title" subheader>
         <nb-layout-column class="colored-column-info">
-            <h5>Olá Stênio</h5>
-
+            <h6 class="text-alternate mb-0">Olá Stênio </h6>
+        </nb-layout-column>
+        <nb-layout-column class="ml-auto d-flex align-items-center">
+            <h6 class="text-alternate mb-0 m-5">Turma da Mônica</h6>
+            <button nbButton hero shape="round">Acessar sala de aula <nb-icon icon="play-circle-outline"></nb-icon>
+            </button>
         </nb-layout-column>
     </nb-layout-header>
 
     <nb-layout-column>
-
-
         <ng-content select="router-outlet"></ng-content>
     </nb-layout-column>
 
