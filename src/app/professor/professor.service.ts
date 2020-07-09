@@ -56,5 +56,28 @@ export class ProfessorService {
       })
     )
   }
+  getMateriais(dados: any): Observable<any> {
+    return this.httpClient.get("/professor/turma/material", dados).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+  inserirMateriais(data): Observable<any> {
+    return this.httpClient.post("/professor/turma/material", data).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
+  editarMateriais(data): Observable<any> {
+    return this.httpClient.put("/professor/turma/material", data).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
 
 }

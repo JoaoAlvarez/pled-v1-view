@@ -30,6 +30,10 @@ const routes: Routes = [{
       path: "turmas",
       loadChildren: () => import("./turmas/turmas.module").then((m) => m.TurmasModule)
     },
+    {
+      path: "materiais",
+      loadChildren: () => import("./materiais/materiais.module").then((m) => m.MateriaisModule)
+    },
 
     {
       path: "**",

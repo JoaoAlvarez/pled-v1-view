@@ -31,5 +31,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
         ],
 
     },
+    {
+        title: "Materiais",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Criar",
+                link: "/professor/materiais",
+            },
+            {
+                title: "Listar",
+                link: "/professor/materiais",
+            },
+
+        ],
+
+    },
 
 ];
