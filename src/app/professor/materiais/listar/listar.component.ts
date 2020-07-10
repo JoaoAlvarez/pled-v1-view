@@ -79,8 +79,8 @@ export class MateriaisListarComponent {
   getMateriais() {
     var turma="5f021596c15ffea8d9fa4aba";
     var disciplina="5f021b3c211e99ae5eb85d01";
-    var a = {turma,disciplina};
-    const result: turma = Object.assign({}, a);
+    var materialTurma = {turma,disciplina};
+    const result: turma = Object.assign({}, materialTurma);
     this.ProfessorService
       .getMateriais(result)
       .pipe(finalize(() => { }))

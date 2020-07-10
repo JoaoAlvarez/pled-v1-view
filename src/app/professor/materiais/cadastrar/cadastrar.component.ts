@@ -17,6 +17,9 @@ export class MateriaisCadastrarComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = false;
+  turmas = [];
+  turmasFiltered = [];
+  disciplinas = [];
 
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router,
@@ -24,9 +27,36 @@ export class MateriaisCadastrarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getTurmasProfessor();
+    this.getDetalhesProfessor();
     this.createForm();
-  }
+    this.form.get("disciplina").valueChanges.subscribe(selectedValue => {
 
+      this.turmasFiltered = this.turmas.filter(
+        turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == selectedValue
+        ));
+
+    })
+  }
+  getTurmasProfessor() {
+    this.ProfessorService
+      .getTurmas()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.turmas = response;
+      });
+  }
+  getDetalhesProfessor() {
+    this.ProfessorService
+      .getProfessorDetalhes()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.disciplinas = response.disciplinas;
+      });
+  }
+  get material() {
+    return this.form.get('material') as FormGroup;
+  }
 
   private createForm() {
     // this.form = this.formBuilder.group({
@@ -35,9 +65,18 @@ export class MateriaisCadastrarComponent implements OnInit {
     //   responsavel: ['', Validators.required],
     // });
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      descricao: ['', Validators.required],
+      turma: ['', Validators.required],
+      disciplina: ['', Validators.required],
+      material: this.formBuilder.group({
+        nome: ['', Validators.required],
+        descricao: ['', Validators.required],
+        url: ['', Validators.required],
+      }),
+      
     });
+  }
+  filterDisciplinas(event) {
+    console.log(event);
   }
 
   submit() {
@@ -60,8 +99,8 @@ export class MateriaisCadastrarComponent implements OnInit {
 }
 
 export class material {
-  nome: string = '';
-  descricao: string = '';
-
+  turma:string = ''
+  disciplina:string = ''
+  material: any = [];
 }
 
