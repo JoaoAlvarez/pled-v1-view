@@ -30,7 +30,7 @@ export class MateriaisCadastrarComponent implements OnInit {
     this.getTurmasProfessor();
     this.getDetalhesProfessor();
     this.createForm();
-    this.form.get("disciplina").valueChanges.subscribe(selectedValue => {
+    this.form.get("disciplinas").valueChanges.subscribe(selectedValue => {
 
       this.turmasFiltered = this.turmas.filter(
         turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == selectedValue
@@ -66,7 +66,7 @@ export class MateriaisCadastrarComponent implements OnInit {
     // });
     this.form = this.formBuilder.group({
       turma: ['', Validators.required],
-      disciplina: ['', Validators.required],
+      disciplinas: ['', Validators.required],
       material: this.formBuilder.group({
         nome: ['', Validators.required],
         descricao: ['', Validators.required],

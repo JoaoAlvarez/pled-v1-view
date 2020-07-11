@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { ProfessorService } from "../../professor.service";
@@ -77,10 +78,16 @@ export class MateriaisListarComponent {
   }
 
   getMateriais() {
-    var turma="5f021596c15ffea8d9fa4aba";
+    /*var turma="5f021596c15ffea8d9fa4aba";
     var disciplina="5f021b3c211e99ae5eb85d01";
-    var materialTurma = {turma,disciplina};
-    const result: turma = Object.assign({}, materialTurma);
+    var materialTurma = {turma,disciplina};*/
+    const params = new HttpParams({
+      fromObject: {
+        turma: '5f021596c15ffea8d9fa4aba',
+        disciplina: '5f021b3c211e99ae5eb85d01',
+      }
+    });
+    const result = Object.assign({}, params);
     this.ProfessorService
       .getMateriais(result)
       .pipe(finalize(() => { }))
@@ -151,7 +158,9 @@ export class MateriaisListarComponent {
   }
 }
 export class turma {
-  turma: string = '';
-  disciplina: string = '';
+    fromObject: {
+      turma: '',
+      disciplina: '',
+    }
 
 }

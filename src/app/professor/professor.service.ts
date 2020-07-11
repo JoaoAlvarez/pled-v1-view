@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
@@ -56,8 +56,14 @@ export class ProfessorService {
       })
     )
   }
-  getMateriais(dados: any): Observable<any> {
-    return this.httpClient.get("/professor/turma/material", dados).pipe(
+  getMateriais(parameters): Observable<any> {
+    // Initialize Params Object
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('turma', parameters.turma);
+    params = params.append('disciplina', parameters.disciplina);
+    return this.httpClient.get("/professor/turma/material", { params: params }).pipe(
       map((response: any) => {
         if (response) {
           return response;
