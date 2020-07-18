@@ -86,4 +86,16 @@ export class ProfessorService {
     )
   }
 
+  criarPlanejamento(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/professor/turma/planodeaula", dados)
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
 }

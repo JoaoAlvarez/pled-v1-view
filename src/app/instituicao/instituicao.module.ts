@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InstituicaoRoutingModule, routedComponents } from './instituicao-routing.module';
 import { InstituicaoComponent } from './instituicao.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
+import { ColorSketchModule } from 'ngx-color/sketch';
 
 @NgModule({
   declarations: [InstituicaoComponent, ...routedComponents],
@@ -49,6 +50,7 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
     NbMenuModule,
     ReactiveFormsModule,
     MiscellaneousModule,
+    ColorSketchModule
   ],
 })
 export class InstituicaoModule { }

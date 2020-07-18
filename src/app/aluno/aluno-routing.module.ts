@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlunoComponent } from './aluno.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
 import { HomeComponent } from './home/home.component';
+import { SalaComponent } from './sala/sala.component';
 
 
 const routes: Routes = [
@@ -11,12 +12,16 @@ const routes: Routes = [
     path: '', component: AlunoComponent,
     children: [
       {
-        path: 'home',
+        path: 'turma/:id',
         component: HomeComponent
       },
       {
+        path: 'sala',
+        component: SalaComponent
+      },
+      {
         path: "",
-        redirectTo: "home",
+        redirectTo: "turma",
         pathMatch: "full",
       },
     ]

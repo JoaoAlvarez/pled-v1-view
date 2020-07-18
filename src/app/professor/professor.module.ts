@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { 
-  NbMenuModule, 
+import {
+  NbMenuModule,
   NbCardModule,
   NbIconModule,
   NbInputModule,
@@ -25,7 +25,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfessorRoutingModule, routedComponents } from './professor-routing.module';
 import { ProfessorComponent } from './professor.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
-
 
 @NgModule({
   declarations: [ProfessorComponent, ...routedComponents],
@@ -54,7 +53,6 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
     MiscellaneousModule,
     NbCalendarModule,
     NbCalendarRangeModule,
-    
   ],
 })
 export class ProfessorModule { }

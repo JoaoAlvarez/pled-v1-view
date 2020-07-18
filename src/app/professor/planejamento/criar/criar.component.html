@@ -1,0 +1,105 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Criar plano de aulas</h4>
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="submit()" action="">
+
+
+
+
+
+            <div class="form-group row">
+                <label for="disciplina" class="label col-sm-2 col-form-label">Disciplina</label>
+                <div class="col-sm-10 d-flex">
+                    <nb-select placeholder="Selecione a disciplina" id="disciplina"
+                        formControlName="disciplinaProfessor">
+                        <nb-option *ngFor="let disciplina of disciplinas" [value]="disciplina.idProfessorDisciplina">
+                            {{disciplina.nome}}
+                        </nb-option>
+                    </nb-select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="turmas" class="label col-sm-2 col-form-label">Turma</label>
+                <div class="col-sm-10 d-flex">
+                    <nb-select placeholder="Selecione as turmas" id="turmas" formControlName="turmas"
+                        (selectedChange)="filterDisciplinas($event)">
+                        <nb-option *ngFor="let turma of turmasFiltered" [value]="turma.id">{{turma.nome}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+
+            <div formArrayName="planos" class="form-group row">
+                <label for="planos" class="label col-sm-2 col-form-label">
+                    Aulas:</label>
+
+                <div class="col-sm-10">
+                    <nb-card *ngFor="let item of planos.controls; let i=index" [formGroupName]="i" class=" mb-2">
+                        <nb-card-header class="d-flex">
+                            <h6>Aula {{i+1}}</h6>
+                            <button type="button" nbButton status="danger" (click)="deleteAula(i)" class="ml-auto">
+                                <nb-icon icon="minus-outline"></nb-icon>
+                            </button>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="form-group ">
+                                <input type="text" nbInput fullWidth id="titulo" placeholder="Título"
+                                    formControlName="titulo">
+
+                            </div>
+
+                            <div class="form-group ">
+                                <textarea type="text" nbInput fullWidth id="descricao" placeholder="Descrição"
+                                    formControlName="descricao"></textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="dataInicio" class="label col-sm-2 col-form-label">Inicio e fim da
+                                    aula</label>
+                                <div class="col-sm-10 d-flex">
+                                    <div class="mr-2">
+                                        <input nbInput id="dataInicio" placeholder="Data Inicio"
+                                            formControlName="dataInicio" [nbDatepicker]="formpicker">
+                                        <nb-datepicker #formpicker></nb-datepicker>
+                                    </div>
+                                    <div>
+                                        <input nbInput id="dataFim" placeholder="Data Fim" formControlName="dataFim"
+                                            [nbDatepicker]="formpicker2">
+                                        <nb-datepicker #formpicker2></nb-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </nb-card-body>
+
+                    </nb-card>
+                </div>
+
+            </div>
+            <div class="form-group row">
+
+
+                <div class="offset-sm-2 col-sm-10 mb-4">
+                    <button type="button" nbButton status="primary" (click)=" addAula()">
+                        <nb-icon icon="plus-outline"></nb-icon> Adicionar aula
+                    </button>
+                </div>
+
+
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" (click)="Adicionar()" nbButton status="primary"
+                        [disabled]="form.invalid || isLoading">Adicionar</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

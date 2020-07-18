@@ -34,6 +34,10 @@ const routes: Routes = [{
       path: "materiais",
       loadChildren: () => import("./materiais/materiais.module").then((m) => m.MateriaisModule)
     },
+    {
+      path: "planejamento",
+      loadChildren: () => import("./planejamento/planejamento.module").then((m) => m.PlanejamentoModule)
+    },
 
     {
       path: "**",

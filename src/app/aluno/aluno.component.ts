@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlunoService } from './aluno.service';
 
 @Component({
   selector: 'aluno',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlunoComponent implements OnInit {
 
-  constructor() { }
+  aluno: any;
+  isLoading: boolean = true;
+
+  constructor(private alunoService: AlunoService) { }
 
   ngOnInit(): void {
+    //this.getAlunoDetalhe();
   }
+
+
+
 
 }

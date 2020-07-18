@@ -3,19 +3,29 @@
         <ngx-header></ngx-header>
     </nb-layout-header>
 
-    <nb-layout-header class="header-title" subheader>
+
+
+    <nb-layout-header class="header-title" subheader *ngIf="aluno">
         <nb-layout-column class="colored-column-info">
-            <h6 class="text-alternate mb-0">Olá Stênio </h6>
+            <h6 class="text-alternate mb-0 subtitle">Olá {{aluno.nome}} </h6>
         </nb-layout-column>
         <nb-layout-column class="ml-auto d-flex align-items-center">
-            <h6 class="text-alternate mb-0 m-5">Turma da Mônica</h6>
-            <button nbButton hero shape="round">Acessar sala de aula <nb-icon icon="play-circle-outline"></nb-icon>
+            <nb-select #turmaSelect placeholder="Selecione uma turma" [(selected)]="selectedItem"
+                (change)="navigateToTurma(turmaSelect.value)" filled status="primary" class="mr-4">
+                <nb-option [value]="turma.id" *ngFor="let turma of turmas">{{turma.nome}}</nb-option>
+            </nb-select>
+            <!-- <h6 class="text-alternate mb-0 m-5 subtitle">{{aluno.turma.nome}}</h6> -->
+            <button (click)="navigate('/aluno/sala')" nbButton hero shape="round">Acessar sala de aula <nb-icon
+                    icon="play-circle-outline"></nb-icon>
             </button>
+            <!-- <a href="{{aluno.turma.meet.link}}" nbButton hero shape="round">Acessar sala de aula <nb-icon
+                    icon="play-circle-outline"></nb-icon>
+            </a> -->
         </nb-layout-column>
     </nb-layout-header>
 
     <nb-layout-column>
-        <ng-content select="router-outlet"></ng-content>
+        <ng-content *ngIf="aluno" select="router-outlet"></ng-content>
     </nb-layout-column>
 
     <nb-layout-footer fixed>

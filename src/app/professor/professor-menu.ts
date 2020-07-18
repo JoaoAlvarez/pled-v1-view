@@ -47,5 +47,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
         ],
 
     },
+    {
+        title: "Planejamento de Aulas",
+        icon: "people-outline",
+        children: [
+            {
+                title: "Criar",
+                link: "/professor/planejamento/criar",
+            },
+            {
+                title: "Listar",
+                link: "/professor/planejamento/listar",
+            },
+
+        ],
+
+    },
 
 ];

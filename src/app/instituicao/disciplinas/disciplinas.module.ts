@@ -28,6 +28,9 @@ import {
   routedComponents,
 } from "./disciplinas-routing.module";
 
+import { ColorSketchModule } from 'ngx-color/sketch';
+
+
 @NgModule({
   imports: [
     NbCardModule,
@@ -46,7 +49,8 @@ import {
     Ng2SmartTableModule,
     ReactiveFormsModule,
     NgxMaskModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    ColorSketchModule
   ],
   declarations: [...routedComponents],
 })

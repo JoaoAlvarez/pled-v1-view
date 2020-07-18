@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from 'rxjs/operators';
+import { ColorEvent } from 'ngx-color';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -37,7 +38,13 @@ export class DisciplinasCadastrarComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: ['', Validators.required],
+      cor: ['', Validators.required],
     });
+  }
+
+  colorChange($event: ColorEvent) {
+    console.log($event);
+    this.form.controls['cor'].setValue($event.color.hex);
   }
 
   submit() {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstituicaoService } from "../../instituicao.service";
 import { finalize } from 'rxjs/operators';
+import { ColorEvent } from 'ngx-color';
+
 
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DisciplinasEditarComponent implements OnInit {
 
   form!: FormGroup;
-  isLoading: Boolean = false;
+  isLoading: Boolean = true;
   id: string;
 
 
@@ -33,26 +35,39 @@ export class DisciplinasEditarComponent implements OnInit {
 
 
   private createForm() {
+    this.form = this.formBuilder.group({
+      id: ['', Validators.required],
+      nome: ['', Validators.required],
+      descricao: ['', Validators.required],
+      cor: ['', Validators.required]
+    });
+
     this.InstituicaoService
       .getDisciplinas()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         this.isLoading = false;
-        response.forEach(disciplinas => {
-         // var t = this.router.url.split("/", 5);
+        response.forEach(disciplina => {
+          // var t = this.router.url.split("/", 5);
 
-          if (disciplinas._id == this.id) {
+          if (disciplina._id == this.id) {
             this.form = this.formBuilder.group({
-              nome: [disciplinas.nome],
-              descricao: [disciplinas.descricao],
+              id: [disciplina._id],
+              nome: [disciplina.nome],
+              descricao: [disciplina.descricao],
+              cor: [disciplina.cor]
             });
+
+
           }
         });
       });
-    this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      descricao: ['', Validators.required],
-    });
+  }
+
+
+  colorChange($event: ColorEvent) {
+    console.log($event);
+    this.form.controls['cor'].setValue($event.color.hex);
   }
 
   submit() {

@@ -1,55 +1,156 @@
 <div class="row">
-    <div class="col-sm-6">
-        <nb-card accent="info" class="shadow-lg">
+    <div class="col-sm-5">
+        <nb-card accent="info" class="shadow-lg" [nbSpinner]="turmasLoading" nbSpinnerStatus="primary"
+            nbSpinnerSize="large">
             <nb-card-header>
-                <h5>Atividades e Materiais</h5>
+                <h6>Suas Disciplinas</h6>
             </nb-card-header>
-            <nb-card-body>
-                <nb-list>
-                    <nb-list-item>
-                        <div class="d-flex">
-                            <h1>
-                                <nb-actions size="small">
-                                    <nb-action icon="edit-2-outline"></nb-action>
-                                </nb-actions>
-                            </h1>
+
+
+
+            <nb-list *ngIf="disciplinas">
+                <nb-list-item *ngFor="let disciplina of disciplinas" class="disciplina"
+                    [style.border-left-color]="disciplina.cor">
+                    <div class="d-flex align-items-center w-100 ">
+
+                        <div>
+                            <h6>
+                                {{disciplina.nome}}</h6>
+                            <p class="paragraph-2">{{disciplina.descricao}}</p>
+                        </div>
+                        <div class="ml-auto d-flex">
+
                             <div>
-                                <small class="badge badge-primary">Exercício</small>
-                                <h6>Testando</h6>
-                                <p>teste</p>
+                                <h6 class="subtitle text-hint">{{disciplina.professor.nome}}</h6>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <button nbButton>
+                                <nb-icon icon="chevron-right-outline"></nb-icon>
+                            </button>
+                        </div>
+                    </div>
+                </nb-list-item>
+
+            </nb-list>
+
+
+
+        </nb-card>
+    </div>
+
+    <div class="col-sm-7">
+        <nb-card accent="info" class="shadow-lg" [nbSpinner]="timelineLoading" nbSpinnerStatus="primary"
+            nbSpinnerSize="large">
+            <nb-card-header>
+                <h6>Fique ligado!</h6>
+            </nb-card-header>
+
+            <nb-tabset>
+                <nb-tab tabTitle="Próximas aulas">
+                    <nb-card class="shadow">
+                        <nb-card-body class="d-flex">
+                            <div class="mr-3">
+
+                                <nb-icon icon="play-circle-outline"></nb-icon>
+
+                            </div>
+                            <div>
+                                <small class="badge badge-primary design">Design Gráfico</small>
+                                <h6 class="subtitle">Photoshop Básico</h6>
+                                <p class="paragraph-2 text-hint">Aula de Adobe Photoshop Básico</p>
+
                             </div>
                             <div class="ml-auto d-flex">
 
-                                <div>
-                                    <small>5 de Agosto de 2020</small>
-                                    <h6>Prof. Iran Pontes</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </nb-list-item>
-                    <nb-list-item>
-                        <div class="d-flex">
-                            <h1>
-                                <nb-actions size="small">
-                                    <nb-action icon="edit-2-outline"></nb-action>
-                                </nb-actions>
-                            </h1>
-                            <div>
-                                <small class="badge badge-primary">Exercício</small>
-                                <h6>Testando</h6>
-                                <p>teste</p>
-                            </div>
-                            <div class="ml-auto d-flex">
+                                <div class="text-right">
+                                    <small class="d-block mb-2">Ao Vivo agora</small>
+                                    <button nbButton size="small">Acessar sala de aula</button>
 
-                                <div>
-                                    <small>5 de Agosto de 2020</small>
-                                    <h6>Prof. Iran Pontes</h6>
                                 </div>
                             </div>
+                        </nb-card-body>
+                    </nb-card>
+                    <div class="d-flex" *ngFor="let aula of aulas">
+                        <div class="mr-3">
+
+                            <nb-icon icon="calendar-outline" class="text-disabled"></nb-icon>
+
                         </div>
-                    </nb-list-item>
-                </nb-list>
-            </nb-card-body>
+                        <div>
+                            <small class="badge badge-primary"
+                                [ngClass]="{'webdesign': aula.disciplina.nome == 'Webdesign', 'design': aula.disciplina.nome == 'Design Gráfico', 'teste': aula.disciplina.nome == 'TESTE Disciplina'}">{{aula.disciplina.nome}}</small>
+                            <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
+                            <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
+                        </div>
+                        <div class="ml-auto d-flex">
+
+                            <div>
+                                <small>{{aula.objeto.data | date: 'hh:mm'}}h</small>
+                            </div>
+                        </div>
+                    </div>
+                </nb-tab>
+
+                <nb-tab tabTitle="Atividades">
+                    <div class="d-flex" *ngFor="let atividade of atividades">
+                        <div class="mr-3">
+
+                            <nb-icon icon="edit-2-outline" class="text-disabled"></nb-icon>
+
+                        </div>
+                        <div>
+                            <small class="badge badge-primary"
+                                [ngClass]="{'webdesign': atividade.disciplina.nome == 'Webdesign', 'design': atividade.disciplina.nome == 'Design Gráfico', 'teste': atividade.disciplina.nome == 'TESTE Disciplina'}">{{atividade.disciplina.nome}}</small>
+                            <h6 class="subtitle">{{atividade.objeto.nome}}</h6>
+                            <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
+                        </div>
+                        <div class="ml-auto d-flex">
+
+                            <div>
+                                <h6 class="subtitle">
+                                    <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
+                                    {{atividade.objeto.professor.nome}}
+                                </h6>
+                                <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </nb-tab>
+
+                <nb-tab tabTitle="Materiais">
+
+                    <div class="d-flex align-items-center w-100" *ngFor="let material of materiais">
+                        <h1>
+                            <nb-actions size="small">
+                                <nb-action icon="download-outline"></nb-action>
+                            </nb-actions>
+                        </h1>
+                        <div>
+                            <small class="badge badge-primary"
+                                [ngClass]="{'webdesign': material.disciplina.nome == 'Webdesign', 'design': material.disciplina.nome == 'Design Gráfico', 'teste': material.disciplina.nome == 'TESTE Disciplina'}">{{material.disciplina.nome}}</small>
+                            <h6>{{material.objeto.nome}}</h6>
+                            <p class="paragraph-2 text-hint">{{material.objeto.descricao}}</p>
+                        </div>
+                        <div class="ml-auto d-flex">
+
+                            <div>
+                                <a href="{{material.objeto.url}}" nbButton>Download</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </nb-tab>
+
+            </nb-tabset>
+
         </nb-card>
     </div>
 </div>

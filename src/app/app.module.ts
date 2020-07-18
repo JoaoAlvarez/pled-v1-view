@@ -16,7 +16,7 @@ import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { environment } from "../environments/environment";
 import { NgxMaskModule } from 'ngx-mask';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
+import { ColorSketchModule } from 'ngx-color/sketch';
 
 import {
   NbPasswordAuthStrategy,
@@ -51,6 +51,7 @@ import {
     NbEvaIconsModule,
     NgxMaskModule.forRoot(),
     SweetAlert2Module.forRoot(),
+    ColorSketchModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: "AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY",
     }),
