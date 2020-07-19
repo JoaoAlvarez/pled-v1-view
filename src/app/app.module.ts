@@ -3,6 +3,8 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
+
+
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
@@ -17,6 +19,8 @@ import { environment } from "../environments/environment";
 import { NgxMaskModule } from 'ngx-mask';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ColorSketchModule } from 'ngx-color/sketch';
+import { FormsModule } from '@angular/forms';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 import {
   NbPasswordAuthStrategy,
@@ -39,6 +43,8 @@ import {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    FormsModule,
+    FlatpickrModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

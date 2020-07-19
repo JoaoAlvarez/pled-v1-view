@@ -51,6 +51,7 @@
     "@sweetalert2/ngx-sweetalert2": "^8.1.0",
     "@swimlane/ngx-charts": "^13.0.2",
     "angular2-chartjs": "0.4.1",
+    "angularx-flatpickr": "^6.3.1",
     "bootstrap": "4.3.1",
     "chart.js": "2.7.1",
     "ckeditor": "4.7.3",

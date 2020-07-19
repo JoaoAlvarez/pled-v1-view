@@ -29,8 +29,7 @@
             <div class="form-group row">
                 <label for="turmas" class="label col-sm-2 col-form-label">Turma</label>
                 <div class="col-sm-10 d-flex">
-                    <nb-select placeholder="Selecione as turmas" id="turmas" formControlName="turmas"
-                        (selectedChange)="filterDisciplinas($event)">
+                    <nb-select placeholder="Selecione as turmas" id="turmas" formControlName="turma">
                         <nb-option *ngFor="let turma of turmasFiltered" [value]="turma.id">{{turma.nome}}</nb-option>
                     </nb-select>
                 </div>
@@ -41,11 +40,13 @@
                     Aulas:</label>
 
                 <div class="col-sm-10">
-                    <nb-card *ngFor="let item of planos.controls; let i=index" [formGroupName]="i" class=" mb-2">
+                    <nb-card *ngFor="let item of planos.controls; let i=index" [formGroupName]="i" class=" mb-2"
+                        accent="info">
                         <nb-card-header class="d-flex">
-                            <h6>Aula {{i+1}}</h6>
-                            <button type="button" nbButton status="danger" (click)="deleteAula(i)" class="ml-auto">
-                                <nb-icon icon="minus-outline"></nb-icon>
+                            <h6 class="subtitle">Aula {{i+1}}</h6>
+                            <button type="button" nbButton status="danger" size="tiny" (click)="deleteAula(i)"
+                                class="ml-auto">
+                                <nb-icon icon="close-outline"></nb-icon>
                             </button>
                         </nb-card-header>
                         <nb-card-body>
@@ -65,14 +66,18 @@
                                     aula</label>
                                 <div class="col-sm-10 d-flex">
                                     <div class="mr-2">
-                                        <input nbInput id="dataInicio" placeholder="Data Inicio"
-                                            formControlName="dataInicio" [nbDatepicker]="formpicker">
-                                        <nb-datepicker #formpicker></nb-datepicker>
+                                        <input type="text" nbInput id="dataInicio" placeholder="Data Inicio"
+                                            formControlName="dataInicio" mwlFlatpickr [altInput]="false"
+                                            [enableTime]="true" altFormat="d/m/Y  ( H:i )" (change)="dateF($event)"
+                                            dateFormat="Z:+3" [time24hr]="true">
+                                        <!-- <nb-datepicker #formpicker></nb-datepicker> -->
                                     </div>
                                     <div>
-                                        <input nbInput id="dataFim" placeholder="Data Fim" formControlName="dataFim"
-                                            [nbDatepicker]="formpicker2">
-                                        <nb-datepicker #formpicker2></nb-datepicker>
+                                        <input type="text" nbInput id="dataFim" placeholder="Data Fim"
+                                            formControlName="dataFim" mwlFlatpickr [altInput]="false"
+                                            [enableTime]="true" altFormat="d/m/Y  ( H:i )" dateFormat="Z"
+                                            [time24hr]="true">
+                                        <!-- <nb-datepicker #formpicker2></nb-datepicker> -->
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +94,7 @@
 
 
                 <div class="offset-sm-2 col-sm-10 mb-4">
-                    <button type="button" nbButton status="primary" (click)=" addAula()">
+                    <button type="button" nbButton status="info" size="small" (click)=" addAula()">
                         <nb-icon icon="plus-outline"></nb-icon> Adicionar aula
                     </button>
                 </div>

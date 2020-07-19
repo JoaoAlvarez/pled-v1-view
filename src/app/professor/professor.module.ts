@@ -25,6 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfessorRoutingModule, routedComponents } from './professor-routing.module';
 import { ProfessorComponent } from './professor.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
+import { FormsModule } from '@angular/forms';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [ProfessorComponent, ...routedComponents],
@@ -53,7 +55,8 @@ import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
     MiscellaneousModule,
     NbCalendarModule,
     NbCalendarRangeModule,
-  ],
+    FormsModule,
+    FlatpickrModule
+  ]
 })
 export class ProfessorModule { }
-export class PageModule { }

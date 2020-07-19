@@ -74,14 +74,14 @@ export class CriarComponent implements OnInit {
   }
 
 
-  filterDisciplinas(event) {
+  dateF(event) {
     console.log(event);
   }
 
   private createForm() {
 
     this.form = this.formBuilder.group({
-      turmas: ['', Validators.required],
+      turma: ['', Validators.required],
       disciplinaProfessor: ['', Validators.required],
       planos: this.formBuilder.array([this.formBuilder.group({
         titulo: ['', Validators.required],

@@ -15,12 +15,11 @@ import {
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
-
-
 import { ReactiveFormsModule } from '@angular/forms';
-
-
 import { Ng2SmartTableModule } from "ng2-smart-table";
+
+import { FormsModule } from '@angular/forms';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 import { ThemeModule } from "../../@theme/theme.module";
 import {
@@ -46,7 +45,9 @@ import {
     Ng2SmartTableModule,
     ReactiveFormsModule,
     NgxMaskModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    FormsModule,
+    FlatpickrModule
   ],
   declarations: [...routedComponents],
 })
