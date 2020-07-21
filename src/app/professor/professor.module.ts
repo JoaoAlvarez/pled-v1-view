@@ -12,6 +12,7 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
+  NbAccordionModule,
   NbSpinnerModule,
   NbCalendarModule,
   NbCalendarRangeModule,
@@ -27,6 +28,7 @@ import { ProfessorComponent } from './professor.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
+
 
 @NgModule({
   declarations: [ProfessorComponent, ...routedComponents],
@@ -56,7 +58,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     NbCalendarModule,
     NbCalendarRangeModule,
     FormsModule,
-    FlatpickrModule
+    FlatpickrModule,
+    NbAccordionModule
   ]
 })
 export class ProfessorModule { }

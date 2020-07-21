@@ -30,6 +30,8 @@ import {
   routedComponents,
 } from "./simulados-routing.module";
 
+
+
 @NgModule({
   imports: [
     NbCardModule,

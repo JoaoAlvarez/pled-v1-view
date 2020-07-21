@@ -26,6 +26,7 @@ import {
   PlanejamentoRoutingModule,
   routedComponents,
 } from "./planejamento-routing.module";
+import { ListarComponent } from './listar/listar.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,6 @@ import {
     FormsModule,
     FlatpickrModule
   ],
-  declarations: [...routedComponents],
+  declarations: [...routedComponents, ListarComponent],
 })
 export class PlanejamentoModule { }

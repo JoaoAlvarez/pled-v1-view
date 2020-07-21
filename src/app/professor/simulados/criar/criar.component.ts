@@ -6,7 +6,7 @@ import { NbCalendarRange, NbDateService, } from '@nebular/theme';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-
+import { DndDropEvent } from 'ngx-drag-drop';
 
 @Component({
   selector: 'nb-select-clean',
@@ -155,7 +155,7 @@ export class CriarComponent implements OnInit {
 
         if (response) {
           Swal.fire('Ok', 'Simulado adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/simulados");
+          this.router.navigateByUrl("/atividades");
         }
       });
 

@@ -3,16 +3,16 @@ import { NbMenuItem } from "@nebular/theme";
 export const MENU_ITEMS: NbMenuItem[] = [
 
     {
-        title: "Simulados",
+        title: "Atividades",
         icon: "people-outline",
         children: [
             {
                 title: "Criar",
-                link: "/professor/simulados/criar",
+                link: "/professor/atividades/criar",
             },
             {
                 title: "Listar",
-                link: "/professor/simulados",
+                link: "/professor/atividades",
             },
 
         ],

@@ -70,6 +70,7 @@
     "ng2-ckeditor": "^1.2.2",
     "ng2-smart-table": "^1.6.0",
     "ngx-color": "^6.0.0",
+    "ngx-drag-drop": "^2.0.0",
     "ngx-echarts": "^4.2.2",
     "ngx-mask": "^9.1.2",
     "node-sass": "^4.12.0",

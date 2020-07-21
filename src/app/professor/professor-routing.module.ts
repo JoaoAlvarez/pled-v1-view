@@ -14,16 +14,16 @@ const routes: Routes = [{
   component: ProfessorComponent,
   children: [
     {
-      path: "simulados",
-      loadChildren: () => import("./simulados/simulados.module").then((m) => m.SimuladosModule)
-    },
-    {
       path: "",
-      redirectTo: "simulados",
+      redirectTo: "atividades",
       pathMatch: "full",
     },
     {
-      path: "simulados/criar",
+      path: "atividades",
+      loadChildren: () => import("./simulados/simulados.module").then((m) => m.SimuladosModule)
+    },
+    {
+      path: "atividades/criar",
       component: CriarComponent,
     },
     {

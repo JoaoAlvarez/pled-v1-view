@@ -98,4 +98,19 @@ export class ProfessorService {
       );
   }
 
+  getPlanejamentos(disciplinaId, turmaId): Observable<any> {
+    let dados = {
+      'turmaId': turmaId,
+      'disciplinaProfessor': disciplinaId
+    }
+
+    return this.httpClient.put("/professor/turma/planodeaula/listar", dados).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
 }
