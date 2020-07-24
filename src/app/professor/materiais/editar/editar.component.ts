@@ -27,37 +27,37 @@ export class MateriaisEditarComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.id = params.get('_id');
-      this.createForm();
+      //this.createForm();
     });
   }
 
 
-  private createForm() {
-    var turma="5f021596c15ffea8d9fa4aba";
-    var disciplina="5f021b3c211e99ae5eb85d01";
-    var materialTurma = {turma,disciplina};
-    const result: turma = Object.assign({}, materialTurma);
-    this.ProfessorService
-      .getMateriais(result)
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        this.isLoading = false;
-        response.forEach(disciplinas => {
-         // var t = this.router.url.split("/", 5);
+  // private createForm() {
+  //   var turma="5f021596c15ffea8d9fa4aba";
+  //   var disciplina="5f021b3c211e99ae5eb85d01";
+  //   var materialTurma = {turma,disciplina};
+  //   const result: turma = Object.assign({}, materialTurma);
+  //   this.ProfessorService
+  //     .getMateriais(result)
+  //     .pipe(finalize(() => { }))
+  //     .subscribe((response) => {
+  //       this.isLoading = false;
+  //       response.forEach(disciplinas => {
+  //        // var t = this.router.url.split("/", 5);
 
-          if (disciplinas._id == this.id) {
-            this.form = this.formBuilder.group({
-              nome: [disciplinas.nome],
-              descricao: [disciplinas.descricao],
-            });
-          }
-        });
-      });
-    this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      descricao: ['', Validators.required],
-    });
-  }
+  //         if (disciplinas._id == this.id) {
+  //           this.form = this.formBuilder.group({
+  //             nome: [disciplinas.nome],
+  //             descricao: [disciplinas.descricao],
+  //           });
+  //         }
+  //       });
+  //     });
+  //   this.form = this.formBuilder.group({
+  //     nome: ['', Validators.required],
+  //     descricao: ['', Validators.required],
+  //   });
+  // }
 
   submit() {
     this.isLoading = true;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlunoService } from '../aluno.service';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'ngx-home',
@@ -24,13 +25,13 @@ export class HomeComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.turmaId = params.get('id');
       this.getDisciplinas(this.turmaId);
+      this.getTimeline(this.turmaId);
       //this.getSimulados(this.turmaId);
     });
 
   }
 
   ngOnInit(): void {
-    this.getTimeline();
     console.log('Aluno detalhe na home', this.alunodetalhe);
   }
 
@@ -56,13 +57,16 @@ export class HomeComponent implements OnInit {
   //     });
   // }
 
-  getTimeline() {
-    this.alunoSerivce
-      .getTimeline()
+  getTimeline(turmaId) {
+    forkJoin(this.alunoSerivce
+      .getAulas(turmaId), this.alunoSerivce
+        .getAtividades(turmaId), this.alunoSerivce
+          .getMateriais(turmaId))
       .subscribe((response) => {
-        this.aulas = response.filter(turma => turma.tipo == "AULA");
-        this.atividades = response.filter(turma => turma.tipo == "ATIVIDADE");
-        this.materiais = response.filter(turma => turma.tipo == "MATERIAL");
+        console.log(response);
+        this.aulas = response[0];
+        this.atividades = response[1];
+        this.materiais = response[2];
 
         this.timelineLoading = false;
       });

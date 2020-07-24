@@ -59,11 +59,7 @@ export class MateriaisCadastrarComponent implements OnInit {
   }
 
   private createForm() {
-    // this.form = this.formBuilder.group({
-    //   nome: ['', Validators.required],
-    //   cnpj: ['', Validators.required],
-    //   responsavel: ['', Validators.required],
-    // });
+
     this.form = this.formBuilder.group({
       turma: ['', Validators.required],
       disciplinas: ['', Validators.required],
@@ -72,7 +68,7 @@ export class MateriaisCadastrarComponent implements OnInit {
         descricao: ['', Validators.required],
         url: ['', Validators.required],
       }),
-      
+
     });
   }
   filterDisciplinas(event) {
@@ -90,8 +86,8 @@ export class MateriaisCadastrarComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Disciplina adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/disciplinas");
+          Swal.fire('Ok', 'Material adicionado com sucesso', 'success');
+          this.router.navigateByUrl("/professor/materiais");
         }
       });
   }
@@ -99,8 +95,8 @@ export class MateriaisCadastrarComponent implements OnInit {
 }
 
 export class material {
-  turma:string = ''
-  disciplina:string = ''
+  turma: string = ''
+  disciplina: string = ''
   material: any = [];
 }
 

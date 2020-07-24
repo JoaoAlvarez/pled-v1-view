@@ -99,7 +99,6 @@ export class ListarComponent implements OnInit {
     console.log(this.turmasFiltered);
   }
 
-
   getTurmasProfessor() {
     this.ProfessorService
       .getTurmas()
@@ -119,7 +118,9 @@ export class ListarComponent implements OnInit {
       });
   }
 
-  getMateriais(disciplinaId, turmaId) {
+  getAulas(disciplinaId, turmaId) {
+
+    this.isLoading = true;
 
     this.ProfessorService
       .getPlanejamentos(disciplinaId, turmaId)
@@ -127,6 +128,7 @@ export class ListarComponent implements OnInit {
       .subscribe((response) => {
         this.source.load(response);
         this.source.refresh();
+        this.isLoading = false;
       });
   }
 

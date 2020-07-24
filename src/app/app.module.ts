@@ -39,6 +39,8 @@ import {
   NbWindowModule,
 } from "@nebular/theme";
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -58,6 +60,7 @@ import {
     NgxMaskModule.forRoot(),
     SweetAlert2Module.forRoot(),
     ColorSketchModule,
+    DragDropModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: "AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY",
     }),

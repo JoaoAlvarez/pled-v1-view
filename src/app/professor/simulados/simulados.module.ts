@@ -30,6 +30,8 @@ import {
   routedComponents,
 } from "./simulados-routing.module";
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import {
     NgxMaskModule,
     NbSpinnerModule,
     NbCalendarRangeModule,
-    NbAccordionModule
+    NbAccordionModule,
+    DragDropModule
   ],
   declarations: [...routedComponents],
 })

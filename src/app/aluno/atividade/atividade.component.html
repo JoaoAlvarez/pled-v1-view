@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-sm-9" *ngIf="atividade">
+        <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)">
+            <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">
+                <nb-card-header>
+                    <h6>Questão {{i+1}}</h6>
+                </nb-card-header>
+                <nb-card-body>
+                    <h6 class="subtitle">{{questao.enunciado}}</h6>
+                    <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
+                        <div *ngIf="questao.isMultiplaEscolha">
+                            <nb-radio-group [(ngModel)]="questao[questao.id]" name="{{questao.id}}">
+                                <nb-radio *ngFor="let alternativa of questao.alternativas" [value]="alternativa.id">
+                                    {{ alternativa.texto }}
+                                </nb-radio>
+                            </nb-radio-group>
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="questao.alternativas && questao.alternativas.length == 0">
+                        <textarea nbInput fullWidth placeholder="Resposta" name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+        </form>
+    </div>
+    <div class="col-sm-3">
+        <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+            <nb-card-header>
+                <h6>Atividade</h6>
+            </nb-card-header>
+            <nb-card-body *ngIf="atividade">
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="edit-2-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <small class="badge badge-primary design">{{atividade.tipo}}</small>
+                        <h6 class="subtitle">{{atividade.titulo}}</h6>
+                        <p class="paragraph-2 text-hint">{{atividade.descricao}}</p>
+
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="calendar-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}}</strong>
+                        </h6>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="person-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Professor <strong>{{atividade.professor.nome}}</strong></h6>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+</div>

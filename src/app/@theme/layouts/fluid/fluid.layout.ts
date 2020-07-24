@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FluidLayoutService } from './fluid.layout.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'fluid-layout',
@@ -13,8 +13,13 @@ export class FluidLayoutComponent implements OnInit {
   turmas: any = [];
   isLoading: boolean = true;
   selectedItem: any = '';
+  turmaId;
 
-  constructor(private fluidLayoutService: FluidLayoutService, protected router: Router) {
+  constructor(private fluidLayoutService: FluidLayoutService, protected router: Router, private route: ActivatedRoute) {
+    this.route.paramMap.subscribe((params: any) => {
+      this.turmaId = params.get('id');
+      console.log(this.turmaId);
+    });
   }
 
   ngOnInit(): void {
@@ -29,7 +34,6 @@ export class FluidLayoutComponent implements OnInit {
         console.log(response);
         this.isLoading = false;
         this.aluno = response;
-
         localStorage.setItem('aluno', JSON.stringify(this.aluno));
       });
   }
@@ -42,17 +46,16 @@ export class FluidLayoutComponent implements OnInit {
         this.turmas = response;
         console.log('Turmas Header', this.turmas);
 
-        this.selectedItem = this.turmas[0].id;
+        this.selectedItem = this.turmas[0];
 
         this.navigateToTurma(this.selectedItem);
 
       });
   }
 
-  navigateToTurma(turmaId: string) {
-    this.router.navigate(['aluno/turma/' + turmaId]);
-    localStorage.setItem('turmaSelected', turmaId);
-
+  navigateToTurma(turma) {
+    this.router.navigate(['aluno/turma/' + turma.id]);
+    localStorage.setItem('turmaSelected', turma);
   }
 
   navigate(url: string) {

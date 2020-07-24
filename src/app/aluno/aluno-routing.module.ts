@@ -5,6 +5,7 @@ import { AlunoComponent } from './aluno.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
 import { HomeComponent } from './home/home.component';
 import { SalaComponent } from './sala/sala.component';
+import { AtividadeComponent } from './atividade/atividade.component';
 
 
 const routes: Routes = [
@@ -16,8 +17,12 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'sala',
+        path: 'sala/:id',
         component: SalaComponent
+      },
+      {
+        path: 'atividade/:id',
+        component: AtividadeComponent
       },
       {
         path: "",
@@ -36,6 +41,8 @@ const routes: Routes = [
 export class AlunoRoutingModule { }
 export const routedComponents = [
   AlunoComponent,
-  HomeComponent
+  HomeComponent,
+  AtividadeComponent,
+  SalaComponent
 ];
 

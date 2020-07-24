@@ -80,10 +80,20 @@
                 <div class="col-sm-10">
 
 
-                    <nb-accordion>
-                        <nb-accordion-item *ngFor="let item of questoes.controls; let i=index" [formGroupName]="i">
+                    <nb-accordion cdkDropList [cdkDropListData]="questoes.controls"
+                        (cdkDropListDropped)="onDrop($event)">
+                        <nb-accordion-item cdkDrag *ngFor="let item of questoes.controls; let i=index"
+                            [formGroupName]="i">
+
+                            <div class="questao-placeholder" *cdkDragPlaceholder></div>
+
                             <nb-accordion-item-header>
-                                <div>Questão {{i+1}}</div>
+                                <nb-icon icon="move-outline" class="mr-4 text-disabled" cdkDragHandle></nb-icon>
+
+                                <div>
+                                    <span>Questão {{i+1}}</span><br>
+                                    <small>{{item.controls.enunciado.value}}</small>
+                                </div>
                                 <button type="button" class="ml-auto mr-5" nbButton status="danger"
                                     (click)="deleteQuestoes(i)" size="tiny">
                                     <nb-icon icon="trash-2-outline"></nb-icon>
@@ -115,11 +125,17 @@
                                     <nb-card-header>
                                         <h6 class="subtitle">Alternativas</h6>
                                     </nb-card-header>
-                                    <nb-card-body>
+                                    <nb-card-body cdkDropList [cdkDropListData]="item.get('alternativas').controls"
+                                        (cdkDropListDropped)="onDrop($event)">
                                         <nb-card
                                             *ngFor="let alternativa of item.get('alternativas').controls; let j=index"
-                                            accent="info">
+                                            accent="info" cdkDrag>
+
+                                            <div class="alternativa-placeholder" *cdkDragPlaceholder></div>
+
                                             <nb-card-header class="d-flex">
+                                                <nb-icon icon="move-outline" class="mr-4 text-disabled" cdkDragHandle>
+                                                </nb-icon>
                                                 <div class="subtitle">Resposta {{j+1}}</div>
 
                                                 <button type="button" nbButton status="danger" class="ml-auto"
@@ -141,13 +157,16 @@
                                             </nb-card-body>
                                         </nb-card>
 
+
+                                    </nb-card-body>
+                                    <nb-card-footer>
                                         <div class="text-center">
                                             <button nbButton status="info" size="small" status="primary" type="button"
                                                 (click)="addAlternativa(item.controls.alternativas)">
                                                 <nb-icon icon="plus-outline"></nb-icon> Adicionar alternativa
                                             </button>
                                         </div>
-                                    </nb-card-body>
+                                    </nb-card-footer>
                                 </nb-card>
 
                             </nb-accordion-item-body>

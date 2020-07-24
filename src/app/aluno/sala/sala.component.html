@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-sm-9">
         <nb-card size="giant">
-            <nb-card-body>
-                <iframe allow="camera; microphone" src="https://meet.jit.si/testthings"
-                    style="width: 100%; height: 100%"></iframe>
+            <nb-card-body *ngIf="turmaDetalhe">
+                <iframe allow="camera; microphone" [src]="meetUrl" style="width: 100%; height: 100%"></iframe>
             </nb-card-body>
 
         </nb-card>

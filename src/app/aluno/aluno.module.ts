@@ -24,15 +24,16 @@ import {
 import { NgxMaskModule } from 'ngx-mask';
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ThemeModule } from "../@theme/theme.module";
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
 
 import { AlunoRoutingModule, routedComponents } from './aluno-routing.module';
 import { AlunoComponent } from './aluno.component';
 import { SalaComponent } from './sala/sala.component';
+import { AtividadeComponent } from './atividade/atividade.component';
 
 @NgModule({
-  declarations: [AlunoComponent, ...routedComponents, SalaComponent],
+  declarations: [AlunoComponent, ...routedComponents, SalaComponent, AtividadeComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,
@@ -59,7 +60,8 @@ import { SalaComponent } from './sala/sala.component';
     MiscellaneousModule,
     NbLayoutModule,
     NbTabsetModule,
-    NbListModule
+    NbListModule,
+    FormsModule
   ]
 })
 export class AlunoModule { }

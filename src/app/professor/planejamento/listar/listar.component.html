@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
     <nb-card-header>
         <div class="row">
             <div class="col-md-5">
@@ -13,8 +13,7 @@
                 </nb-select>
 
                 <nb-select #turmaSelect placeholder="Selecione uma turma" [(selected)]="selectedTurma"
-                    (selectedChange)="getMateriais(selectedDisciplina, selectedTurma)" filled status="primary"
-                    class="mr-4">
+                    (selectedChange)="getAulas(selectedDisciplina, selectedTurma)" filled status="primary" class="mr-4">
                     <nb-option [value]="turma.id" *ngFor="let turma of turmasFiltered">{{turma.nome}}</nb-option>
                 </nb-select>
 

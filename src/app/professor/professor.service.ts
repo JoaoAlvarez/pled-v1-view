@@ -56,14 +56,13 @@ export class ProfessorService {
       })
     )
   }
-  getMateriais(parameters): Observable<any> {
-    // Initialize Params Object
-    let params = new HttpParams();
+  getMateriais(disciplinaId, turmaId): Observable<any> {
+    let dados = {
+      'turma': turmaId,
+      'disciplina': disciplinaId
+    }
 
-    // Begin assigning parameters
-    params = params.append('turma', parameters.turma);
-    params = params.append('disciplina', parameters.disciplina);
-    return this.httpClient.get("/professor/turma/material", { params: params }).pipe(
+    return this.httpClient.put("/professor/turma/material/listar", dados).pipe(
       map((response: any) => {
         if (response) {
           return response;

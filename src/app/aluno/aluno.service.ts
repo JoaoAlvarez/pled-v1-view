@@ -59,4 +59,52 @@ export class AlunoService {
       })
     )
   }
+
+  getAtividades(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/simulados/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+  getAulas(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/aulas/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+  getMateriais(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/materiais/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+
+  getTurmaDetalhe(turmaId): Observable<any> {
+    return this.httpClient.get("/aluno/turma/id/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
+  getAtividade(idAtividade): Observable<any> {
+    return this.httpClient.get("/aluno/simulado/id/" + idAtividade).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
 }

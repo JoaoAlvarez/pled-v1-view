@@ -11,7 +11,9 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbAccordionModule
+
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -27,6 +29,8 @@ import {
   routedComponents,
 } from "./planejamento-routing.module";
 import { ListarComponent } from './listar/listar.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   imports: [
@@ -48,7 +52,9 @@ import { ListarComponent } from './listar/listar.component';
     NgxMaskModule,
     NbSpinnerModule,
     FormsModule,
-    FlatpickrModule
+    FlatpickrModule,
+    NbAccordionModule,
+    DragDropModule
   ],
   declarations: [...routedComponents, ListarComponent],
 })

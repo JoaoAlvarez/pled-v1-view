@@ -57,6 +57,7 @@
 
                             </div>
                             <div>
+
                                 <small class="badge badge-primary"
                                     [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
                                 <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
@@ -65,6 +66,7 @@
                             <div class="ml-auto d-flex">
 
                                 <div>
+                                    <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
                                     <small>De {{aula.objeto.dataInicio | date: 'hh:mm'}}h</small>
                                     <small> as {{aula.objeto.dataFim | date: 'hh:mm'}}h</small>
                                 </div>
@@ -98,7 +100,8 @@
                 </nb-tab>
 
                 <nb-tab tabTitle="Atividades">
-                    <div class="d-flex" *ngFor="let atividade of atividades">
+                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id]" class="d-flex"
+                        *ngFor="let atividade of atividades">
                         <div class="mr-3">
 
                             <nb-icon icon="edit-2-outline" class="text-disabled"></nb-icon>

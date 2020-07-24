@@ -1,13 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { ProfessorService } from "../../professor.service";
 import { finalize } from "rxjs/operators";
-
-import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
-//import { instituicoesAnexosComponent } from "../components/anexos.component";
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +12,12 @@ import { Router } from '@angular/router';
   templateUrl: './listar.component.html',
   styleUrls: ['./listar.component.scss']
 })
-export class MateriaisListarComponent {
+export class MateriaisListarComponent implements OnInit {
+
+  isLoading: Boolean = true;
+  turmas = [];
+  turmasFiltered = [];
+  disciplinas = [];
 
   settings = {
     hideSubHeader: true,
@@ -49,17 +51,21 @@ export class MateriaisListarComponent {
     },
     columns: {
 
-      turma: {
+      nome: {
         title: "Nome",
         type: "string",
         editable: false,
       },
-      disciplina: {
+      descricao: {
         title: "Descrição",
         type: "string",
         editable: false,
       },
-
+      url: {
+        title: "Link",
+        type: "string",
+        editable: false,
+      },
     },
   };
 
@@ -69,27 +75,41 @@ export class MateriaisListarComponent {
     private service: SmartTableData,
     private ProfessorService: ProfessorService,
     private router: Router,
-  ) {
-    const data = this.service.getData();
+  ) { }
 
-    //this.source.load(data);
-    this.getMateriais();
-
+  ngOnInit() {
+    this.getDetalhesProfessor();
+    this.getTurmasProfessor();
   }
 
-  getMateriais() {
-    /*var turma="5f021596c15ffea8d9fa4aba";
-    var disciplina="5f021b3c211e99ae5eb85d01";
-    var materialTurma = {turma,disciplina};*/
-    const params = new HttpParams({
-      fromObject: {
-        turma: '5f021596c15ffea8d9fa4aba',
-        disciplina: '5f021b3c211e99ae5eb85d01',
-      }
-    });
-    const result = Object.assign({}, params);
+  filtrarTurma(disciplinaId) {
+    this.turmasFiltered = this.turmas.filter(
+      turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == disciplinaId
+      ));
+  }
+
+
+  getTurmasProfessor() {
     this.ProfessorService
-      .getMateriais(result)
+      .getTurmas()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.turmas = response;
+      });
+  }
+
+  getDetalhesProfessor() {
+    this.ProfessorService
+      .getProfessorDetalhes()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.disciplinas = response.disciplinas;
+      });
+  }
+
+  getMateriais(disciplinaId, turmaId) {
+    this.ProfessorService
+      .getMateriais(disciplinaId, turmaId)
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         console.log(response);
@@ -158,9 +178,9 @@ export class MateriaisListarComponent {
   }
 }
 export class turma {
-    fromObject: {
-      turma: '',
-      disciplina: '',
-    }
+  fromObject: {
+    turma: '',
+    disciplina: '',
+  }
 
 }
