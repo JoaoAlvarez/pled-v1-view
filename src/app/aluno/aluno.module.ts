@@ -18,7 +18,7 @@ import {
   NbCalendarRangeModule,
   NbLayoutModule,
   NbTabsetModule,
-  NbListModule
+  NbListModule, NbBadgeModule
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -31,9 +31,10 @@ import { AlunoRoutingModule, routedComponents } from './aluno-routing.module';
 import { AlunoComponent } from './aluno.component';
 import { SalaComponent } from './sala/sala.component';
 import { AtividadeComponent } from './atividade/atividade.component';
+import { DisciplinaComponent } from './disciplina/disciplina.component';
 
 @NgModule({
-  declarations: [AlunoComponent, ...routedComponents, SalaComponent, AtividadeComponent],
+  declarations: [AlunoComponent, ...routedComponents, SalaComponent, AtividadeComponent, DisciplinaComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,
@@ -61,7 +62,8 @@ import { AtividadeComponent } from './atividade/atividade.component';
     NbLayoutModule,
     NbTabsetModule,
     NbListModule,
-    FormsModule
+    FormsModule,
+    NbBadgeModule
   ]
 })
 export class AlunoModule { }

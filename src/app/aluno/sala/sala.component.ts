@@ -14,6 +14,8 @@ export class SalaComponent implements OnInit {
   turmaDetalhe;
   isLoading: boolean = true;
   meetUrl: SafeResourceUrl;
+  aulas;
+  aovivo;
 
   constructor(private route: ActivatedRoute, private alunoSerivce: AlunoService, public sanitizer: DomSanitizer) {
     this.route.paramMap.subscribe((params: any) => {
@@ -21,6 +23,7 @@ export class SalaComponent implements OnInit {
 
       console.log('Turma id sala', this.turmaId);
       this.getTurmaDetalhe(this.turmaId);
+      this.getAulas(this.turmaId);
     });
   }
 
@@ -41,6 +44,39 @@ export class SalaComponent implements OnInit {
         console.log('Turma detalhe sala', this.turmaDetalhe);
 
       });
+  }
+
+  getAulas(idTurma) {
+    this.alunoSerivce
+      .getAulas(idTurma)
+      .subscribe((response) => {
+        let aulas = response;
+
+        aulas.forEach(aula => {
+          if (this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim)) {
+            this.aovivo = aula;
+          }
+        });
+
+        this.aulas = aulas;
+        this.isLoading = false;
+      });
+  }
+
+  compareDates(dataInicio, dataFim) {
+    let dataAtual = new Date();
+    let _dataInicio = new Date(dataInicio);
+    let _dataFim = new Date(dataFim);
+    console.log('dataAtual', dataAtual);
+    console.log('dataInicio', _dataInicio);
+    console.log('dataFim', _dataFim);
+
+    if (_dataInicio.getTime() < dataAtual.getTime() && _dataFim.getTime() > dataAtual.getTime()) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
 }

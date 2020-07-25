@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'ngx-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'ngx-disciplina',
+  templateUrl: './disciplina.component.html',
+  styleUrls: ['./disciplina.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class DisciplinaComponent implements OnInit {
 
   disciplinas: any = [];
   simulados: any = [];
@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   turmasLoading: boolean = true;
   timelineLoading: boolean = true;
   turmaId;
+  disciplinaId;
   aulas: any = [];
   atividades: any = [];
   materiais: any = [];
@@ -23,10 +24,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private alunoSerivce: AlunoService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
-      this.turmaId = params.get('id');
-      this.getDisciplinas(this.turmaId);
+      this.disciplinaId = params.get('id');
+      this.turmaId = params.get('turmaid');
+      // this.getDisciplinas(this.turmaId);
       this.getTimeline(this.turmaId);
-      //this.getSimulados(this.turmaId);
     });
 
   }
@@ -46,22 +47,6 @@ export class HomeComponent implements OnInit {
       return JSON.parse(localStorage.getItem('turmaSelected'));
     }
   }
-
-  // getTurmaDetalhe() {
-  //   this.alunoSerivce
-  //     .getTurmaDetalhe(this.turmaId)
-  //     .subscribe((response) => {
-  //       console.log(response);
-  //       //this.getTurmaDetalhe(response.id);
-  //       this.turmasLoading = false;
-  //       this.turmas = response;
-
-  //       //this.disciplinas = response.filter(turma => turma.id == this.turmaId);
-
-  //       console.log('Disciplinas filtradas home', this.disciplinas);
-
-  //     });
-  // }
 
   getTimeline(turmaId) {
     forkJoin(this.alunoSerivce
@@ -108,6 +93,9 @@ export class HomeComponent implements OnInit {
     let dataAtual = new Date();
     let _dataInicio = new Date(dataInicio);
     let _dataFim = new Date(dataFim);
+    console.log('dataAtual', dataAtual);
+    console.log('dataInicio', _dataInicio);
+    console.log('dataFim', _dataFim);
 
     if (_dataInicio.getTime() < dataAtual.getTime() && _dataFim.getTime() > dataAtual.getTime()) {
       return true;

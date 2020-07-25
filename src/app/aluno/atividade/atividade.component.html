@@ -1,29 +1,77 @@
 <div class="row">
     <div class="col-sm-9" *ngIf="atividade">
-        <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)">
+        <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)" [nbSpinner]="isLoading" nbSpinnerSize="giant"
+            nbSpinnerStatus="primary">
             <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">
-                <nb-card-header>
+
+                <nb-card-header *ngIf="atividade.isExecutado" class="d-flex align-items-center"
+                    style="position: relative;">
+                    <nb-badge text="Acertou" status="success" position="top right" *ngIf="questao.acertou"></nb-badge>
+                    <nb-icon icon="checkmark-outline" class="text-success" *ngIf="questao.acertou"></nb-icon>
+
+                    <nb-badge text="Errou" status="danger" position="top right" *ngIf="!questao.acertou"></nb-badge>
+                    <nb-icon icon="close-outline" class="text-danger" *ngIf="!questao.acertou"></nb-icon>
+                    <h6>Questão {{i+1}} </h6>
+
+                </nb-card-header>
+
+                <nb-card-header *ngIf="!atividade.isExecutado">
+
                     <h6>Questão {{i+1}}</h6>
                 </nb-card-header>
+
                 <nb-card-body>
                     <h6 class="subtitle">{{questao.enunciado}}</h6>
                     <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
                         <div *ngIf="questao.isMultiplaEscolha">
-                            <nb-radio-group [(ngModel)]="questao[questao.id]" name="{{questao.id}}">
-                                <nb-radio *ngFor="let alternativa of questao.alternativas" [value]="alternativa.id">
-                                    {{ alternativa.texto }}
-                                </nb-radio>
-                            </nb-radio-group>
+                            <div *ngIf="!atividade.isExecutado">
+                                <nb-radio-group [(ngModel)]="questao[questao.id]" name="questao_{{questao.id}}">
+                                    <nb-radio *ngFor="let alternativa of questao.alternativas" [value]="alternativa._id"
+                                        [disabled]="atividade.isExecutado && !alternativa.respostaAluno"
+                                        [checked]="alternativa.respostaAluno">
+                                        {{ alternativa.texto }}
+                                    </nb-radio>
+                                </nb-radio-group>
+                            </div>
+
+                            <div *ngIf="atividade.isExecutado">
+                                <div *ngFor="let alternativa of questao.alternativas"
+                                    [ngClass]="{'text-hint': !alternativa.respostaAluno}">
+                                    <nb-icon icon="checkmark-outline"
+                                        [ngClass]="{'text-success': alternativa.respostaAluno}"
+                                        *ngIf="alternativa.isResposta"></nb-icon>
+                                    <nb-icon icon="close-outline" [ngClass]="{'text-danger': alternativa.respostaAluno}"
+                                        *ngIf="!alternativa.isResposta">
+                                    </nb-icon>
+                                    <span
+                                        [ngClass]="{'subtitle': alternativa.respostaAluno}">{{ alternativa.texto }}</span>
+                                </div>
+                            </div>
                         </div>
 
 
                     </div>
 
                     <div *ngIf="questao.alternativas && questao.alternativas.length == 0">
-                        <textarea nbInput fullWidth placeholder="Resposta" name="" id="" cols="30" rows="10"></textarea>
+                        <textarea *ngIf="!questao.respostaAberta" nbInput fullWidth placeholder="Resposta"
+                            [(ngModel)]="questao[questao.id]" name="questaoAberta_{{questao.id}}"
+                            [attr.disabled]="questao.respostaAberta">
+
+                        </textarea>
+
+                        <p class="paragraph" *ngIf="questao.respostaAberta">
+                            {{questao.respostaAberta}}
+                        </p>
+                        <small class="subtitle-2 ml-auto text-hint"
+                            *ngIf="questao.alternativas && questao.alternativas.length == 0">
+                            <nb-icon icon="person-outline" class="text-hint"></nb-icon> (
+                            {{questao.comentarioProfessor}} )
+                        </small>
                     </div>
                 </nb-card-body>
             </nb-card>
+
+            <button type="submit" nbButton status="primary" *ngIf="!atividade.isExecutado">Enviar</button>
         </form>
     </div>
     <div class="col-sm-3">

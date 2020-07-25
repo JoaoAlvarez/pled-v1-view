@@ -107,4 +107,14 @@ export class AlunoService {
       })
     )
   }
+
+  enviarRespostas(dados, atividadeId): Observable<any> {
+    return this.httpClient.post("/aluno/simulado/executar/" + atividadeId, dados).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
 }

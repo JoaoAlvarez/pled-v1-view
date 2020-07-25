@@ -24,11 +24,11 @@
                                 <h6 class="subtitle text-hint">{{disciplina.professor.nome}}</h6>
                             </div>
                         </div>
-                        <div class="ml-4">
+                        <!-- <div class="ml-4">
                             <button nbButton>
                                 <nb-icon icon="chevron-right-outline"></nb-icon>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </nb-list-item>
 
@@ -50,7 +50,7 @@
                 <nb-tab tabTitle="Próximas aulas">
 
                     <div *ngFor="let aula of aulas">
-                        <div class="d-flex">
+                        <div class="d-flex" *ngIf="!aula.objeto.aovivo">
                             <div class="mr-3">
 
                                 <nb-icon icon="calendar-outline" class="text-disabled"></nb-icon>
@@ -73,44 +73,49 @@
                             </div>
                         </div>
 
-                        <!-- <nb-card class="shadow">
+                        <nb-card class="shadow" *ngIf="aula.objeto.aovivo" accent="danger">
                             <nb-card-body class="d-flex">
                                 <div class="mr-3">
-                        
+
                                     <nb-icon icon="play-circle-outline"></nb-icon>
-                        
+
                                 </div>
                                 <div>
-                                    <small class="badge badge-primary design">Design Gráfico</small>
-                                    <h6 class="subtitle">Photoshop Básico</h6>
-                                    <p class="paragraph-2 text-hint">Aula de Adobe Photoshop Básico</p>
-                        
+                                    <small class="badge badge-primary"
+                                        [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
+                                    <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
+                                    <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
+
                                 </div>
                                 <div class="ml-auto d-flex">
-                        
+
                                     <div class="text-right">
-                                        <small class="d-block mb-2">Ao Vivo agora</small>
-                                        <button nbButton size="small">Acessar sala de aula</button>
-                        
+                                        <small class="d-block mb-2 badge badge-danger">Ao vivo agora</small>
+                                        <button nbButton [routerLink]="['/aluno/sala/'+selectedTurma.id]"
+                                            size="small">Acessar sala de aula</button>
+
                                     </div>
                                 </div>
                             </nb-card-body>
-                        </nb-card> -->
+                        </nb-card>
                     </div>
                 </nb-tab>
 
                 <nb-tab tabTitle="Atividades">
-                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id]" class="d-flex"
+                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id+'/'+turmaId]" class="d-flex"
                         *ngFor="let atividade of atividades">
                         <div class="mr-3">
 
-                            <nb-icon icon="edit-2-outline" class="text-disabled"></nb-icon>
-
+                            <nb-icon icon="edit-2-outline" class="text-disabled" *ngIf="!atividade.objeto.isExecutado">
+                            </nb-icon>
+                            <nb-icon icon="checkmark-outline" class="text-success" *ngIf="atividade.objeto.isExecutado">
+                            </nb-icon>
                         </div>
                         <div>
                             <small class="badge badge-primary"
-                                [ngClass]="{'webdesign': atividade.disciplina.nome == 'Webdesign', 'design': atividade.disciplina.nome == 'Design Gráfico', 'teste': atividade.disciplina.nome == 'TESTE Disciplina'}">{{atividade.disciplina.nome}}</small>
-                            <h6 class="subtitle">{{atividade.objeto.nome}}</h6>
+                                [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
+                            <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
+                                {{atividade.objeto.titulo}}</h6>
                             <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
                         </div>
                         <div class="ml-auto d-flex">
@@ -139,7 +144,7 @@
                         </h1>
                         <div>
                             <small class="badge badge-primary"
-                                [ngClass]="{'webdesign': material.disciplina.nome == 'Webdesign', 'design': material.disciplina.nome == 'Design Gráfico', 'teste': material.disciplina.nome == 'TESTE Disciplina'}">{{material.disciplina.nome}}</small>
+                                [style.background-color]="material.disciplina.cor">{{material.disciplina.nome}}</small>
                             <h6>{{material.objeto.nome}}</h6>
                             <p class="paragraph-2 text-hint">{{material.objeto.descricao}}</p>
                         </div>

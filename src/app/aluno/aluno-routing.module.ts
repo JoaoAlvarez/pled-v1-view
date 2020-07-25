@@ -6,6 +6,7 @@ import { NotFoundComponent } from "../miscellaneous/not-found/not-found.componen
 import { HomeComponent } from './home/home.component';
 import { SalaComponent } from './sala/sala.component';
 import { AtividadeComponent } from './atividade/atividade.component';
+import { DisciplinaComponent } from './disciplina/disciplina.component';
 
 
 const routes: Routes = [
@@ -21,8 +22,12 @@ const routes: Routes = [
         component: SalaComponent
       },
       {
-        path: 'atividade/:id',
+        path: 'atividade/:id/:turmaid',
         component: AtividadeComponent
+      },
+      {
+        path: 'disciplina/:id/:turmaid',
+        component: DisciplinaComponent
       },
       {
         path: "",
@@ -43,6 +48,7 @@ export const routedComponents = [
   AlunoComponent,
   HomeComponent,
   AtividadeComponent,
-  SalaComponent
+  SalaComponent,
+  DisciplinaComponent,
 ];
 

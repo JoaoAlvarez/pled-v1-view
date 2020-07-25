@@ -1,18 +1,17 @@
 <div class="row">
     <div class="col-sm-9">
-        <nb-card size="giant">
+        <nb-card size="giant" [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
             <nb-card-body *ngIf="turmaDetalhe">
                 <iframe allow="camera; microphone" [src]="meetUrl" style="width: 100%; height: 100%"></iframe>
             </nb-card-body>
-
         </nb-card>
     </div>
     <div class="col-sm-3">
-        <nb-card>
+        <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
             <nb-card-header>
                 <h6>Sala de aula</h6>
             </nb-card-header>
-            <nb-card-body>
+            <nb-card-body *ngIf="aovivo">
                 <div class="d-flex">
                     <div class="mr-3">
 
@@ -20,7 +19,7 @@
 
                     </div>
                     <div>
-                        <h6 class="subtitle">Professor <strong>Iran Pontes</strong></h6>
+                        <h6 class="subtitle">Professor <strong>{{aovivo.disciplina.professor.nome}}</strong></h6>
                     </div>
                 </div>
                 <div class="d-flex">
@@ -30,9 +29,38 @@
 
                     </div>
                     <div>
-                        <small class="badge badge-primary design">Design Gráfico</small>
-                        <h6 class="subtitle">Photoshop Básico</h6>
-                        <p class="paragraph-2 text-hint">Aula de Adobe Photoshop Básico</p>
+                        <small class="badge badge-primary"
+                            [style.background-color]="aovivo.disciplina.cor">{{aovivo.disciplina.nome}}</small>
+                        <h6 class="subtitle">{{aovivo.objeto.titulo}}</h6>
+                        <p class="paragraph-2 text-hint">{{aovivo.objeto.descricao}}</p>
+
+                    </div>
+                </div>
+
+            </nb-card-body>
+
+            <nb-card-body *ngIf="!aovivo && (aulas && aulas.length > 0)">
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="person-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Professor <strong>{{aulas[0].disciplina.professor.nome}}</strong></h6>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="play-circle-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <small class="badge badge-primary"
+                            [style.background-color]="aulas[0].disciplina.cor">{{aulas[0].disciplina.nome}}</small>
+                        <h6 class="subtitle">{{aulas[0].objeto.titulo}}</h6>
+                        <p class="paragraph-2 text-hint">{{aulas[0].objeto.descricao}}</p>
 
                     </div>
                 </div>
