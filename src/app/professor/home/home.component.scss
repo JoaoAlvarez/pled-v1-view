@@ -1,0 +1,25 @@
+.disciplina {
+    border-left: 3px solid;
+}
+
+.webdesign {
+    border-left-color: blueviolet;
+}
+.design {
+    border-left-color: darkorange;
+}
+.teste {
+    border-left-color: rgb(255, 0, 76);
+}
+
+.badge {
+    &.webdesign {
+        background-color: blueviolet;
+    }
+    &.design {
+        background-color: darkorange;
+    }
+    &.teste {
+        background-color: rgb(255, 0, 76);
+    }
+}

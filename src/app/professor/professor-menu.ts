@@ -3,8 +3,26 @@ import { NbMenuItem } from "@nebular/theme";
 export const MENU_ITEMS: NbMenuItem[] = [
 
     {
-        title: "Atividades",
+        title: "Home",
+        icon: "home-outline",
+        link: "/professor/home"
+
+    },
+    {
+        title: "Turmas",
         icon: "people-outline",
+        children: [
+            {
+                title: "Listar",
+                link: "/professor/turmas",
+            },
+
+        ],
+
+    },
+    {
+        title: "Atividades",
+        icon: "edit-2-outline",
         children: [
             {
                 title: "Criar",
@@ -19,21 +37,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     },
 
-    {
-        title: "Turmas",
-        icon: "people-outline",
-        children: [
-            {
-                title: "Listar",
-                link: "/professor/turmas",
-            },
 
-        ],
-
-    },
     {
         title: "Materiais",
-        icon: "people-outline",
+        icon: "book-open-outline",
         children: [
             {
                 title: "Criar",
@@ -49,16 +56,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     {
         title: "Planejamento de Aulas",
-        icon: "people-outline",
+        icon: "calendar-outline",
         children: [
             {
-                title: "Criar",
+                title: "Planos de aula",
                 link: "/professor/planejamento/criar",
             },
-            {
-                title: "Listar",
-                link: "/professor/planejamento/listar",
-            },
+            // {
+            //     title: "Listar",
+            //     link: "/professor/planejamento/listar",
+            // },
 
         ],
 

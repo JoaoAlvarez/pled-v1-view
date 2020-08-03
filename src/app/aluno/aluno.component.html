@@ -1,5 +1,22 @@
-<fluid-layout>
-
+<fluid-layout *ngIf="aluno">
+    <div class="d-flex align-items-center w-100" sub-header>
+        <div>
+            <h6 class="text-alternate mb-0 subtitle">Olá {{aluno.nome}} </h6>
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+            <nb-select #turmaSelect placeholder="Selecione uma turma" [(selected)]="selectedTurma"
+                (change)="navigateToTurma(turmaSelect.value)" filled status="primary" class="mr-4">
+                <nb-option [value]="turma" *ngFor="let turma of turmas">{{turma.nome}}</nb-option>
+            </nb-select>
+            <!-- <h6 class="text-alternate mb-0 m-5 subtitle">{{aluno.turma.nome}}</h6> -->
+            <button (click)="navigate('/aluno/sala/'+selectedTurma.id)" nbButton hero shape="round">Acessar sala de aula
+                <nb-icon icon="play-circle-outline"></nb-icon>
+            </button>
+            <!-- <a href="{{aluno.turma.meet.link}}" nbButton hero shape="round">Acessar sala de aula <nb-icon
+                            icon="play-circle-outline"></nb-icon>
+                    </a> -->
+        </div>
+    </div>
 
     <router-outlet></router-outlet>
 </fluid-layout>

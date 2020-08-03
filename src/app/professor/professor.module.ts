@@ -16,6 +16,9 @@ import {
   NbSpinnerModule,
   NbCalendarModule,
   NbCalendarRangeModule,
+  NbSidebarModule,
+  NbTabsetModule,
+
 } from "@nebular/theme";
 import { NgxMaskModule } from 'ngx-mask';
 import { Ng2SmartTableModule } from "ng2-smart-table";
@@ -61,7 +64,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FormsModule,
     FlatpickrModule,
     NbAccordionModule,
-    DragDropModule
+    DragDropModule,
+    NbSidebarModule,
+    NbTabsetModule
+
   ]
 })
 export class ProfessorModule { }

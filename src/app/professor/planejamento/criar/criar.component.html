@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-5">
-                <h4>Criar plano de aulas</h4>
+                <h4>Planos de aulas</h4>
             </div>
 
         </div>
@@ -60,9 +60,9 @@
                                             <nb-icon icon="calendar-outline" class="text-hint"></nb-icon>
                                         </div>
                                         <small
-                                            class="subtitle-2">{{'Das ' + (item.controls.dataInicio.value | date: 'hh:mm') + 'h '}}</small>
+                                            class="subtitle-2">{{'Das ' + (item.controls.dataInicio.value | date: 'HH:mm') + 'h '}}</small>
                                         <small
-                                            class="subtitle-2">{{'as ' + (item.controls.dataFim.value | date: 'hh:mm') + 'h '}}</small>
+                                            class="subtitle-2">{{'as ' + (item.controls.dataFim.value | date: 'HH:mm') + 'h '}}</small>
                                     </span>
 
                                     <button type="button" nbButton status="danger" size="tiny" (click)="deleteAula(i)"
@@ -125,7 +125,7 @@
 
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" (click)="Adicionar()" nbButton status="primary"
-                        [disabled]="form.invalid || isLoading">Adicionar</button>
+                        [disabled]="form.invalid || isLoading">Salvar</button>
                 </div>
             </div>
         </form>

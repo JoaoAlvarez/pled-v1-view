@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col-sm-9" *ngIf="atividade">
+        <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)" [nbSpinner]="isLoading" nbSpinnerSize="giant"
+            nbSpinnerStatus="primary">
+
+            <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">
+
+                <nb-card-header class="d-flex align-items-center" style="position: relative;">
+
+                    <h6>Questão {{i+1}} </h6>
+
+                </nb-card-header>
+
+                <nb-card-body>
+                    <h6 class="subtitle">{{questao.enunciado}}</h6>
+                    <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
+                        <div *ngIf="questao.isMultiplaEscolha">
+
+
+                            <div>
+                                <div *ngFor="let alternativa of questao.alternativas">
+                                    <nb-icon icon="checkmark-outline" class="text-success"
+                                        *ngIf="alternativa.isResposta"></nb-icon>
+                                    <nb-icon icon="close-outline" class="text-danger" *ngIf="!alternativa.isResposta">
+                                    </nb-icon>
+                                    <span>{{ alternativa.texto }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="questao.alternativas && questao.alternativas.length == 0">
+                        <!-- <textarea *ngIf="!questao.respostaAberta" nbInput fullWidth placeholder="Resposta"
+                            [(ngModel)]="questao[questao.id]" name="questaoAberta_{{questao.id}}"
+                            [attr.disabled]="questao.respostaAberta">
+
+                        </textarea> -->
+
+                        <div *ngIf="questao.respostasAlunos.length > 0" class="mt-4">
+
+                            <h6 class="subtitle-2 text-hint">
+                                <nb-icon icon="people-outline" class="text-hint"></nb-icon> Respostas dos alunos:
+                            </h6>
+
+                            <nb-accordion>
+                                <nb-accordion-item *ngFor="let respostaAluno of questao.respostasAlunos; let i=index">
+
+                                    <nb-accordion-item-header>
+                                        <!-- <nb-icon icon="corner-down-right-outline" class="mr-4 text-hint"></nb-icon> -->
+
+                                        <div>
+                                            <span>
+                                                <nb-icon icon="person-outline" class="mr-2 text-hint"></nb-icon>
+                                                {{respostaAluno.aluno.nome}}
+                                            </span><br>
+                                            <small>
+                                                <nb-icon icon="corner-down-right-outline" class="mr-2 text-disabled">
+                                                </nb-icon> {{respostaAluno.respostaAberta}}
+                                            </small>
+                                        </div>
+
+                                        <div class="ml-auto text-right mr-5 d-flex align-items-center">
+                                            <button type="button" nbButton status="primary" size="tiny" class="">
+                                                Corrigir questão
+                                            </button>
+                                        </div>
+
+                                    </nb-accordion-item-header>
+
+                                    <nb-accordion-item-body>
+                                        {{respostaAluno.idResposta}}
+                                        <div class="form-group ">
+                                            <textarea nbInput fullWidth
+                                                placeholder="Deseja comentar a resposta de {{respostaAluno.aluno.nome}} ?"
+                                                [(ngModel)]="comentarioprofessor[respostaAluno.idResposta]"
+                                                name="comentarioProfessor_{{respostaAluno.idResposta}}">
+                                            </textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <nb-radio-group [(ngModel)]="acertou[respostaAluno.idResposta]"
+                                                name="acertou_{{respostaAluno.idResposta}}">
+                                                <nb-radio [value]="true">
+                                                    Acertou
+                                                </nb-radio>
+                                                <nb-radio [value]="false">
+                                                    Errou
+                                                </nb-radio>
+                                            </nb-radio-group>
+                                        </div>
+
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+
+                            </nb-accordion>
+
+                        </div>
+
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+            <button type="submit" nbButton status="primary" *ngIf="!atividade.isExecutado">Enviar</button>
+        </form>
+    </div>
+    <div class="col-sm-3">
+        <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+            <nb-card-header>
+                <h6>Atividade</h6>
+            </nb-card-header>
+            <nb-card-body *ngIf="atividade">
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="edit-2-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <small class="badge badge-primary design">{{atividade.tipo}}</small>
+                        <h6 class="subtitle">{{atividade.titulo}}</h6>
+                        <p class="paragraph-2 text-hint">{{atividade.descricao}}</p>
+
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="calendar-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}}</strong>
+                        </h6>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="person-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Professor <strong>{{atividade.professor.nome}}</strong></h6>
+                    </div>
+                </div>
+
+                <div class="d-flex" *ngIf="atividade.isExecutado">
+                    <div class="mr-3">
+
+                        <nb-icon icon="checkmark-outline" class="text-success"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle">Pontuação obtida <strong><span class="badge badge-pill"
+                                    [ngClass]="{'badge-success': atividade.pontuacaoObtida > 0, 'badge-danger': atividade.pontuacaoObtida == 0}">{{atividade.pontuacaoObtida}}</span></strong>
+                        </h6>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+</div>

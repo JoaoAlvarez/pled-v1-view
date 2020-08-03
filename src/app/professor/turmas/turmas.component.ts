@@ -17,6 +17,8 @@ export class TurmasComponent {
     hideSubHeader: true,
     actions: {
       add: false,
+      edit: false,
+      delete: false,
       position: "right",
       columnTitle: "Ações",
     },
@@ -45,9 +47,9 @@ export class TurmasComponent {
       },
       meet: {
         title: "Link do Meet",
-        type: "string",
+        type: "html",
         valuePrepareFunction: (meet) => {
-          return meet.link
+          return '<a href="' + meet.link + '" target="_blank">Acessar sala de aula</a>'
         }
       }
     },

@@ -161,7 +161,7 @@ export class CriarComponent implements OnInit {
 
         if (response) {
           Swal.fire('Ok', 'Plano de aula adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/professor/planejamento");
+          //this.router.navigateByUrl("/professor/planejamento");
         }
       });
   }

@@ -6,9 +6,7 @@ import { SmartTableData } from "../../@core/data/smart-table";
 import { ProfessorService } from "../professor.service";
 import { finalize } from "rxjs/operators";
 
-import { BadgeComponent } from "../../@theme/components/badge/badge.component";
-//import { instituicoesAnexosComponent } from "../components/anexos.component";
-
+import { NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-simulados',
@@ -57,8 +55,8 @@ export class SimuladosComponent {
         type: "string",
         editable: false,
       },
-      
-      prazoInicial:{
+
+      prazoInicial: {
         title: "Prazo Inicial",
         type: "string",
         valuePrepareFunction: (prazoInicial) => {
@@ -72,7 +70,7 @@ export class SimuladosComponent {
           return new DatePipe('en-US').transform(prazoFinal, 'dd/MM/yyyy');
         }
       },
-      
+
 
     },
   };
@@ -81,7 +79,8 @@ export class SimuladosComponent {
 
   constructor(
     private service: SmartTableData,
-    private ProfessorService: ProfessorService
+    private ProfessorService: ProfessorService,
+    private sidebarService: NbSidebarService
   ) {
     const data = this.service.getData();
 
@@ -98,6 +97,8 @@ export class SimuladosComponent {
         console.log(response);
         this.source.load(response);
         this.source.refresh();
+
+
       });
   }
 
@@ -169,6 +170,6 @@ export class SimuladosComponent {
   }
   onUserRowSelect(event, modal) {
     event => this.source = event;
-    console.log (event.settings);
-    }
+    console.log(event.settings);
+  }
 }

@@ -9,7 +9,12 @@ import { Component } from '@angular/core';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+
+      <nb-layout-header class="header-title" subheader>
+          <ng-content select="[sub-header]"></ng-content>
+      </nb-layout-header>
+
+      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive state="compacted">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 

@@ -4,6 +4,10 @@
 
 @include nb-install-component() {
   .menu-sidebar ::ng-deep .scrollable {
-    padding-top: nb-theme(layout-padding-top);
+    //padding-top: nb-theme(layout-padding-top);
   }
+}
+
+.header-title {
+    background-color:nb-theme(color-info-500);
 }

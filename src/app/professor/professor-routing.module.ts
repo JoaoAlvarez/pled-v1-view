@@ -5,8 +5,8 @@ import { ProfessorComponent } from './professor.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
 
 import { CriarComponent } from './simulados/criar/criar.component';
-
-import { AuthGuard } from "../auth-guard.service";
+import { AtividadeComponent } from './atividade/atividade.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [{
@@ -14,9 +14,8 @@ const routes: Routes = [{
   component: ProfessorComponent,
   children: [
     {
-      path: "",
-      redirectTo: "atividades",
-      pathMatch: "full",
+      path: 'home/:id',
+      component: HomeComponent
     },
     {
       path: "atividades",
@@ -38,11 +37,15 @@ const routes: Routes = [{
       path: "planejamento",
       loadChildren: () => import("./planejamento/planejamento.module").then((m) => m.PlanejamentoModule)
     },
-
     {
-      path: "**",
-      component: NotFoundComponent,
+      path: 'atividade/:id',
+      component: AtividadeComponent
     },
+    {
+      path: "",
+      redirectTo: "home",
+      pathMatch: "full",
+    }
 
   ]
 }];
@@ -55,4 +58,6 @@ export class ProfessorRoutingModule { }
 export const routedComponents = [
   ProfessorComponent,
   CriarComponent,
+  AtividadeComponent,
+  HomeComponent
 ];

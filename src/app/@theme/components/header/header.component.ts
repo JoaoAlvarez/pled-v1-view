@@ -111,8 +111,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    console.log("logout");
     localStorage.removeItem("auth_app_token");
+    localStorage.removeItem("turmaSelected");
     this.router.navigateByUrl("/auth/login");
   }
 

@@ -7,18 +7,7 @@ import { map, catchError } from "rxjs/operators";
   providedIn: "root",
 })
 export class HeaderService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  getParticipante(): Observable<string> {
-    return this.httpClient
-      .get("http://gavea-users.nonprod.azure.pitang.com/api/Participant")
-      .pipe(
-        map((response: any) => {
-          console.log("response", response);
-          if (response) {
-            return response;
-          }
-        })
-      );
-  }
+
 }

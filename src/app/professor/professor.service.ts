@@ -112,4 +112,54 @@ export class ProfessorService {
     );
   }
 
+
+  getTimelineAtividades(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/simulados/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+  getTimelineAulas(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/aulas/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+
+  getTimelineMateriais(turmaId): Observable<any> {
+    return this.httpClient.get("/timeline/materiais/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+
+  getTurmaDetalhe(turmaId): Observable<any> {
+    return this.httpClient.get("/professor/turma/id/" + turmaId).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
+  getAtividade(idAtividade): Observable<any> {
+    return this.httpClient.get("/professor/simulado/id/" + idAtividade).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+
 }
