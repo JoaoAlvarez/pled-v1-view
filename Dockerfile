@@ -2,9 +2,9 @@ FROM node:latest as angular
 ENV NODE_ENV production
 WORKDIR /app
 COPY package.json /app
-RUN npm install --prod --silent && mv node_modules ../
+RUN npm install --production --silent
 COPY . .
-RUN npm run build:prod
+RUN npm run build --prod
 
 FROM nginx:alpine as prod-stage
 VOLUME /var/cache/nginx

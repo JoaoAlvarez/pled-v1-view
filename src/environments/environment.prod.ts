@@ -5,5 +5,5 @@
  */
 export const environment = {
   production: true,
-  url: "https://eply-dev.herokuapp.com",
+  url: "http://177.67.82.7:3000",
 };
