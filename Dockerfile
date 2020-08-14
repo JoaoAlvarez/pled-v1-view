@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install --production --silent
 COPY . .
-RUN npm run build --prod
+RUN npm run build
 
 FROM nginx:alpine as prod-stage
 VOLUME /var/cache/nginx
