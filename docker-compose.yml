@@ -3,6 +3,7 @@ version: '3.4'
 services:
   eply:
     image: eply_front
+    container_name: pled_front
     build: .
     environment:
       NODE_ENV: production
