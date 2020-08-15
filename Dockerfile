@@ -1,6 +1,6 @@
-# FROM node:latest as angular
-# ENV NODE_ENV prod
-# WORKDIR /app
+FROM node:latest
+ENV NODE_ENV prod
+WORKDIR /app
 # COPY package.json /app
 # RUN npm install --silent
 # COPY . .
