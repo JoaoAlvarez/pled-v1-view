@@ -26,7 +26,7 @@ Deploy() {
   if [ "$3" == "npminstall" ];then
 		eval "ssh $comm 'cd $DIRETORIO_REPOSITORIO && rm -rf node_modules/ && git checkout . && git pull && git checkout $2 && git pull origin $2 && npm install && ./node_modules/.bin/ng build --configuration=$1 --sourceMap=false --optimization=true && docker build -t joaoalvarez/pled_front .'"
 	else
-	  eval "ssh $comm 'cd $DIRETORIO_REPOSITORIO && git checkout . && git pull && git checkout $2 && git pull origin $2 && npm install && ./node_modules/.bin/ng build --configuration=$1 --sourceMap=false --optimization=true && docker build -t joaoalvarez/pled_front .'"
+	  eval "ssh $comm 'cd $DIRETORIO_REPOSITORIO && git checkout . && git pull && git checkout $2 && git pull origin $2 && ./node_modules/.bin/ng build --configuration=$1 --sourceMap=false --optimization=true && docker build -t joaoalvarez/pled_front .'"
   fi
 
 	printf "stoping old container..."
