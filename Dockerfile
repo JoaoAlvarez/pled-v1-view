@@ -4,7 +4,6 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install --silent
 COPY . .
-RUN npm install -g @angular/cli@7.3.9
 RUN npm run build
 
 FROM nginx:latest as prod-stage
