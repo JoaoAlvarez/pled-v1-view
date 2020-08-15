@@ -8,5 +8,5 @@
 
 FROM nginx:alpine as prod-stage
 VOLUME /var/cache/nginx
-COPY --from=angular app/dist/requests-http /usr/share/nginx/html
+COPY --from=node app/dist/requests-http /usr/share/nginx/html
 COPY .config/nginx.conf /etc/nginx/conf.d/default.conf
