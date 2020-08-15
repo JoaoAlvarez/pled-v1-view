@@ -32,6 +32,7 @@
     "heroku-postbuild": "npm run env -s && ng build --prod"
   },
   "dependencies": {
+    "@angular/cli": "^9.0.4",
     "@akveo/ng2-completer": "^9.0.1",
     "@angular/animations": "^9.0.4",
     "@angular/cdk": "^9.2.4",
