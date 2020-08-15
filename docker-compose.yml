@@ -6,6 +6,6 @@ services:
     container_name: pled_front
     build: .
     environment:
-      NODE_ENV: production
+      NODE_ENV: prod
     ports:
       - 80
