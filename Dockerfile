@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install --silent
 COPY . .
-RUN npm run build
+RUN .node_modules/.bin/ng build
 
 FROM nginx:latest as prod-stage
 VOLUME /var/cache/nginx
