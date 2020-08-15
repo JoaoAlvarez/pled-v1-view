@@ -1,5 +1,5 @@
 FROM node:latest as angular
-ENV NODE_ENV production
+ENV NODE_ENV prod
 WORKDIR /app
 COPY package.json /app
 RUN npm install --silent
