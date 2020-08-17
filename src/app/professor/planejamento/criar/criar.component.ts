@@ -20,6 +20,8 @@ export class CriarComponent implements OnInit {
   turmas = [];
   turmasFiltered = [];
   disciplinas = [];
+  selectedDisciplina;
+  selectedTurma;
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router) {
 
