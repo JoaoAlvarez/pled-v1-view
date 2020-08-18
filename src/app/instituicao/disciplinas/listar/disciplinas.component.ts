@@ -26,7 +26,7 @@ export class DisciplinasListarComponent {
       delete: false,
       custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'delete', title: '<i class="nb-trash"></i>' }
+        // { name: 'delete', title: '<i class="nb-trash"></i>' }
       ],
     },
 

@@ -27,10 +27,10 @@ export class AlunosListarComponent {
       add: false,
       edit: false,
       delete: false,
-      custom: [
-        { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'delete', title: '<i class="nb-trash"></i>' }
-      ],
+      // custom: [
+      //   { name: 'edit', title: '<i class="nb-edit"></i>' },
+      //   { name: 'delete', title: '<i class="nb-trash"></i>' }
+      // ],
 
     },
 
@@ -65,15 +65,7 @@ export class AlunosListarComponent {
         title: "E-Mail",
         type: "string",
         editable: false,
-      },
-      turma: {
-        title: "Turma",
-        type: "string",
-        valuePrepareFunction: (turma) => {
-          return turma.nome;
-        }
       }
-
     },
   };
 
