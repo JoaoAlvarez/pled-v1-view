@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = "default";
 
-  userMenu = [{ title: "Log out" }];
+  userMenu = [{ title: "Sair" }];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
     this.menuService.onItemClick().subscribe((event) => {
-      if (event.item.title === "Log out") {
+      if (event.item.title === "Sair") {
         this.logout();
       }
     });

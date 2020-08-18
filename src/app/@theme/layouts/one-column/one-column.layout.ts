@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NbAuthJWTToken, NbAuthService, NbAuthResult } from "@nebular/auth";
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'ngx-one-column-layout',
@@ -10,7 +13,7 @@ import { Component } from '@angular/core';
       </nb-layout-header>
 
 
-      <nb-layout-header class="header-title" subheader>
+      <nb-layout-header class="header-title" subheader *ngIf="loggedUser.user.perfil != 'Administrador'">
           <ng-content select="[sub-header]"></ng-content>
       </nb-layout-header>
 
@@ -29,4 +32,29 @@ import { Component } from '@angular/core';
     </nb-layout>
   `,
 })
-export class OneColumnLayoutComponent { }
+export class OneColumnLayoutComponent implements OnInit {
+
+  loggedUser = {};
+  user: any;
+
+
+  constructor(
+    private authService: NbAuthService,
+    protected router: Router,
+  ) {
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+
+      if (token.isValid()) {
+        this.loggedUser = token.getPayload();
+        console.log(this.loggedUser);
+      }
+    });
+
+  }
+
+
+  ngOnInit(): void {
+    //this.getAlunoDetalhe();
+  }
+
+}

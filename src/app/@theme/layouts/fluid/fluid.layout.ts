@@ -16,8 +16,6 @@ export class FluidLayoutComponent implements OnInit {
   turmaId;
 
   constructor(private fluidLayoutService: FluidLayoutService, protected router: Router, private route: ActivatedRoute) {
-
-
   }
 
   ngOnInit(): void {

@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: "Instituições",
-    icon: "people-outline",
+    icon: "home-outline",
     children: [
       {
         title: "Listar instituições",
@@ -20,12 +20,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: "Usuários",
     icon: "people-outline",
     children: [
-        {
-            title: "Listar",
-            link: "/admin/usuarios/listar",
-        },
+      {
+        title: "Listar",
+        link: "/admin/usuarios/listar",
+      },
 
     ],
 
-},
+  },
 ];

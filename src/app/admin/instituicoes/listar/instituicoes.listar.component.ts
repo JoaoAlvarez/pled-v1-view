@@ -27,7 +27,7 @@ export class instituicoesListarComponent {
       delete: false,
       custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'status', title: '<i class="nb-trash"></i>' }
+        // { name: 'status', title: '<i class="nb-trash"></i>' }
       ],
     },
     add: {

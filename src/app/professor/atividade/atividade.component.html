@@ -31,12 +31,7 @@
 
                     </div>
 
-                    <div *ngIf="questao.alternativas && questao.alternativas.length == 0">
-                        <!-- <textarea *ngIf="!questao.respostaAberta" nbInput fullWidth placeholder="Resposta"
-                            [(ngModel)]="questao[questao.id]" name="questaoAberta_{{questao.id}}"
-                            [attr.disabled]="questao.respostaAberta">
-
-                        </textarea> -->
+                    <div *ngIf="questao.alternativas && questao.alternativas.length == 0" ngModelGroup="{{questao.id}}">
 
                         <div *ngIf="questao.respostasAlunos.length > 0" class="mt-4">
 
@@ -48,7 +43,6 @@
                                 <nb-accordion-item *ngFor="let respostaAluno of questao.respostasAlunos; let i=index">
 
                                     <nb-accordion-item-header>
-                                        <!-- <nb-icon icon="corner-down-right-outline" class="mr-4 text-hint"></nb-icon> -->
 
                                         <div>
                                             <span>
@@ -61,26 +55,28 @@
                                             </small>
                                         </div>
 
-                                        <div class="ml-auto text-right mr-5 d-flex align-items-center">
+                                        <!-- <div class="ml-auto text-right mr-5 d-flex align-items-center">
                                             <button type="button" nbButton status="primary" size="tiny" class="">
                                                 Corrigir questão
                                             </button>
-                                        </div>
+                                        </div> -->
 
                                     </nb-accordion-item-header>
 
-                                    <nb-accordion-item-body>
-                                        {{respostaAluno.idResposta}}
+                                    <nb-accordion-item-body ngModelGroup="{{respostaAluno.idResposta}}">
+                                        <!-- {{respostaAluno.idResposta}} -->
+
+
+
                                         <div class="form-group ">
                                             <textarea nbInput fullWidth
+                                                [(ngModel)]="[respostaAluno.idResposta].comentarioProfessor"
                                                 placeholder="Deseja comentar a resposta de {{respostaAluno.aluno.nome}} ?"
-                                                [(ngModel)]="comentarioprofessor[respostaAluno.idResposta]"
-                                                name="comentarioProfessor_{{respostaAluno.idResposta}}">
-                                            </textarea>
+                                                name="comentarioProfessor"></textarea>
                                         </div>
 
                                         <div class="form-group">
-                                            <nb-radio-group [(ngModel)]="acertou[respostaAluno.idResposta]"
+                                            <nb-radio-group [(ngModel)]="[respostaAluno.idResposta].acertou"
                                                 name="acertou_{{respostaAluno.idResposta}}">
                                                 <nb-radio [value]="true">
                                                     Acertou
