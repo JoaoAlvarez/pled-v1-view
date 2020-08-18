@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   NbMenuModule,
   NbCardModule,
@@ -68,6 +68,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbSidebarModule,
     NbTabsetModule
 
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class ProfessorModule { }

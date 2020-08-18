@@ -36,28 +36,18 @@ export class AtividadeComponent implements OnInit {
     this.alunoSerivce
       .getAtividade(atividadeId)
       .subscribe((response) => {
-        console.log(response);
         this.isLoading = false;
         this.atividade = response;
       });
   }
 
-  setDefaultValue(alternativas) {
-    console.log(alternativas);
-  }
-
   submitForm(formValue) {
-    console.log('Atividade ID', this.atividadeId)
-    console.log('Turma ID', this.turmaId)
-    console.log('Respostas', formValue);
 
     this.isLoading = true;
 
     let respostas = [];
 
     for (const [key, value] of Object.entries(formValue)) {
-      console.log(key);
-      console.log(value);
       if (key.includes('questaoAberta')) {
         respostas.push({
           'idQuestao': key.split("_").pop(),
@@ -77,8 +67,6 @@ export class AtividadeComponent implements OnInit {
       'idTurma': this.turmaId,
       'respostas': respostas
     }
-
-    console.log('DADDOOOOSSS>>>>', dados);
 
     this.alunoSerivce
       .enviarRespostas(dados, this.atividadeId)

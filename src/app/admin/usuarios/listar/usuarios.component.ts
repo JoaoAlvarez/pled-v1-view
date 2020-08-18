@@ -27,10 +27,10 @@ export class UsuariosListarComponent {
       add: false,
       edit: false,
       delete: false,
-      custom: [
-        { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'delete', title: '<i class="nb-trash"></i>' }
-      ],
+      // custom: [
+      //   { name: 'edit', title: '<i class="nb-edit"></i>' },
+      //   { name: 'delete', title: '<i class="nb-trash"></i>' }
+      // ],
 
     },
 
@@ -104,7 +104,6 @@ export class UsuariosListarComponent {
       .getUsuarios()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response.phones);
         this.source.load(response);
         // this.source.addFilter( // Filtrar pendentes
         //   {
@@ -163,7 +162,6 @@ export class UsuariosListarComponent {
   }
 
   onDeleteConfirm(event): void {
-    console.log(event);
     if (
       window.confirm(
         "Tem certeza que deseja excluir este usuário?"
@@ -182,7 +180,6 @@ export class UsuariosListarComponent {
   }
 
   onCustomAction(event): void {
-    console.log(event);
     // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
     this.router.navigateByUrl("/admin/usuarios/listar/" + event.data.id);
   }

@@ -8,7 +8,7 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <form [formGroup]="form" (ngSubmit)="submit()" action="">
+        <form [formGroup]="form" action="">
             <div class="form-group row">
                 <label for="nome" class="label col-sm-2 col-form-label">Nome</label>
                 <div class="col-sm-10">
@@ -24,7 +24,7 @@
                     <a routerLink="/instituicao/turmas/cadastrar">turma</a>
                 </div>
 
-                <div class="col-sm-10" *ngIf="turmas != '' && turmas.length > 0">
+                <div class="col-sm-10" *ngIf="turmas && turmas.length > 0">
                     <nb-select fullWidth id="turma" placeholder="Selecione uma Turma" [(selected)]="selectedItem"
                         formControlName="turma">
                         <nb-option *ngFor="let turma of turmas;" [value]="turma.id">

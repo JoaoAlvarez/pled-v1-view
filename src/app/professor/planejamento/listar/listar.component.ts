@@ -18,6 +18,8 @@ export class ListarComponent implements OnInit {
   turmas = [];
   turmasFiltered = [];
   disciplinas = [];
+  selectedDisciplina;
+  selectedTurma;
 
 
   settings = {

@@ -18,6 +18,12 @@ export class AtividadeComponent implements OnInit {
   turmaId;
   atividade;
 
+  public teste: any[] = [{
+    id: '',
+    acertou: '',
+    comentarioProfessor: ''
+  }];
+
   constructor(private route: ActivatedRoute, private professorService: ProfessorService) {
     this.route.paramMap.subscribe((params: any) => {
       this.atividadeId = params.get('id');
@@ -40,60 +46,93 @@ export class AtividadeComponent implements OnInit {
         console.log(response);
         this.isLoading = false;
         this.atividade = response;
+
+        // this.atividade.questoes.forEach(questao => {
+
+        //   let respostasAlunos: any[] = [];
+
+        //   if (!questao.isMultiplaEscolha) {
+        //     questao.respostasAlunos.forEach(respostaAluno => {
+        //       respostasAlunos.push({
+        //         id: respostaAluno.idResposta,
+        //         acertou: '',
+        //         respostaAluno: respostaAluno.respostaAberta,
+        //         comentarioProfessor: ''
+        //       })
+
+        //     });
+        //   }
+        // });
+
+        //this.getRespostasAlunos(this.atividade.questoes);
       });
   }
 
-  setDefaultValue(alternativas) {
-    console.log(alternativas);
+  // getRespostasAlunos(questoes) {
+
+  // }
+
+  getValueOfKey(values) {
+    for (const [key, value] of Object.entries(values)) {
+      if (key.includes('acertou')) {
+        return value;
+      }
+    }
   }
 
   submitForm(formValue) {
-    console.log('Atividade ID', this.atividadeId)
-    console.log('Turma ID', this.turmaId)
-    console.log('Respostas', formValue);
 
     this.isLoading = true;
 
+
     let respostas = [];
 
+
     for (const [key, value] of Object.entries(formValue)) {
-      console.log(key);
-      console.log(value);
-      if (key.includes('questaoAberta')) {
-        respostas.push({
-          'idQuestao': key.split("_").pop(),
-          'respostaAberta': value
-        });
-      } else {
-        respostas.push({
-          'idQuestao': key.split("_").pop(),
-          'respostaAlternativa': value
-        });
+
+      let values = value;
+      let respostasAlunos = [];
+
+
+      for (const [key, value] of Object.entries(values)) {
+        console.log('respostaAluno', key);
+        console.log('respostaAlunoValues', value);
+
+        if (value.comentarioProfessor && (this.getValueOfKey(value) != undefined)) {
+          respostasAlunos.push({
+            id: key,
+            comentarioProfessor: value.comentarioProfessor,
+            acertou: this.getValueOfKey(value)
+          })
+        }
 
       }
 
+      if (respostasAlunos.length != 0) {
+        respostas.push({
+          id: key,
+          respostasAlunos: respostasAlunos
+        })
+      }
+
+
     }
 
-    let dados = {
-      'idTurma': this.turmaId,
-      'respostas': respostas
-    }
+    console.log('Respostas >>>>', respostas);
 
-    console.log('DADDOOOOSSS>>>>', dados);
+    this.professorService
+      .enviarRespostas(this.atividadeId, respostas)
+      .subscribe((response) => {
 
-    // this.professorService
-    //   .enviarRespostas(dados, this.atividadeId)
-    //   .subscribe((response) => {
+        this.isLoading = false;
+        if (response) {
+          Swal.fire('Ok', 'Atividade respondida com sucesso', 'success');
+          this.getAtividade(this.atividadeId);
+        }
 
-    //     this.isLoading = false;
-    //     if (response) {
-    //       Swal.fire('Ok', 'Atividade respondida com sucesso', 'success');
-    //       this.getAtividade(this.atividadeId);
-    //     }
-
-    //   }, error => {
-    //     this.isLoading = false;
-    //   });
+      }, error => {
+        this.isLoading = false;
+      });
 
   }
 

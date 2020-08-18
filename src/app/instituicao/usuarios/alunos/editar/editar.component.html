@@ -18,8 +18,7 @@
             <div class="form-group row">
                 <label for="turma" class="label col-sm-2 col-form-label">Turma</label>
                 <div class="col-sm-10">
-                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turma" [(selected)]="selectedItem"
-                        formControlName="turma">
+                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turma" formControlName="turma">
                         <nb-option *ngFor="let turma of turmas;" [value]="turma.id">
                             {{ turma.nome }}</nb-option>
                     </nb-select>
@@ -41,16 +40,18 @@
             <div class="form-group row">
                 <label for="dataNascimento" class="label col-sm-2 col-form-label">Data de Nascimento</label>
                 <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="dataNascimento" placeholder="Data de Nascimento" formControlName="dataNascimento" mask="00/00/0000">
+                    <input type="text" nbInput fullWidth id="dataNascimento" placeholder="Data de Nascimento"
+                        formControlName="dataNascimento" mask="00/00/0000">
                 </div>
             </div>
             <div [formGroup]="phones" class="form-group row">
                 <label for="phone" class="label col-sm-2 col-form-label">Telefone para Contato</label>
                 <div class="col-sm-10">
                     <input type="text" nbInput id="ddd" placeholder="(00)" formControlName="ddd" mask="(00)">
-                    <input type="text" nbInput id="phoneNumber" placeholder="0.0000-0000" formControlName="phoneNumber" mask="0.0000-0000">
+                    <input type="text" nbInput id="phoneNumber" placeholder="0.0000-0000" formControlName="phoneNumber"
+                        mask="0.0000-0000">
                 </div>
-                
+
             </div>
 
             <div class="form-group row">

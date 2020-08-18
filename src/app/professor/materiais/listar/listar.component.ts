@@ -18,6 +18,8 @@ export class MateriaisListarComponent implements OnInit {
   turmas = [];
   turmasFiltered = [];
   disciplinas = [];
+  selectedTurma;
+  selectedDisciplina;
 
   settings = {
     hideSubHeader: true,

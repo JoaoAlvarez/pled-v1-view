@@ -162,4 +162,15 @@ export class ProfessorService {
     )
   }
 
+  enviarRespostas(idSimulado, respostas): Observable<any> {
+
+    return this.httpClient.put("/professor/simulado/corrigir/" + idSimulado, respostas).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
 }
