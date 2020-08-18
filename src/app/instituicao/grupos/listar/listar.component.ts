@@ -27,9 +27,9 @@ export class GruposListarComponent {
     actions: {
       position: "right",
       columnTitle: "Ações",
-      //add: false,
-      //edit: false,
-      //delete: false,
+      add: false,
+      edit: false,
+      delete: false,
       /*custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
         { name: 'delete', title: '<i class="nb-trash"></i>' }
@@ -53,11 +53,11 @@ export class GruposListarComponent {
       confirmDelete: true,
     },
     columns: {
-      nome:{
+      nome: {
         title: "Nome",
         type: "string",
         editable: true,
-        valuePrepareFunction: (value,row,cell) => {
+        valuePrepareFunction: (value, row, cell) => {
           return this.list[cell.row.index];
         }
       },
@@ -65,7 +65,7 @@ export class GruposListarComponent {
     },
   };
 
-  list=[];
+  list = [];
 
   source: LocalDataSource = new LocalDataSource();
 
@@ -88,7 +88,7 @@ export class GruposListarComponent {
       .subscribe((response) => {
         response.forEach(element => {
           this.list.push(element);
-          
+
         });
         /*this.list.push(response);
         this.index++;
@@ -157,34 +157,34 @@ export class GruposListarComponent {
     //console.log(event.newData);
     //event.data[0] = 'a';
     event.source.data.forEach(element => {
-      if(element==event.data){
-        event.confirm.resolve(); 
-        var nome =event.data;
+      if (element == event.data) {
+        event.confirm.resolve();
+        var nome = event.data;
         var novoNome = event.newData.nome;
-        var editgroup ={nome, novoNome}
+        var editgroup = { nome, novoNome }
         //event.newData=a;
         console.log(editgroup);
         event.confirm.resolve();
         this.isLoading = true;
-      const result: grupo =  Object.assign({},editgroup);
-      this.InstituicaoService
-      .editarGrupo(result)
-      .pipe(finalize(() => { this.isLoading = false; }))
-      .subscribe((response) => {
-        
-        this.isLoading = false;
+        const result: grupo = Object.assign({}, editgroup);
+        this.InstituicaoService
+          .editarGrupo(result)
+          .pipe(finalize(() => { this.isLoading = false; }))
+          .subscribe((response) => {
 
-        if (response) {
-          
-          Swal.fire('Ok', 'Grupo atualizado com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/grupos/listar");
-        }
-      });
+            this.isLoading = false;
+
+            if (response) {
+
+              Swal.fire('Ok', 'Grupo atualizado com sucesso', 'success');
+              this.router.navigateByUrl("/instituicao/grupos/listar");
+            }
+          });
       }
     });
-    
-    
-    
+
+
+
 
   }
 }

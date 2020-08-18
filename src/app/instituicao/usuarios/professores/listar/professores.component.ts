@@ -22,6 +22,9 @@ export class ProfessoresListarComponent {
       add: false,
       position: "right",
       columnTitle: "Ações",
+      edit: false,
+      delete: false,
+
     },
 
     add: {

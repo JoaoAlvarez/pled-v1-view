@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
       </nb-layout-header>
 
 
-      <nb-layout-header class="header-title" subheader *ngIf="loggedUser.user.perfil != 'Administrador'">
+      <nb-layout-header class="header-title" subheader *ngIf="loggedUser.user.perfil != 'Administrador' && loggedUser.user.perfil != 'Instituição'">
           <ng-content select="[sub-header]"></ng-content>
       </nb-layout-header>
 
