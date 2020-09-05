@@ -5,5 +5,5 @@
  */
 export const environment = {
   production: true,
-  url: "https://eply-dev.herokuapp.com",
+  url: "https://api.plededucacao.com.br:3000",
 };
