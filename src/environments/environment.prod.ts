@@ -5,5 +5,5 @@
  */
 export const environment = {
   production: true,
-  url: "http://177.67.82.7:3000",
+  url: "https://api.plededucacao.com.br",
 };
