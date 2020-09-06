@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  eply:
+    image: joaoalvarez/pled_front
+    container_name: pled_front
+    build: .
+    environment:
+      NODE_ENV: prod
+    ports:
+      - 80
