@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-sm-7">
-        <nb-card accent="info" class="shadow-lg" [nbSpinner]="turmasLoading" nbSpinnerStatus="primary"
+    <div class="col-md-7">
+        <nb-card accent="info" class="shadow-lg" [nbSpinner]="timelineLoading" nbSpinnerStatus="primary"
             nbSpinnerSize="large">
             <nb-card-header>
-                <h6>Próximas aulas</h6>
+                <h6>Suas próximas aulas</h6>
             </nb-card-header>
 
 
 
-            <div *ngIf="aulas" class="p-4">
+            <div *ngIf="aulas && aulas.length > 0 && !timelineLoading" class="p-4">
                 <div *ngFor="let aula of aulas">
                     <div class="d-flex" *ngIf="!aula.objeto.aovivo">
                         <div class="mr-3">
@@ -76,75 +76,79 @@
 
             </div>
 
+            <div *ngIf="aulas && aulas.length == 0 && !timelineLoading">
+                <nb-card class=" m-4">
+                    <nb-card-body class="text-center p-4">
+                        <p class="text-muted">Nenhuma aula próxima. <br> Talvez você deseje criar seu planejamento de
+                            aulas.</p>
+
+                        <a [routerLink]="['/professor/planejamento/criar']" nbButton class="shadow" nbButton hero
+                            shape="round" status="primary">Criar
+                            planejamento de aulas
+                            +</a>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+
 
 
         </nb-card>
     </div>
 
-    <div class="col-sm-5">
+    <div class="col-md-5">
         <nb-card accent="info" class="shadow-lg" [nbSpinner]="timelineLoading" nbSpinnerStatus="primary"
             nbSpinnerSize="large">
             <nb-card-header>
-                <h6>Fique ligado!</h6>
+                <h6>Atividades recentes</h6>
             </nb-card-header>
 
             <nb-tabset>
-                <nb-tab tabTitle="Atividades">
-                    <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]" class="d-flex"
-                        *ngFor="let atividade of atividades">
-                        <div class="mr-3">
+                <nb-tab tabTitle="Atividades recentes">
+                    <div *ngIf="atividades && atividades.length > 0 && !timelineLoading">
+                        <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]" class="d-flex"
+                            *ngFor="let atividade of atividades">
+                            <div class="mr-3">
 
-                            <nb-icon icon="edit-2-outline" class="text-disabled" *ngIf="!atividade.objeto.isExecutado">
-                            </nb-icon>
-                            <nb-icon icon="checkmark-outline" class="text-success" *ngIf="atividade.objeto.isExecutado">
-                            </nb-icon>
-                        </div>
-                        <div>
-                            <small class="badge badge-primary"
-                                [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
-                            <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
-                                {{atividade.objeto.titulo}}</h6>
-                            <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
-                        </div>
-                        <div class="ml-auto d-flex">
-
+                                <nb-icon icon="edit-2-outline" class="text-disabled"
+                                    *ngIf="!atividade.objeto.isExecutado">
+                                </nb-icon>
+                                <nb-icon icon="checkmark-outline" class="text-success"
+                                    *ngIf="atividade.objeto.isExecutado">
+                                </nb-icon>
+                            </div>
                             <div>
-                                <h6 class="subtitle">
-                                    <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
-                                    {{atividade.objeto.professor.nome}}
-                                </h6>
-                                <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}}</small>
+                                <small class="badge badge-primary"
+                                    [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
+                                <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
+                                    {{atividade.objeto.titulo}}</h6>
+                                <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
+                            </div>
+                            <div class="ml-auto d-flex">
+
+                                <div>
+                                    <h6 class="subtitle">
+                                        <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
+                                        {{atividade.objeto.professor.nome}}
+                                    </h6>
+                                    <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                    <div *ngIf="atividades && atividades.length == 0 && !timelineLoading">
+                        <nb-card>
+                            <nb-card-body class="text-center p-4">
+                                <p class="text-muted">Não há atividades recententes. <br> Deseja cadastar uma nova
+                                    atividade?</p>
 
-
-                </nb-tab>
-
-                <nb-tab tabTitle="Materiais">
-
-                    <div class="d-flex align-items-center w-100" *ngFor="let material of materiais">
-                        <h1>
-                            <nb-actions size="small">
-                                <nb-action icon="download-outline"></nb-action>
-                            </nb-actions>
-                        </h1>
-                        <div>
-                            <small class="badge badge-primary"
-                                [style.background-color]="material.disciplina.cor">{{material.disciplina.nome}}</small>
-                            <h6>{{material.objeto.nome}}</h6>
-                            <p class="paragraph-2 text-hint">{{material.objeto.descricao}}</p>
-                        </div>
-                        <div class="ml-auto d-flex">
-
-                            <div>
-                                <a href="{{material.objeto.url}}" nbButton>Download</a>
-                            </div>
-                        </div>
+                                <a [routerLink]="['/professor/atividades/criar']" nbButton class="shadow" nbButton hero
+                                    shape="round" status="primary">Criar
+                                    nova atividade
+                                    +</a>
+                            </nb-card-body>
+                        </nb-card>
                     </div>
-
-
 
 
 

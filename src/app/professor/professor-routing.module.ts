@@ -7,6 +7,7 @@ import { NotFoundComponent } from "../miscellaneous/not-found/not-found.componen
 import { CriarComponent } from './simulados/criar/criar.component';
 import { AtividadeComponent } from './atividade/atividade.component';
 import { HomeComponent } from './home/home.component';
+import { SalaComponent } from './sala/sala.component';
 
 
 const routes: Routes = [{
@@ -42,6 +43,10 @@ const routes: Routes = [{
       component: AtividadeComponent
     },
     {
+      path: 'sala/:id',
+      component: SalaComponent
+    },
+    {
       path: "",
       redirectTo: "home",
       pathMatch: "full",
@@ -59,5 +64,6 @@ export const routedComponents = [
   ProfessorComponent,
   CriarComponent,
   AtividadeComponent,
-  HomeComponent
+  HomeComponent,
+  SalaComponent
 ];

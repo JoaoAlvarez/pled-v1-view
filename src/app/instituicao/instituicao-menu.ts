@@ -28,7 +28,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     {
         title: "Turmas",
-        icon: "people-outline",
+        icon: "home-outline",
         children: [
             {
                 title: "Cadastrar Turma",
@@ -45,7 +45,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     {
         title: "Disciplinas",
-        icon: "people-outline",
+        icon: "book-open-outline",
         children: [
             {
                 title: "Adicionar Disciplinas",
@@ -62,7 +62,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     {
         title: "Grupos",
-        icon: "people-outline",
+        icon: "layers-outline",
         children: [
             {
                 title: "Cadastrar Grupo",

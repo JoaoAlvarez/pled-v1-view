@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PlanejamentoComponent } from './planejamento.component';
 import { CriarComponent } from './criar/criar.component';
 import { ListarComponent } from './listar/listar.component';
+import { AvulsoComponent } from './avulso/avulso.component';
 
 
 const routes: Routes = [{
@@ -17,6 +18,10 @@ const routes: Routes = [{
     {
       path: "listar",
       component: ListarComponent
+    },
+    {
+      path: "criaraula",
+      component: AvulsoComponent
     }
   ]
 }
@@ -31,5 +36,6 @@ export class PlanejamentoRoutingModule { }
 export const routedComponents = [
   PlanejamentoComponent,
   CriarComponent,
-  ListarComponent
+  ListarComponent,
+  AvulsoComponent
 ];

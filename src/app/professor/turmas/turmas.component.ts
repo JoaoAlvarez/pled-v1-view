@@ -22,7 +22,6 @@ export class TurmasComponent {
       position: "right",
       columnTitle: "Ações",
     },
-
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -48,8 +47,8 @@ export class TurmasComponent {
       meet: {
         title: "Link do Meet",
         type: "html",
-        valuePrepareFunction: (meet) => {
-          return '<a href="' + meet.link + '" target="_blank">Acessar sala de aula</a>'
+        valuePrepareFunction: (meet, row) => {
+          return '<a class="btn btn-primary btn-sm text-white" href="#/professor/sala/' + row.id + '" target="_blank">Acessar sala de aula</a>'
         }
       }
     },
@@ -64,11 +63,11 @@ export class TurmasComponent {
     const data = this.service.getData();
 
     //this.source.load(data);
-    this.getSimulados();
+    this.getTurmas();
 
   }
 
-  getSimulados() {
+  getTurmas() {
     this.ProfessorService
       .getTurmas()
       .pipe(finalize(() => { }))

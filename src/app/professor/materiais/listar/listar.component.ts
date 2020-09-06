@@ -30,7 +30,7 @@ export class MateriaisListarComponent implements OnInit {
       edit: false,
       delete: false,
       custom: [
-        { name: 'edit', title: '<i class="nb-edit"></i>' },
+        // { name: 'edit', title: '<i class="nb-edit"></i>' },
         { name: 'delete', title: '<i class="nb-trash"></i>' }
       ],
     },
@@ -80,16 +80,9 @@ export class MateriaisListarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getDetalhesProfessor();
+    this.getDisciplinas();
     this.getTurmasProfessor();
   }
-
-  filtrarTurma(disciplinaId) {
-    this.turmasFiltered = this.turmas.filter(
-      turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == disciplinaId
-      ));
-  }
-
 
   getTurmasProfessor() {
     this.ProfessorService
@@ -100,13 +93,14 @@ export class MateriaisListarComponent implements OnInit {
       });
   }
 
-  getDetalhesProfessor() {
-    this.ProfessorService
-      .getProfessorDetalhes()
-      .subscribe((response) => {
-        this.isLoading = false;
-        this.disciplinas = response.disciplinas;
-      });
+  getDisciplinas() {
+    this.disciplinas = this.ProfessorService.professorDetalhe.disciplinas;
+  }
+
+  filtrarTurma(disciplinaId) {
+    this.turmasFiltered = this.turmas.filter(
+      turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == disciplinaId
+      ));
   }
 
   getMateriais(disciplinaId, turmaId) {

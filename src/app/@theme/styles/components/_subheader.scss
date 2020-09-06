@@ -1,0 +1,17 @@
+.sub-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.sub-header__actions {
+    margin-left: auto;
+    display:flex;
+    align-items: center;
+    flex: 1 0 50%;
+    justify-content: flex-end;
+}
+
+.sub-header__displayname {
+    flex:1 0 50%;
+}

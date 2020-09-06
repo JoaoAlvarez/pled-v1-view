@@ -13,20 +13,20 @@ export class HomeComponent implements OnInit {
   disciplinas: any = [];
   simulados: any = [];
   turmas: any = [];
-  turmasLoading: boolean = true;
   timelineLoading: boolean = true;
   turmaId;
   aulas: any = [];
   atividades: any = [];
-  materiais: any = [];
+  professorDetalhe;
 
 
   constructor(private professorService: ProfessorService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
       this.turmaId = params.get('id');
-      this.getTurmas();
       this.getTimeline(this.turmaId);
     });
+
+    this.professorDetalhe = this.professorService.professorDetalhe;
 
   }
 
@@ -49,34 +49,32 @@ export class HomeComponent implements OnInit {
   getTimeline(turmaId) {
     forkJoin(this.professorService
       .getTimelineAulas(turmaId), this.professorService
-        .getTimelineAtividades(turmaId), this.professorService
-          .getTimelineMateriais(turmaId))
+        .getTimelineAtividades(turmaId))
       .subscribe((response) => {
-        console.log(response);
-        let aulas = response[0];
 
-        aulas.forEach(aula => {
-          aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
-        });
+        this.filtrarAulas(response[0]);
+        this.filtrarAtividades(response[1]);
 
-        this.aulas = aulas;
-        this.atividades = response[1];
-        this.materiais = response[2];
+
 
         this.timelineLoading = false;
 
-        console.log('Aulas depois de comparar datas', this.aulas);
       });
   }
 
-  getTurmas() {
-    this.professorService
-      .getTurmas()
-      .subscribe((response) => {
-        console.log('Turma detalhe', response);
-        this.turmasLoading = false;
-        this.turmas = response;
-      });
+  filtrarAtividades(atividades) {
+    this.atividades = atividades.filter((atividade) => atividade.objeto.professor == this.professorDetalhe.id);
+  }
+
+  filtrarAulas(aulas) {
+
+    aulas = aulas.filter((aula) => aula.disciplina.professor.id == this.professorDetalhe.id);
+
+    aulas.forEach(aula => {
+      aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
+    });
+
+    this.aulas = aulas;
   }
 
   compareDates(dataInicio, dataFim) {
