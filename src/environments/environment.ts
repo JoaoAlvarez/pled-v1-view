@@ -10,6 +10,6 @@
 
 export const environment = {
   production: false,
-  url: "https://api.plededucacao.com.br:3000",
+  url: "https://api.plededucacao.com.br",
   //url: "http://localhost:3000",
 };

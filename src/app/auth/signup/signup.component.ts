@@ -83,7 +83,7 @@ export class SignupComponent implements OnInit {
           }
 
           Swal.fire('Ok', 'Cadastro realizado com sucesso', 'success');
-          this.router.navigateByUrl("/auth/login");
+          this.router.navigateByUrl("/auth/login?email=" + data.email);
           // this.authService.signIn(data).subscribe((response) => {
           //   //this.nbTokenService.set(response.token);
           // })

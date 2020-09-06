@@ -19,6 +19,7 @@ export class ProfessorService {
       })
     );
   }
+
   criarSimulado(dados: any): Observable<any> {
     return this.httpClient
       .post("/professor/simulado/novo", dados)
@@ -30,6 +31,7 @@ export class ProfessorService {
         })
       );
   }
+
   getTurmas(): Observable<any> {
     return this.httpClient.get("/professor/turma").pipe(
       map((response: any) => {
@@ -39,6 +41,7 @@ export class ProfessorService {
       })
     );
   }
+
   getProfessorDetalhes(): Observable<any> {
     return this.httpClient.get("/professor/detalhado").pipe(
       map((response: any) => {
@@ -49,6 +52,10 @@ export class ProfessorService {
     );
   }
 
+  get professorDetalhe() {
+    return JSON.parse(localStorage.getItem('professor'));
+  }
+
   inserirSimuladoTurma(data): Observable<any> {
     return this.httpClient.post("/professor/simulado/turma", data).pipe(
       map((response: any) => {
@@ -56,6 +63,7 @@ export class ProfessorService {
       })
     )
   }
+
   getMateriais(disciplinaId, turmaId): Observable<any> {
     let dados = {
       'turma': turmaId,
@@ -70,13 +78,44 @@ export class ProfessorService {
       })
     );
   }
+
   inserirMateriais(data): Observable<any> {
-    return this.httpClient.post("/professor/turma/material", data).pipe(
+    console.log(data);
+
+    let send;
+    let url;
+    let params;
+
+    if (data.tipo_material == 'arquivo') {
+
+      send = new FormData();
+      send.append('file', data.fileSource);
+      send.append('dados', JSON.stringify(data));
+      url = '/professor/turma/material/arquivo';
+
+
+      // params = {
+      //   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
+      // }
+
+
+    } else if (data.tipo_material == 'url') {
+
+      url = '/professor/turma/material/url';
+      send = data;
+
+      delete send.file;
+    }
+
+    console.log('SEND', send);
+
+    return this.httpClient.post(url, send, params).pipe(
       map((response: any) => {
         return response;
       })
     )
   }
+
   editarMateriais(data): Observable<any> {
     return this.httpClient.put("/professor/turma/material", data).pipe(
       map((response: any) => {
@@ -112,7 +151,6 @@ export class ProfessorService {
     );
   }
 
-
   getTimelineAtividades(turmaId): Observable<any> {
     return this.httpClient.get("/timeline/simulados/" + turmaId).pipe(
       map((response: any) => {
@@ -122,6 +160,7 @@ export class ProfessorService {
       })
     )
   }
+
   getTimelineAulas(turmaId): Observable<any> {
     return this.httpClient.get("/timeline/aulas/" + turmaId).pipe(
       map((response: any) => {
@@ -163,7 +202,6 @@ export class ProfessorService {
   }
 
   enviarRespostas(idSimulado, respostas): Observable<any> {
-
     return this.httpClient.put("/professor/simulado/corrigir/" + idSimulado, respostas).pipe(
       map((response: any) => {
         if (response) {

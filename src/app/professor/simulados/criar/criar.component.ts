@@ -165,7 +165,7 @@ export class CriarComponent implements OnInit {
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Simulado adicionada com sucesso', 'success');
+          Swal.fire('Ok', 'Atividade adicionada com sucesso', 'success');
           this.router.navigateByUrl("/atividades");
         }
       });

@@ -70,6 +70,7 @@ export class ProfessorComponent implements OnInit {
   }
 
   navigateToTurma(turma) {
+    console.log('Select turma', turma);
     this.router.navigate(['/professor/home/' + turma.id]);
     localStorage.setItem('turmaSelected', JSON.stringify(turma));
   }

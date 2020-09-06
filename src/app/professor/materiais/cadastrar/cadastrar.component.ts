@@ -20,6 +20,8 @@ export class MateriaisCadastrarComponent implements OnInit {
   turmas = [];
   turmasFiltered = [];
   disciplinas = [];
+  file: string;
+  fileBase64: any;
 
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router,
@@ -58,26 +60,47 @@ export class MateriaisCadastrarComponent implements OnInit {
     return this.form.get('material') as FormGroup;
   }
 
+
+
+  fileChange(event: any) {
+    // if (event.target.files.length > 0) {
+    //   const file = event.target.files[0];
+    //   this.file = file;
+    //   this.form.patchValue({
+    //     fileSource: file
+    //   });
+    // }
+
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({
+      fileSource: file
+    });
+    //this.form.get('fileSouce').updateValueAndValidity()
+  }
+
   private createForm() {
 
     this.form = this.formBuilder.group({
       turma: ['', Validators.required],
       disciplinas: ['', Validators.required],
+      tipo_material: ['', Validators.required],
+      file: [''],
+      fileSource: [''],
       material: this.formBuilder.group({
         nome: ['', Validators.required],
         descricao: ['', Validators.required],
-        url: ['', Validators.required],
+        url: [''],
       }),
 
     });
   }
-  filterDisciplinas(event) {
-    console.log(event);
-  }
+
 
   submit() {
     this.isLoading = true;
-    const result: material = Object.assign({}, this.form.value);
+    const result = Object.assign({}, this.form.value);
+
+
     this.ProfessorService
       .inserirMateriais(result)
       .pipe(finalize(() => { this.isLoading = false; }))
@@ -94,9 +117,5 @@ export class MateriaisCadastrarComponent implements OnInit {
 
 }
 
-export class material {
-  turma: string = ''
-  disciplina: string = ''
-  material: any = [];
-}
+
 

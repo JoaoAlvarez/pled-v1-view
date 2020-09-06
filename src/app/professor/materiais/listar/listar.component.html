@@ -1,10 +1,10 @@
-<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Carregando">
   <nb-card-header>
-    <div class="row">
-      <div class="col-md-5">
+    <div class=" d-flex">
+      <div class="">
         <h4>Materiais</h4>
       </div>
-      <div class="ml-auto text-right">
+      <div class="ml-auto text-right d-flex">
 
         <nb-select #disciplinaSelect placeholder="Selecione uma disciplina" [(selected)]="selectedDisciplina"
           (selectedChange)="filtrarTurma(selectedDisciplina)" filled status="primary" class="mr-4">

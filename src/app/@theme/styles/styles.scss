@@ -17,6 +17,9 @@
 
 @import "./layout";
 @import "./overrides";
+@import "./components/inputs";
+@import "./components/nbselect";
+@import "./components/subheader";
 
 // install the framework and custom global styles
 @include nb-install() {
@@ -39,6 +42,12 @@
     align-items: center;
 
   }
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 html, body { height: 100%; }
