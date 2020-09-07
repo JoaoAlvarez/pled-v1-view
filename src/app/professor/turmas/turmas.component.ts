@@ -48,7 +48,7 @@ export class TurmasComponent {
         title: "Link do Meet",
         type: "html",
         valuePrepareFunction: (meet, row) => {
-          return '<a class="btn btn-primary btn-sm text-white" href="#/professor/sala/' + row.id + '" target="_blank">Acessar sala de aula</a>'
+          return '<a class="btn btn-primary btn-sm text-white" href="#/professor/sala/' + row.id + '" >Acessar sala de aula</a>'
         }
       }
     },

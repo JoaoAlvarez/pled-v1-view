@@ -6,18 +6,18 @@
         <div class="sub-header__displayname">
             <h6 class="text-alternate mb-0 subtitle">Olá {{professor.nome}} </h6>
         </div>
-        <!-- <div class="sub-header__actions">
+        <div class="sub-header__actions">
             <nb-select #turmaSelect placeholder="Selecione uma turma" [(selected)]="selectedTurma"
                 (selectedChange)="navigateToTurma(selectedTurma)" filled status="primary"
                 class="mr-md-4 action__select">
                 <nb-option [value]="turma" *ngFor="let turma of turmas">{{turma.nome}}</nb-option>
             </nb-select>
-            <button (click)="navigate('/professor/sala/'+selectedTurma.id)" nbButton hero shape="round"
+            <!-- <button (click)="navigate('/professor/sala/'+selectedTurma.id)" nbButton hero shape="round"
                 class="d-none d-md-block action__btn">Acessar sala de
                 aula
                 <nb-icon icon="play-circle-outline"></nb-icon>
-            </button>
-        </div> -->
+            </button> -->
+        </div>
     </div>
     <router-outlet></router-outlet>
 </ngx-one-column-layout>

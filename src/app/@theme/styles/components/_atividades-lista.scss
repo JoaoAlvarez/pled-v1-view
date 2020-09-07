@@ -1,0 +1,15 @@
+.atividades__lista {
+    padding: 0 !important;
+}
+
+.atividades__lista-item {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    border-left: 4px;
+    border-left-style: solid;
+    @include transition();
+
+    &:hover {
+        border-left-width: 10px;
+    }
+}
