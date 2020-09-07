@@ -21,6 +21,8 @@ export class SimuladosComponent {
       add: false,
       position: "right",
       columnTitle: "Ações",
+      edit: false,
+      delete: false
     },
 
     add: {
@@ -42,8 +44,11 @@ export class SimuladosComponent {
     columns: {
       titulo: {
         title: "Título",
-        type: "string",
+        type: "html",
         editable: false,
+        valuePrepareFunction: (titulo, row) => {
+          return '<a href="#/professor/atividade/' + row.id + '" >' + titulo + '</a>'
+        }
       },
       descricao: {
         title: "Descrição",
@@ -77,6 +82,17 @@ export class SimuladosComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
+  isLoading: Boolean = true;
+  simulados;
+  simuladosFiltered;
+  turmas = [];
+  turmasFiltered = [];
+  disciplinas = [];
+  selectedTurma;
+  selectedDisciplina;
+
+
+
   constructor(
     private service: SmartTableData,
     private ProfessorService: ProfessorService,
@@ -86,7 +102,31 @@ export class SimuladosComponent {
 
     //this.source.load(data);
     this.getSimulados();
+    this.getDisciplinas();
+    this.getTurmasProfessor();
 
+
+  }
+
+  getTurmasProfessor() {
+    this.ProfessorService
+      .getTurmas()
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.turmas = response;
+      });
+  }
+
+  getDisciplinas() {
+    this.disciplinas = this.ProfessorService.professorDetalhe.disciplinas;
+  }
+
+  filtrarTurma(disciplinaId) {
+    delete this.turmasFiltered;
+    delete this.selectedTurma;
+    this.turmasFiltered = this.turmas.filter(
+      turma => turma.disciplinas.some(disciplina => disciplina.idProfessorDisciplina == disciplinaId.idProfessorDisciplina
+      ));
   }
 
   getSimulados() {
@@ -94,12 +134,19 @@ export class SimuladosComponent {
       .getSimulados()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response);
-        this.source.load(response);
+        this.simulados = response;
+        this.source.load(this.simulados);
         this.source.refresh();
-
-
       });
+  }
+
+  filterSimulados(disciplina, turmaId) {
+    console.log('oi');
+    this.simuladosFiltered = this.simulados.filter(simulado => (simulado.contidoEm.some(el => el.idTurma == turmaId) && (simulado.contidoEm.some(el => el.disciplina.nome == disciplina.nome))));
+
+    this.source.load(this.simuladosFiltered);
+    this.source.refresh();
+
   }
 
   onSearch(query: string = "") {

@@ -62,10 +62,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
                 title: "Planos de aula",
                 link: "/professor/planejamento/criar",
             },
-            {
-                title: "Cria aula especial",
-                link: "/professor/planejamento/criaraula",
-            },
+            // {
+            //     title: "Cria aula especial",
+            //     link: "/professor/planejamento/criaraula",
+            // },
 
         ],
 

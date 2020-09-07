@@ -148,6 +148,7 @@ export class MateriaisListarComponent implements OnInit {
     // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
     this.router.navigateByUrl("/instituicao/disciplinas/editar/" + event.data._id);
   }
+
   onDeleteConfirm(event): void {
     console.log(event);
     if (

@@ -20,6 +20,7 @@
 @import "./components/inputs";
 @import "./components/nbselect";
 @import "./components/subheader";
+@import "./components/atividades-lista";
 
 // install the framework and custom global styles
 @include nb-install() {

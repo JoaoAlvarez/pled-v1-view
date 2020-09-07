@@ -64,9 +64,9 @@
                                 </div>
 
                                 <div class="text-right">
-                                    <button nbButton [routerLink]="['/aluno/sala/'+selectedTurma.id]" size="small"
+                                    <button nbButton [routerLink]="['/professor/sala/'+selectedTurma.id]" size="small"
                                         class="shadow" shape="round" hero status="info">Acessar sala de
-                                        aula da disciplina</button>
+                                        aula</button>
 
                                 </div>
                             </div>
@@ -103,10 +103,12 @@
             </nb-card-header>
 
             <nb-tabset>
-                <nb-tab tabTitle="Atividades recentes">
-                    <div *ngIf="atividades && atividades.length > 0 && !timelineLoading">
-                        <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]" class="d-flex"
-                            *ngFor="let atividade of atividades">
+                <nb-tab tabTitle="Atividades recentes" class="atividades__lista">
+                    <div *ngIf="atividades && atividades.length > 0 && !timelineLoading"
+                        class="atividades__lista-itens">
+                        <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]"
+                            class="d-flex atividades__lista-item" *ngFor="let atividade of atividades"
+                            [style.border-left-color]="atividade.disciplina.cor">
                             <div class="mr-3">
 
                                 <nb-icon icon="edit-2-outline" class="text-disabled"
@@ -117,8 +119,7 @@
                                 </nb-icon>
                             </div>
                             <div>
-                                <small class="badge badge-primary"
-                                    [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
+                                <small class="badge badge-primary">{{atividade.disciplina.nome}}</small>
                                 <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
                                     {{atividade.objeto.titulo}}</h6>
                                 <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>

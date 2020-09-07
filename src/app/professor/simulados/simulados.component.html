@@ -1,10 +1,24 @@
 <nb-card>
   <nb-card-header>
-    <div class="row">
-      <div class="col-md-5">
+    <div class="d-flex flex-column flex-md-row">
+      <div class="">
         <h4>Atividades</h4>
       </div>
-      <div class="col-md-5 ml-auto text-right">
+      <div class="ml-auto text-right d-flex flex-column flex-md-row">
+
+        <nb-select #disciplinaSelect placeholder="Selecione uma disciplina" [(selected)]="selectedDisciplina"
+          (selectedChange)="filtrarTurma(selectedDisciplina)" filled status="primary" class="mr-4">
+          <nb-option [value]="disciplina" *ngFor="let disciplina of disciplinas">
+            {{disciplina.nome}}</nb-option>
+        </nb-select>
+
+        <nb-select #turmaSelect placeholder="Selecione uma turma" [(selected)]="selectedTurma"
+          (selectedChange)="filterSimulados(selectedDisciplina, selectedTurma)" filled status="primary" class="mr-4"
+          [disabled]="turmasFiltered.length <= 0">
+          <nb-option [value]="turma.id" *ngFor="let turma of turmasFiltered">{{turma.nome}}</nb-option>
+        </nb-select>
+
+
         <input nbInput #search class="search" type="text" placeholder="Search..."
           (keydown.enter)="onSearch(search.value)" />
       </div>
