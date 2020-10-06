@@ -47,9 +47,9 @@ export class HomeComponent implements OnInit {
   }
 
   getTimeline(turmaId) {
-    forkJoin(this.professorService
+    forkJoin([this.professorService
       .getTimelineAulas(turmaId), this.professorService
-        .getTimelineAtividades(turmaId))
+        .getTimelineAtividades(turmaId)])
       .subscribe((response) => {
 
         this.filtrarAulas(response[0]);
@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
 
   filtrarAtividades(atividades) {
     this.atividades = atividades.filter((atividade) => atividade.objeto.professor == this.professorDetalhe.id);
+    this.atividades = this.atividades.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
   }
 
   filtrarAulas(aulas) {

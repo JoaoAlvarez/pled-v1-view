@@ -27,7 +27,7 @@ export class instituicoesListarComponent {
       delete: false,
       custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
-        // { name: 'status', title: '<i class="nb-trash"></i>' }
+        { name: 'status', title: '<i class="nb-trash"></i>' }
       ],
     },
     add: {
@@ -64,6 +64,13 @@ export class instituicoesListarComponent {
           return responsavel.nome;
         }
       },
+      ativa: {
+        title: "Status",
+        type: "string",
+        valuePrepareFunction: (status) => {
+          return (status) ? 'Ativo' : 'Inativo';
+        }
+      },
     },
   };
 
@@ -87,18 +94,8 @@ export class instituicoesListarComponent {
       .getInstituicoes()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response);
         this.source.load(response);
-        // this.source.addFilter( // Filtrar pendentes
-        //   {
-        //     field: "onboardStatus",
-        //     search: "Pendente",
-        //   },
-
-        //   false
-        // );
         this.source.setSort(
-          // Filtrar pendentes
           [
             {
               field: "onboardStatus",
@@ -130,9 +127,10 @@ export class instituicoesListarComponent {
             search: query,
           },
           {
-            field: "onboardStatus",
+            field: "responsavel",
             search: query,
           },
+
         ],
         false
       );
@@ -140,18 +138,19 @@ export class instituicoesListarComponent {
       this.source.reset();
     }
   }
+
   onCustomAction(event): void {
     console.log(event);
     switch (event.action) {
       case 'edit':
-        console.log('oi');
         this.router.navigateByUrl("/admin/instituicoes/editar/" + event.data.id);
         break;
+
       case 'status': {
 
         this.newStatus = this.formBuilder.group({
-          institucao: [event.data.id],
-          status: [true]
+          instituicao: event.data.id,
+          status: false
         });
         const result: status = Object.assign({}, this.newStatus.value);
         this.instituicoesService
@@ -159,42 +158,16 @@ export class instituicoesListarComponent {
           .pipe(finalize(() => { }))
           .subscribe((response) => {
             if (response) {
-              Swal.fire('Ok', 'Escola adicionada com sucesso', 'success');
+              Swal.fire('Ok', 'Insituição removida com sucesso', 'success');
               this.router.navigateByUrl("/admin/instituicoes/listar");
-
             }
           });
       }
     }
 
   }
-  onDeleteConfirm(event): void {
-    console.log(event);
-    if (
-      window.confirm(
-        "Tem certeza que deseja rejeitar a aprovação deste usuário?"
-      )
-    ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
-    } else {
-      event.confirm.reject();
-    }
-  }
-
-  onEditConfirm(event): void {
-    console.log(event);
-
-
-  }
 }
 export class status {
   instituicao: string = ''
   status: boolean
-
 }

@@ -64,10 +64,10 @@ export class HomeComponent implements OnInit {
   // }
 
   getTimeline(turmaId) {
-    forkJoin(this.alunoSerivce
+    forkJoin([this.alunoSerivce
       .getAulas(turmaId), this.alunoSerivce
         .getAtividades(turmaId), this.alunoSerivce
-          .getMateriais(turmaId))
+          .getMateriais(turmaId)])
       .subscribe((response) => {
         console.log(response);
         let aulas = response[0];
@@ -78,11 +78,11 @@ export class HomeComponent implements OnInit {
 
         this.aulas = aulas;
         this.atividades = response[1];
+        this.atividades = this.atividades.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
         this.materiais = response[2];
 
         this.timelineLoading = false;
 
-        console.log('Aulas depois de comparar datas', this.aulas);
       });
   }
 
@@ -91,8 +91,22 @@ export class HomeComponent implements OnInit {
       .getDisciplinas(idTurma)
       .subscribe((response) => {
         console.log('Turma detalhe', response);
+
+        let disciplinas = response;
+        let disciplinasFiltradas = [];
+
+        disciplinas.forEach(disciplina => {
+          console.log(disciplina);
+          console.log(disciplinasFiltradas);
+          if (!disciplinasFiltradas.some(disciplinaFiltrada => disciplinaFiltrada.nome === disciplina.nome)) {
+            disciplinasFiltradas.push(disciplina);
+          }
+        });
+
+        console.log('Disciplinas Filtradas', disciplinasFiltradas);
+
         this.turmasLoading = false;
-        this.disciplinas = response;
+        this.disciplinas = disciplinasFiltradas;
       });
   }
 
@@ -101,6 +115,7 @@ export class HomeComponent implements OnInit {
       .getSimulados(idTurma)
       .subscribe((response) => {
         this.simulados = response;
+        this.simulados = this.simulados.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
       });
   }
 

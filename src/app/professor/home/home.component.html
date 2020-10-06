@@ -108,7 +108,7 @@
                         class="atividades__lista-itens">
                         <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]"
                             class="d-flex atividades__lista-item" *ngFor="let atividade of atividades"
-                            [style.border-left-color]="atividade.disciplina.cor">
+                            [style.border-left-color]="atividade.disciplina.cor" style="cursor:pointer">
                             <div class="mr-3">
 
                                 <nb-icon icon="edit-2-outline" class="text-disabled"
@@ -127,11 +127,9 @@
                             <div class="ml-auto d-flex">
 
                                 <div>
-                                    <h6 class="subtitle">
-                                        <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
-                                        {{atividade.objeto.professor.nome}}
-                                    </h6>
-                                    <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}}</small>
+
+                                    <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}} as
+                                        {{(atividade.objeto.prazoFinal | date: 'HH:mm') + 'h '}}</small>
                                 </div>
                             </div>
                         </div>

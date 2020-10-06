@@ -18,12 +18,12 @@
                                 {{disciplina.nome}}</h6>
                             <p class="paragraph-2">{{disciplina.descricao}}</p>
                         </div>
-                        <div class="ml-auto d-flex">
+                        <!-- <div class="ml-auto d-flex">
 
                             <div>
                                 <h6 class="subtitle text-hint">{{disciplina.professor.nome}}</h6>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="ml-4">
                             <button nbButton>
                                 <nb-icon icon="chevron-right-outline"></nb-icon>
@@ -116,8 +116,8 @@
                 </nb-tab>
 
                 <nb-tab tabTitle="Atividades">
-                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id+'/'+turmaId]" class="d-flex"
-                        *ngFor="let atividade of atividades">
+                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id+'/'+turmaId]" class="d-flex "
+                        style="cursor:pointer" *ngFor="let atividade of atividades">
                         <div class="mr-3">
 
                             <nb-icon icon="edit-2-outline" class="text-disabled" *ngIf="!atividade.objeto.isExecutado">
@@ -139,7 +139,8 @@
                                     <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
                                     {{atividade.objeto.professor.nome}}
                                 </h6>
-                                <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}}</small>
+                                <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}} as
+                                    {{(atividade.objeto.prazoFinal | date: 'HH:mm') + 'h '}}</small>
                             </div>
                         </div>
                     </div>
@@ -164,8 +165,8 @@
                         </div>
                         <div class="ml-auto d-flex">
 
-                            <div>
-                                <a href="{{material.objeto.url}}" nbButton>Download</a>
+                            <div *ngIf="material">
+                                <a href="{{material.objeto.url}}" nbButton>Acessar</a>
                             </div>
                         </div>
                     </div>

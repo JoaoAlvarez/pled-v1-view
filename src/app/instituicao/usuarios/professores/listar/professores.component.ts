@@ -87,26 +87,6 @@ export class ProfessoresListarComponent {
       .subscribe((response) => {
         console.log(response);
         this.source.load(response);
-        // this.source.addFilter( // Filtrar pendentes
-        //   {
-        //     field: "onboardStatus",
-        //     search: "Pendente",
-        //   },
-
-        //   false
-        // );
-        this.source.setSort(
-          // Filtrar pendentes
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
-
-          false
-        );
-        this.source.refresh();
       });
   }
 
@@ -130,11 +110,7 @@ export class ProfessoresListarComponent {
           {
             field: "cpf",
             search: query,
-          },
-          {
-            field: "onboardStatus",
-            search: query,
-          },
+          }
         ],
         false
       );
@@ -143,28 +119,5 @@ export class ProfessoresListarComponent {
     }
   }
 
-  onDeleteConfirm(event): void {
-    console.log(event);
-    if (
-      window.confirm(
-        "Tem certeza que deseja excluir este usuário?"
-      )
-    ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
-    } else {
-      event.confirm.reject();
-    }
-  }
 
-  onEditConfirm(event): void {
-    console.log(event);
-
-
-  }
 }

@@ -6,6 +6,7 @@ import { NbAuthComponent } from "@nebular/auth";
 import { NgxLoginComponent } from "./login/login.component";
 import { NbLogoutComponent } from "@nebular/auth";
 import { SignupComponent } from './signup/signup.component';
+import { RecoverPasswordComponent } from './recover/recover.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
       {
         path: "login",
         component: NgxLoginComponent,
+      },
+      {
+        path: "recuperarsenha",
+        component: RecoverPasswordComponent,
       },
       {
         path: "logout",

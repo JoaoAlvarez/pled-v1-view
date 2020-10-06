@@ -4,6 +4,8 @@ import { ProfessorService } from '../professor.service';
 
 import Swal from 'sweetalert2';
 import { fireOnInitToken } from '@sweetalert2/ngx-sweetalert2/lib/di';
+import { forkJoin } from 'rxjs';
+import { LocalDataSource } from "ng2-smart-table";
 
 
 @Component({
@@ -17,6 +19,37 @@ export class AtividadeComponent implements OnInit {
   atividadeId;
   turmaId;
   atividade;
+  respostasAlunos;
+  strRespostaProfessor = 'Aguardando correção do professor';
+
+  settings = {
+    hideSubHeader: true,
+    actions: {
+      add: false,
+      position: "right",
+      columnTitle: "Ações",
+      edit: false,
+      delete: false
+    },
+    columns: {
+      aluno: {
+        title: "Aluno",
+        type: "string",
+        editable: false,
+        valuePrepareFunction: (aluno, row) => {
+          return aluno.nome
+        }
+      },
+      pontuacaoObtida: {
+        title: "Pontuação na atividade",
+        type: "string",
+        editable: false,
+      },
+
+    },
+  };
+
+  source: LocalDataSource = new LocalDataSource();
 
   public teste: any[] = [{
     id: '',
@@ -40,37 +73,20 @@ export class AtividadeComponent implements OnInit {
   getAtividade(atividadeId) {
     this.isLoading = true;
 
-    this.professorService
-      .getAtividade(atividadeId)
+    forkJoin([this.professorService
+      .getAtividade(atividadeId), this.professorService
+        .getRespostasAlunos(atividadeId)])
       .subscribe((response) => {
-        console.log(response);
+
         this.isLoading = false;
-        this.atividade = response;
+        this.atividade = response[0];
+        this.respostasAlunos = response[1];
+        this.source.load(this.respostasAlunos);
 
-        // this.atividade.questoes.forEach(questao => {
 
-        //   let respostasAlunos: any[] = [];
-
-        //   if (!questao.isMultiplaEscolha) {
-        //     questao.respostasAlunos.forEach(respostaAluno => {
-        //       respostasAlunos.push({
-        //         id: respostaAluno.idResposta,
-        //         acertou: '',
-        //         respostaAluno: respostaAluno.respostaAberta,
-        //         comentarioProfessor: ''
-        //       })
-
-        //     });
-        //   }
-        // });
-
-        //this.getRespostasAlunos(this.atividade.questoes);
       });
   }
 
-  // getRespostasAlunos(questoes) {
-
-  // }
 
   getValueOfKey(values) {
     for (const [key, value] of Object.entries(values)) {

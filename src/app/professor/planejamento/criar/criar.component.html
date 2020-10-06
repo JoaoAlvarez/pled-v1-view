@@ -90,18 +90,47 @@
                                         da
                                         aula</label>
                                     <div class="col-sm-10 d-flex">
-                                        <div class="mr-2">
+                                        <div class="mr-2 timepicker">
+                                            <div class="timepicker__placeholder btn btn-outline-secondary">
+                                                <div>
+                                                    <div *ngIf="item.controls.dataInicio.value">
+                                                        {{item.controls.dataInicio.value | date: 'dd/MM/yyyy'}} |
+                                                        {{(item.controls.dataInicio.value | date: 'HH:mm') + 'h '}}
+                                                        <nb-icon icon="calendar-outline" class="text-hint"></nb-icon>
+                                                    </div>
+                                                    <div *ngIf="!item.controls.dataInicio.value">
+                                                        Data inicial
+                                                        <nb-icon icon="calendar-outline" class="text-hint"></nb-icon>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                             <input type="text" nbInput id="dataInicio" placeholder="Data Inicio"
                                                 formControlName="dataInicio" mwlFlatpickr [altInput]="false"
-                                                [enableTime]="true" altFormat="d/m/Y  ( H:i )" (change)="dateF($event)"
-                                                dateFormat="Z" [time24hr]="true">
+                                                [enableTime]="true" altFormat="d/m/Y  ( H:i )" dateFormat="Z"
+                                                [time24hr]="true" class="timepicker__input">
                                             <!-- <nb-datepicker #formpicker></nb-datepicker> -->
                                         </div>
-                                        <div>
+                                        <div class="timepicker">
+                                            <div class="timepicker__placeholder btn btn-outline-secondary">
+                                                <div>
+                                                    <div *ngIf="item.controls.dataFim.value">
+                                                        {{item.controls.dataFim.value | date: 'dd/MM/yyyy'}} |
+                                                        {{(item.controls.dataFim.value | date: 'HH:mm') + 'h '}}
+                                                        <nb-icon icon="calendar-outline" class="text-hint"></nb-icon>
+                                                    </div>
+                                                    <div *ngIf="!item.controls.dataFim.value">
+                                                        Data final
+                                                        <nb-icon icon="calendar-outline" class="text-hint"></nb-icon>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                             <input type="text" nbInput id="dataFim" placeholder="Data Fim"
                                                 formControlName="dataFim" mwlFlatpickr [altInput]="false"
                                                 [enableTime]="true" altFormat="d/m/Y  ( H:i )" dateFormat="Z"
-                                                [time24hr]="true">
+                                                [time24hr]="true" class="timepicker__input">
                                             <!-- <nb-datepicker #formpicker2></nb-datepicker> -->
                                         </div>
                                     </div>

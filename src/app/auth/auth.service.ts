@@ -46,4 +46,17 @@ export class AuthService {
         })
       );
   }
+
+
+  recoverPassowrd(email: any): Observable<any> {
+    return this.httpClient
+      .put("/user/sendForgotEmail", email)
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 }

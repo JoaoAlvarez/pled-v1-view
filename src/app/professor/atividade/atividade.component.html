@@ -1,105 +1,195 @@
 <div class="row">
     <div class="col-sm-9" *ngIf="atividade">
-        <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)" [nbSpinner]="isLoading" nbSpinnerSize="giant"
-            nbSpinnerStatus="primary">
-
-            <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">
-
-                <nb-card-header class="d-flex align-items-center" style="position: relative;">
-
-                    <h6>Questão {{i+1}} </h6>
-
-                </nb-card-header>
-
-                <nb-card-body>
-                    <h6 class="subtitle">{{questao.enunciado}}</h6>
-                    <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
-                        <div *ngIf="questao.isMultiplaEscolha">
+        <nb-tabset>
+            <nb-tab tabTitle="Questões">
+                <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)" [nbSpinner]="isLoading"
+                    nbSpinnerSize="giant" nbSpinnerStatus="primary">
 
 
-                            <div>
-                                <div *ngFor="let alternativa of questao.alternativas">
-                                    <nb-icon icon="checkmark-outline" class="text-success"
-                                        *ngIf="alternativa.isResposta"></nb-icon>
-                                    <nb-icon icon="close-outline" class="text-danger" *ngIf="!alternativa.isResposta">
-                                    </nb-icon>
-                                    <span>{{ alternativa.texto }}</span>
-                                </div>
+
+                    <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">
+
+                        <nb-card-header class="d-flex align-items-center" style="position: relative;">
+
+                            <h6>Questão {{i+1}} </h6>
+
+                            <div class="ml-auto subtitle-2 text-hint">
+                                Pontos: {{questao.pontos}}
                             </div>
-                        </div>
+
+                        </nb-card-header>
+
+                        <nb-card-body>
+                            <h6 class="subtitle">{{questao.enunciado}}</h6>
+                            <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
+                                <div *ngIf="questao.isMultiplaEscolha" class="mb-4">
 
 
-                    </div>
-
-                    <div *ngIf="questao.alternativas && questao.alternativas.length == 0" ngModelGroup="{{questao.id}}">
-
-                        <div *ngIf="questao.respostasAlunos.length > 0" class="mt-4">
-
-                            <h6 class="subtitle-2 text-hint">
-                                <nb-icon icon="people-outline" class="text-hint"></nb-icon> Respostas dos alunos:
-                            </h6>
-
-                            <nb-accordion>
-                                <nb-accordion-item *ngFor="let respostaAluno of questao.respostasAlunos; let i=index">
-
-                                    <nb-accordion-item-header>
-
-                                        <div>
-                                            <span>
-                                                <nb-icon icon="person-outline" class="mr-2 text-hint"></nb-icon>
-                                                {{respostaAluno.aluno.nome}}
-                                            </span><br>
-                                            <small>
-                                                <nb-icon icon="corner-down-right-outline" class="mr-2 text-disabled">
-                                                </nb-icon> {{respostaAluno.respostaAberta}}
-                                            </small>
+                                    <div>
+                                        <div *ngFor="let alternativa of questao.alternativas">
+                                            <nb-icon icon="checkmark-outline" class="text-success"
+                                                *ngIf="alternativa.isResposta">
+                                            </nb-icon>
+                                            <nb-icon icon="close-outline" class="text-danger"
+                                                *ngIf="!alternativa.isResposta">
+                                            </nb-icon>
+                                            <span>{{ alternativa.texto }}</span>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <!-- <div class="ml-auto text-right mr-5 d-flex align-items-center">
-                                            <button type="button" nbButton status="primary" size="tiny" class="">
-                                                Corrigir questão
-                                            </button>
-                                        </div> -->
+                                <nb-accordion>
+                                    <nb-accordion-item>
+                                        <nb-accordion-item-header>
+                                            <h6 class="subtitle-2 text-hint">
+                                                <nb-icon icon="people-outline" class="text-hint"></nb-icon> Respostas
+                                                dos
+                                                alunos:
+                                            </h6>
+                                        </nb-accordion-item-header>
+                                        <nb-accordion-item-body>
+                                            <div *ngFor="let respostaAluno of questao.respostasAlunos" class="mb-3">
+                                                <div class="row ">
+                                                    <div class="col-sm-6">
+                                                        <nb-icon icon="person-outline" class="mr-2 text-hint"></nb-icon>
+                                                        {{respostaAluno.aluno.nome}}
+                                                    </div>
+                                                    <div class="col-sm-6 text-right">
+                                                        <span type="button" status="primary" size="tiny"
+                                                            class="badge p-1"
+                                                            [ngClass]="{'badge-success': respostaAluno.acertou, 'badge-danger': !respostaAluno.acertou}">
+                                                            {{respostaAluno.acertou ? 'Acertou' : 'Errou'}}
+                                                        </span>
+                                                    </div>
 
-                                    </nb-accordion-item-header>
+                                                </div>
+                                                <hr class="text-hint">
+                                            </div>
+                                        </nb-accordion-item-body>
+                                    </nb-accordion-item>
+                                </nb-accordion>
 
-                                    <nb-accordion-item-body ngModelGroup="{{respostaAluno.idResposta}}">
-                                        <!-- {{respostaAluno.idResposta}} -->
+
+                            </div>
+
+                            <div *ngIf="questao.alternativas && questao.alternativas.length == 0"
+                                ngModelGroup="{{questao.id}}">
+
+                                <div *ngIf="questao.respostasAlunos.length > 0" class="mt-4">
+
+                                    <h6 class="subtitle-2 text-hint">
+                                        <nb-icon icon="people-outline" class="text-hint"></nb-icon> Respostas dos
+                                        alunos:
+                                    </h6>
+
+                                    <nb-accordion>
+                                        <nb-accordion-item
+                                            *ngFor="let respostaAluno of questao.respostasAlunos; let i=index">
+
+                                            <nb-accordion-item-header>
+
+                                                <div>
+                                                    <span>
+                                                        <nb-icon icon="person-outline" class="mr-2 text-hint"></nb-icon>
+                                                        {{respostaAluno.aluno.nome}}
+                                                    </span><br>
+                                                    <small>
+                                                        <nb-icon icon="corner-down-right-outline"
+                                                            class="mr-2 text-disabled">
+                                                        </nb-icon> {{respostaAluno.respostaAberta}}
+                                                    </small>
+                                                </div>
+
+                                                <div class="ml-auto text-right mr-5 d-flex align-items-center"
+                                                    *ngIf="respostaAluno.comentarioProfessor != strRespostaProfessor">
+                                                    <span type="button" status="primary" size="tiny" class="badge p-1"
+                                                        [ngClass]="{'badge-success': respostaAluno.acertou, 'badge-danger': !respostaAluno.acertou}">
+                                                        {{respostaAluno.acertou ? 'Acertou' : 'Errou'}}
+                                                    </span>
+                                                </div>
+
+                                                <div class="ml-auto text-right mr-5 d-flex align-items-center"
+                                                    *ngIf="respostaAluno.comentarioProfessor == strRespostaProfessor">
+                                                    <span type="button" status="primary" size="tiny"
+                                                        class="badge p-1 badge-secondary">
+                                                        {{respostaAluno.comentarioProfessor}}
+                                                    </span>
+                                                </div>
+
+                                            </nb-accordion-item-header>
+
+                                            <nb-accordion-item-body ngModelGroup="{{respostaAluno.idResposta}}"
+                                                *ngIf="respostaAluno.comentarioProfessor == strRespostaProfessor">
+                                                <div class="form-group ">
+                                                    <textarea nbInput fullWidth
+                                                        [(ngModel)]="[respostaAluno.idResposta].comentarioProfessor"
+                                                        placeholder="Deseja comentar a resposta de {{respostaAluno.aluno.nome}} ?"
+                                                        name="comentarioProfessor"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <nb-radio-group [(ngModel)]="[respostaAluno.idResposta].acertou"
+                                                        name="acertou_{{respostaAluno.idResposta}}">
+                                                        <nb-radio [value]="true">
+                                                            Acertou
+                                                        </nb-radio>
+                                                        <nb-radio [value]="false">
+                                                            Errou
+                                                        </nb-radio>
+                                                    </nb-radio-group>
+                                                </div>
+
+                                            </nb-accordion-item-body>
+
+                                            <nb-accordion-item-body
+                                                *ngIf="respostaAluno.comentarioProfessor != strRespostaProfessor">
+
+                                                <nb-card [accent]="respostaAluno.acertou ? 'success' : 'danger'">
+                                                    <nb-card-header>
+                                                        <h6 class="subtitle-2 text-hint">
+                                                            <nb-icon icon="people-outline" class="text-hint"></nb-icon>
+                                                            Sua
+                                                            resposta
+                                                        </h6>
+                                                    </nb-card-header>
+                                                    <nb-card-body>
+                                                        <div class="form-group ">
+                                                            <p>
+                                                                <nb-icon icon="corner-down-right-outline"
+                                                                    class="mr-2 text-disabled">
+                                                                </nb-icon> {{respostaAluno.comentarioProfessor}}
+                                                            </p>
+                                                        </div>
 
 
+                                                    </nb-card-body>
+                                                </nb-card>
 
-                                        <div class="form-group ">
-                                            <textarea nbInput fullWidth
-                                                [(ngModel)]="[respostaAluno.idResposta].comentarioProfessor"
-                                                placeholder="Deseja comentar a resposta de {{respostaAluno.aluno.nome}} ?"
-                                                name="comentarioProfessor"></textarea>
-                                        </div>
+                                            </nb-accordion-item-body>
+                                        </nb-accordion-item>
 
-                                        <div class="form-group">
-                                            <nb-radio-group [(ngModel)]="[respostaAluno.idResposta].acertou"
-                                                name="acertou_{{respostaAluno.idResposta}}">
-                                                <nb-radio [value]="true">
-                                                    Acertou
-                                                </nb-radio>
-                                                <nb-radio [value]="false">
-                                                    Errou
-                                                </nb-radio>
-                                            </nb-radio-group>
-                                        </div>
+                                    </nb-accordion>
 
-                                    </nb-accordion-item-body>
-                                </nb-accordion-item>
+                                </div>
 
-                            </nb-accordion>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
 
-                        </div>
+                    <button type="submit" nbButton status="primary" *ngIf="!atividade.isExecutado">Corrigir
+                        atividade</button>
+                </form>
+            </nb-tab>
+            <nb-tab tabTitle="Pontuações">
 
-                    </div>
-                </nb-card-body>
-            </nb-card>
 
-            <button type="submit" nbButton status="primary" *ngIf="!atividade.isExecutado">Enviar</button>
-        </form>
+                <ng2-smart-table [settings]="settings" [source]="source">
+                </ng2-smart-table>
+
+            </nb-tab>
+        </nb-tabset>
+
+
     </div>
     <div class="col-sm-3">
         <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
@@ -127,7 +217,8 @@
 
                     </div>
                     <div>
-                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}}</strong>
+                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}} as
+                                {{(atividade.prazoFinal | date: 'HH:mm') + 'h '}}</strong>
                         </h6>
                     </div>
                 </div>

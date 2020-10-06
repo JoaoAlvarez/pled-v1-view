@@ -134,7 +134,12 @@ export class SimuladosComponent {
       .getSimulados()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        this.simulados = response;
+
+        this.simulados = response.sort((a, b) => { return <any>new Date(b.prazoFinal) - <any>new Date(a.prazoFinal) })
+
+        //this.simulados = response;
+
+
         this.source.load(this.simulados);
         this.source.refresh();
       });

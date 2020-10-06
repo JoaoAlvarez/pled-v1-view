@@ -61,7 +61,7 @@
 
     <div class="form-control-group accept-group">
       <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Lembrar</nb-checkbox>
-      <a class="forgot-password" routerLink="../recuperar-senha">Esqueceu a senha?</a>
+      <a class="forgot-password" routerLink="../recuperarsenha">Esqueceu a senha?</a>
     </div>
 
     <button nbButton fullWidth status="warning" [disabled]="submitted || !form.valid" [class.btn-pulse]="submitted">

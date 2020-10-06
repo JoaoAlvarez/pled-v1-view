@@ -124,6 +124,14 @@ export class InstituicaoService {
     );
   }
 
+  deleteTurma(turmaId: string): Observable<any> {
+    return this.httpClient.delete("/instituicao/turma/" + turmaId).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
+
   inserirDisciplina(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/disciplina/salvar", dados)
