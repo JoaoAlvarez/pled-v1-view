@@ -19,14 +19,14 @@ export class HomeComponent implements OnInit {
   aulas: any = [];
   atividades: any = [];
   materiais: any = [];
-
+  timeline;
+  setDisciplina;
 
   constructor(private alunoSerivce: AlunoService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
       this.turmaId = params.get('id');
       this.getDisciplinas(this.turmaId);
       this.getTimeline(this.turmaId);
-      //this.getSimulados(this.turmaId);
     });
 
   }
@@ -69,19 +69,11 @@ export class HomeComponent implements OnInit {
         .getAtividades(turmaId), this.alunoSerivce
           .getMateriais(turmaId)])
       .subscribe((response) => {
-        console.log(response);
         let aulas = response[0];
+        let atividades = response[1];
+        let materiais = response[2];
 
-        aulas.forEach(aula => {
-          aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
-        });
-
-        this.aulas = aulas;
-        this.atividades = response[1];
-        this.atividades = this.atividades.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
-        this.materiais = response[2];
-
-        this.timelineLoading = false;
+        this.setTimeline(aulas, atividades, materiais);
 
       });
   }
@@ -90,8 +82,6 @@ export class HomeComponent implements OnInit {
     this.alunoSerivce
       .getDisciplinas(idTurma)
       .subscribe((response) => {
-        console.log('Turma detalhe', response);
-
         let disciplinas = response;
         let disciplinasFiltradas = [];
 
@@ -103,19 +93,8 @@ export class HomeComponent implements OnInit {
           }
         });
 
-        console.log('Disciplinas Filtradas', disciplinasFiltradas);
-
         this.turmasLoading = false;
         this.disciplinas = disciplinasFiltradas;
-      });
-  }
-
-  getSimulados(idTurma) {
-    this.alunoSerivce
-      .getSimulados(idTurma)
-      .subscribe((response) => {
-        this.simulados = response;
-        this.simulados = this.simulados.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
       });
   }
 
@@ -130,6 +109,33 @@ export class HomeComponent implements OnInit {
       return false;
     }
 
+  }
+
+  setTimeline(aulas, atividades, materiais) {
+    aulas.forEach(aula => {
+      aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
+    });
+
+    this.aulas = aulas;
+    this.atividades = atividades;
+    this.atividades = this.atividades.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
+    this.materiais = materiais;
+    this.timelineLoading = false;
+
+    this.timeline = {
+      atividades: this.atividades,
+      aulas: this.aulas,
+      materiais: this.materiais
+    }
+  }
+
+  filterDisciplina(disciplina) {
+    if (disciplina.idProfessorDisciplina) {
+      this.setDisciplina = disciplina;
+      this.aulas = this.timeline.aulas.filter((aula) => aula.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+      this.atividades = this.timeline.atividades.filter((atividade) => atividade.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+      this.materiais = this.timeline.materiais.filter((material) => material.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+    }
   }
 
 }

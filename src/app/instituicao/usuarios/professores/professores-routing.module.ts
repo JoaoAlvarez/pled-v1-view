@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { ProfessoresComponent } from './professores.component';
 import { ProfessoresListarComponent } from './listar/professores.component';
 import { ProfessoresAdicionarComponent } from './adicionar/adicionar.component';
+import { EditarProfessorComponent } from './editar/editar.component';
 const routes: Routes = [
     {
         path: "",
@@ -20,6 +21,10 @@ const routes: Routes = [
                 path: "adicionar",
                 component: ProfessoresAdicionarComponent,
             },
+            {
+                path: "editar/:id",
+                component: EditarProfessorComponent,
+            },
 
         ]
     },
@@ -35,5 +40,6 @@ export class UsuariosRoutingModule { }
 export const routedComponents = [
     ProfessoresComponent,
     ProfessoresListarComponent,
-    ProfessoresAdicionarComponent
+    ProfessoresAdicionarComponent,
+    EditarProfessorComponent
 ];

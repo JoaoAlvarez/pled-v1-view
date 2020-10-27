@@ -56,16 +56,19 @@ export class AlunosListarComponent {
         type: "string",
         editable: true,
       },
-      cpf: {
-        title: "CPF",
-        type: "string",
-        editable: false,
-      },
       email: {
         title: "E-Mail",
         type: "string",
         editable: false,
-      }
+      },
+      turmas: {
+        title: "Turma",
+        type: "string",
+        editable: false,
+        valuePrepareFunction: (turmas) => {
+          return (turmas.length > 0) ? turmas[0].nome : '';
+        }
+      },
     },
   };
 
@@ -87,28 +90,8 @@ export class AlunosListarComponent {
       .getAlunos()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        console.log(response.phones);
-        this.source.load(response);
-        // this.source.addFilter( // Filtrar pendentes
-        //   {
-        //     field: "onboardStatus",
-        //     search: "Pendente",
-        //   },
-
-        //   false
-        // );
-        this.source.setSort(
-          // Filtrar pendentes
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
-
-          false
-        );
-        this.source.refresh();
+        let alunos = response.filter((aluno) => aluno.isAtivo);
+        this.source.load(alunos);
       });
   }
 
@@ -165,8 +148,6 @@ export class AlunosListarComponent {
   }
 
   onCustomAction(event): void {
-    console.log(event);
-    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
     this.router.navigateByUrl("/instituicao/usuarios/alunos/editar/" + event.data.id);
   }
 

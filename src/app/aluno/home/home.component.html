@@ -6,11 +6,16 @@
                 <h6>Suas Disciplinas</h6>
             </nb-card-header>
 
+            <nb-card-body *ngIf="disciplinas && disciplinas.length == 0">
+                <p>Não há disciplinas disponíveis no momento</p>
+            </nb-card-body>
 
 
-            <nb-list *ngIf="disciplinas">
+
+            <nb-list *ngIf="disciplinas && disciplinas.length > 0">
                 <nb-list-item *ngFor="let disciplina of disciplinas" class="disciplina"
-                    [style.border-left-color]="disciplina.cor">
+                    [style.border-left-color]="disciplina.cor" style="cursor:pointer"
+                    (click)="filterDisciplina(disciplina)">
                     <div class="d-flex align-items-center w-100 ">
 
                         <div>
@@ -24,11 +29,11 @@
                                 <h6 class="subtitle text-hint">{{disciplina.professor.nome}}</h6>
                             </div>
                         </div> -->
-                        <!-- <div class="ml-4">
+                        <div class="ml-auto">
                             <button nbButton>
                                 <nb-icon icon="chevron-right-outline"></nb-icon>
                             </button>
-                        </div> -->
+                        </div>
                     </div>
                 </nb-list-item>
 
@@ -43,135 +48,157 @@
         <nb-card accent="info" class="shadow-lg" [nbSpinner]="timelineLoading" nbSpinnerStatus="primary"
             nbSpinnerSize="large">
             <nb-card-header>
-                <h6>Fique ligado!</h6>
+                <h6 *ngIf="!setDisciplina">Fique ligado!</h6>
+                <h6 *ngIf="setDisciplina">{{setDisciplina.nome}}</h6>
+
             </nb-card-header>
 
             <nb-tabset>
                 <nb-tab tabTitle="Próximas aulas">
 
-                    <div *ngFor="let aula of aulas">
-                        <div class="d-flex" *ngIf="!aula.objeto.aovivo">
-                            <div class="mr-3">
-
-                                <nb-icon icon="calendar-outline" class="text-disabled"></nb-icon>
-
-                            </div>
-                            <div>
-
-                                <small class="badge badge-primary"
-                                    [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
-                                <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
-                                <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
-                            </div>
-                            <div class="ml-auto d-flex">
-
-                                <div>
-                                    <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
-                                    <small>De {{aula.objeto.dataInicio | date: 'HH:mm'}}h</small>
-                                    <small> as {{aula.objeto.dataFim | date: 'HH:mm'}}h</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <nb-card class="shadow" *ngIf="aula.objeto.aovivo" accent="danger">
-                            <nb-card-body class="d-flex align-items-center">
+                    <div *ngIf="aulas && aulas.length > 0">
+                        <div *ngFor="let aula of aulas">
+                            <div class="d-flex" *ngIf="!aula.objeto.aovivo">
                                 <div class="mr-3">
 
-                                    <nb-icon icon="play-circle-outline"></nb-icon>
+                                    <nb-icon icon="calendar-outline" class="text-disabled"></nb-icon>
 
                                 </div>
                                 <div>
+
                                     <small class="badge badge-primary"
                                         [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
-                                    <div class="d-flex">
-
-
-
-                                        <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
-                                    </div>
+                                    <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
                                     <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
-
                                 </div>
-                                <div class="ml-auto">
+                                <div class="ml-auto d-flex">
 
-                                    <div class="mb-3 d-flex align-items-center">
-                                        <small class="d-block mb-2 badge badge-danger mr-4 p-2">Ao vivo agora</small>
-                                        <div>
-                                            <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
-                                            <small>De {{aula.objeto.dataInicio | date: 'HH:mm'}}h</small>
-                                            <small> as {{aula.objeto.dataFim | date: 'HH:mm'}}h</small>
+                                    <div>
+                                        <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
+                                        <small>De {{aula.objeto.dataInicio | date: 'HH:mm'}}h</small>
+                                        <small> as {{aula.objeto.dataFim | date: 'HH:mm'}}h</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <nb-card class="shadow" *ngIf="aula.objeto.aovivo" accent="danger">
+                                <nb-card-body class="d-flex align-items-center">
+                                    <div class="mr-3">
+
+                                        <nb-icon icon="play-circle-outline"></nb-icon>
+
+                                    </div>
+                                    <div>
+                                        <small class="badge badge-primary"
+                                            [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
+                                        <div class="d-flex">
+
+
+
+                                            <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
+                                        </div>
+                                        <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
+
+                                    </div>
+                                    <div class="ml-auto">
+
+                                        <div class="mb-3 d-flex align-items-center">
+                                            <small class="d-block mb-2 badge badge-danger mr-4 p-2">Ao vivo
+                                                agora</small>
+                                            <div>
+                                                <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
+                                                <small>De {{aula.objeto.dataInicio | date: 'HH:mm'}}h</small>
+                                                <small> as {{aula.objeto.dataFim | date: 'HH:mm'}}h</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-right">
+                                            <button nbButton [routerLink]="['/aluno/sala/'+selectedTurma.id]"
+                                                size="small" class="shadow" shape="round" hero status="info">Acessar
+                                                sala de
+                                                aula da disciplina</button>
+
                                         </div>
                                     </div>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+                    </div>
 
-                                    <div class="text-right">
-                                        <button nbButton [routerLink]="['/aluno/sala/'+selectedTurma.id]" size="small"
-                                            class="shadow" shape="round" hero status="info">Acessar sala de
-                                            aula da disciplina</button>
-
-                                    </div>
-                                </div>
-                            </nb-card-body>
-                        </nb-card>
+                    <div *ngIf="aulas && aulas.length == 0">
+                        <p>Nenhuma aula próxima para você! ;)</p>
                     </div>
                 </nb-tab>
 
                 <nb-tab tabTitle="Atividades">
-                    <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id+'/'+turmaId]" class="d-flex "
-                        style="cursor:pointer" *ngFor="let atividade of atividades">
-                        <div class="mr-3">
+                    <div *ngIf="atividades && atividades.length > 0">
 
-                            <nb-icon icon="edit-2-outline" class="text-disabled" *ngIf="!atividade.objeto.isExecutado">
-                            </nb-icon>
-                            <nb-icon icon="checkmark-outline" class="text-success" *ngIf="atividade.objeto.isExecutado">
-                            </nb-icon>
-                        </div>
-                        <div>
-                            <small class="badge badge-primary"
-                                [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
-                            <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
-                                {{atividade.objeto.titulo}}</h6>
-                            <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
-                        </div>
-                        <div class="ml-auto d-flex">
 
+                        <div [routerLink]="['/aluno/atividade/'+atividade.objeto.id+'/'+turmaId]" class="d-flex "
+                            style="cursor:pointer" *ngFor="let atividade of atividades">
+                            <div class="mr-3">
+
+                                <nb-icon icon="edit-2-outline" class="text-disabled"
+                                    *ngIf="!atividade.objeto.isExecutado">
+                                </nb-icon>
+                                <nb-icon icon="checkmark-outline" class="text-success"
+                                    *ngIf="atividade.objeto.isExecutado">
+                                </nb-icon>
+                            </div>
                             <div>
-                                <h6 class="subtitle">
-                                    <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
-                                    {{atividade.objeto.professor.nome}}
-                                </h6>
-                                <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}} as
-                                    {{(atividade.objeto.prazoFinal | date: 'HH:mm') + 'h '}}</small>
+                                <small class="badge badge-primary"
+                                    [style.background-color]="atividade.disciplina.cor">{{atividade.disciplina.nome}}</small>
+                                <h6 class="subtitle" [ngClass]="{'text-hint': atividade.objeto.isExecutado}">
+                                    {{atividade.objeto.titulo}}</h6>
+                                <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
+                            </div>
+                            <div class="ml-auto d-flex">
+
+                                <div>
+                                    <h6 class="subtitle">
+                                        <nb-icon icon="person-outline" class="text-disabled"></nb-icon>
+                                        {{atividade.objeto.professor.nome}}
+                                    </h6>
+                                    <small>Prazo: {{atividade.objeto.prazoFinal | date: 'dd/MM/yyyy'}} as
+                                        {{(atividade.objeto.prazoFinal | date: 'HH:mm') + 'h '}}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                    <div *ngIf="atividades && atividades.length == 0">
+                        <p>Não há atividades disponíveis no momento</p>
+                    </div>
 
 
                 </nb-tab>
 
                 <nb-tab tabTitle="Materiais">
+                    <div *ngIf="materiais && materiais.length > 0">
+                        <div class="d-flex align-items-center w-100" *ngFor="let material of materiais">
+                            <h1>
+                                <nb-actions size="small">
+                                    <nb-action icon="download-outline"></nb-action>
+                                </nb-actions>
+                            </h1>
+                            <div>
+                                <small class="badge badge-primary"
+                                    [style.background-color]="material.disciplina.cor">{{material.disciplina.nome}}</small>
+                                <h6 class="subtitle">{{material.objeto.nome}}</h6>
+                                <p class="paragraph-2 text-hint">{{material.objeto.descricao}}</p>
+                            </div>
+                            <div class="ml-auto d-flex">
 
-                    <div class="d-flex align-items-center w-100" *ngFor="let material of materiais">
-                        <h1>
-                            <nb-actions size="small">
-                                <nb-action icon="download-outline"></nb-action>
-                            </nb-actions>
-                        </h1>
-                        <div>
-                            <small class="badge badge-primary"
-                                [style.background-color]="material.disciplina.cor">{{material.disciplina.nome}}</small>
-                            <h6>{{material.objeto.nome}}</h6>
-                            <p class="paragraph-2 text-hint">{{material.objeto.descricao}}</p>
-                        </div>
-                        <div class="ml-auto d-flex">
-
-                            <div *ngIf="material">
-                                <a href="{{material.objeto.url}}" nbButton>Acessar</a>
+                                <div *ngIf="material">
+                                    <a href="{{material.objeto.url}}" nbButton>Acessar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-
+                    <div *ngIf="materiais && materiais.length == 0">
+                        <p>Não há materiais disponíveis no momento</p>
+                    </div>
 
 
 
