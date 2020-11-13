@@ -42,8 +42,6 @@ export const routes: Routes = [
   {
     path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
     canActivate: [AuthGuard],
-
-
   },
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "**", redirectTo: "home" },

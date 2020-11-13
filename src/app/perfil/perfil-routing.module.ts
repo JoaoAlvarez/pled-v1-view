@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PerfilComponent } from './perfil.component';
-import { MeusdadosComponent } from './meusdados/meusdados.component';
-import { SenhaComponent } from './senha/senha.component';
 import { NotFoundComponent } from "../miscellaneous/not-found/not-found.component";
+import { MeusdadosComponent } from './meusdados/meusdados.component';
 
 
 const routes: Routes = [{
@@ -12,17 +11,8 @@ const routes: Routes = [{
   component: PerfilComponent,
   children: [
     {
-      path: "",
-      redirectTo: "meusdados",
-      pathMatch: "full",
-    },
-    {
       path: "meusdados",
       component: MeusdadosComponent
-    },
-    {
-      path: "senha",
-      component: SenhaComponent
     },
     {
       path: "**",
@@ -38,6 +28,5 @@ const routes: Routes = [{
 export class PerfilRoutingModule { }
 export const routedComponents = [
   PerfilComponent,
-  MeusdadosComponent,
-  SenhaComponent
+  MeusdadosComponent
 ];

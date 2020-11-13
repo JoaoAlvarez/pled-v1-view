@@ -12,13 +12,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     {
         title: "Meus dados",
         icon: "people-outline",
-        children: [
-            {
-                title: "Alterar senha",
-                link: "/perfil/senha",
-            },
-
-        ],
+        link: "/perfil/meusdados",
 
     },
 ];

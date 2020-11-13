@@ -214,4 +214,17 @@ export class InstituicaoService {
         })
       );
   }
+  deleteGrupo(dados: any): Observable<any> {
+    console.log(dados)
+    return this.httpClient
+      .delete("/instituicao/gruposdeensino", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 }

@@ -48,7 +48,6 @@ import { ColorSketchModule } from 'ngx-color/sketch';
     InstituicaoRoutingModule,
     ThemeModule,
     NbMenuModule,
-    ReactiveFormsModule,
     MiscellaneousModule,
     ColorSketchModule
   ],

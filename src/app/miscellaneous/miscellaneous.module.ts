@@ -5,7 +5,6 @@ import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousRoutingModule } from './miscellaneous-routing.module';
 import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   imports: [
@@ -16,8 +15,7 @@ import { PerfilComponent } from './perfil/perfil.component';
   ],
   declarations: [
     MiscellaneousComponent,
-    NotFoundComponent,
-    PerfilComponent,
+    NotFoundComponent
   ],
 })
 export class MiscellaneousModule { }

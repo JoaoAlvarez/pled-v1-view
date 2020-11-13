@@ -45,7 +45,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = "default";
 
-  userMenu = [{ title: "Sair" }];
+  userMenu = [
+    { title: "Meus dados" },
+    { title: "Sair" }
+  ];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -87,6 +90,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.onItemClick().subscribe((event) => {
       if (event.item.title === "Sair") {
         this.logout();
+      }
+      if (event.item.title === "Meus dados") {
+        this.router.navigateByUrl("/perfil/meusdados");
       }
     });
   }
