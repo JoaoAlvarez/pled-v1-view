@@ -9,16 +9,27 @@ import { map, catchError } from "rxjs/operators";
 export class InstituicaoService {
 
   constructor(private httpClient: HttpClient) { }
+
   getUserId(id): Observable<any> {
     return this.httpClient.get("/user/id/" + id).pipe(
       map((response: any) => {
-        console.log("response", response);
         if (response) {
           return response;
         }
       })
     );
   }
+
+  getProfessorId(id): Observable<any> {
+    return this.httpClient.get("/instituicao/professor/id/" + id).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
   getAlunos(): Observable<any> {
     return this.httpClient.get("/instituicao/aluno/listar").pipe(
       map((response: any) => {
@@ -124,6 +135,14 @@ export class InstituicaoService {
     );
   }
 
+  deleteTurma(turmaId: string): Observable<any> {
+    return this.httpClient.delete("/instituicao/turma/" + turmaId).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
+
   inserirDisciplina(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/disciplina/salvar", dados)
@@ -186,6 +205,19 @@ export class InstituicaoService {
   editarGrupo(dados: any): Observable<any> {
     return this.httpClient
       .put("/instituicao/gruposdeensino", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+  deleteGrupo(dados: any): Observable<any> {
+    console.log(dados)
+    return this.httpClient
+      .delete("/instituicao/gruposdeensino", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);

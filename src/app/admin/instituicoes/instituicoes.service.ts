@@ -32,7 +32,7 @@ export class instituicoesService {
   }
   mudarStatus(dados: any): Observable<any> {
     return this.httpClient
-      .post("/admin/instituicao/status", dados)
+      .put("/admin/instituicao/status", dados)
       .pipe(
         map((response: any) => {
           console.log("response", response);

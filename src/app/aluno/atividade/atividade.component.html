@@ -6,11 +6,15 @@
 
                 <nb-card-header *ngIf="atividade.isExecutado" class="d-flex align-items-center"
                     style="position: relative;">
-                    <nb-badge text="Acertou" status="success" position="top right" *ngIf="questao.acertou"></nb-badge>
-                    <nb-icon icon="checkmark-outline" class="text-success" *ngIf="questao.acertou"></nb-icon>
 
-                    <nb-badge text="Errou" status="danger" position="top right" *ngIf="!questao.acertou"></nb-badge>
-                    <nb-icon icon="close-outline" class="text-danger" *ngIf="!questao.acertou"></nb-icon>
+                    <div *ngIf="questao.acertou !== undefined">
+                        <nb-badge text="Acertou" status="success" position="top right" *ngIf="questao.acertou">
+                        </nb-badge>
+                        <nb-icon icon="checkmark-outline" class="text-success" *ngIf="questao.acertou"></nb-icon>
+
+                        <nb-badge text="Errou" status="danger" position="top right" *ngIf="!questao.acertou"></nb-badge>
+                        <nb-icon icon="close-outline" class="text-danger" *ngIf="!questao.acertou"></nb-icon>
+                    </div>
                     <h6>Questão {{i+1}} </h6>
 
                 </nb-card-header>
@@ -99,7 +103,8 @@
 
                     </div>
                     <div>
-                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}}</strong>
+                        <h6 class="subtitle">Prazo final: <strong>{{atividade.prazoFinal | date: 'dd/MM/yyyy'}} as
+                                {{(atividade.prazoFinal | date: 'HH:mm') + 'h '}}</strong>
                         </h6>
                     </div>
                 </div>

@@ -16,6 +16,7 @@ import {
 
 import { NgxLoginComponent } from "./login/login.component";
 import { SignupComponent } from './signup/signup.component';
+import { RecoverPasswordComponent } from './recover/recover.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -34,6 +35,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbAuthModule,
     NbSpinnerModule,
   ],
-  declarations: [NgxLoginComponent, SignupComponent],
+  declarations: [NgxLoginComponent, RecoverPasswordComponent, SignupComponent],
 })
 export class NgxAuthModule { }

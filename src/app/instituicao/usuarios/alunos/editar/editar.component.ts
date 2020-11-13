@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray   } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
@@ -20,6 +20,7 @@ export class AlunosEditarComponent implements OnInit {
   isLoading: Boolean = true;
   turmas = [];
   id: string;
+  aluno: any = {};
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
@@ -57,51 +58,50 @@ export class AlunosEditarComponent implements OnInit {
 
   private createForm() {
     this.InstituicaoService
-      .getAlunos()
-      .pipe(finalize(() => { }))
+      .getUserId(this.id)
       .subscribe((response) => {
         this.isLoading = false;
-        response.forEach(alunos => {
 
-          if (alunos.id == this.id) {
-            this.form = this.formBuilder.group({
-              nome: [alunos.nome],
-              perfil: ['Aluno'],
-              turma: [alunos.turma.id],
-              email: [alunos.email],
-              cpf: [alunos.cpf],
-              dataNascimento: [new DatePipe('en-US').transform(alunos.dataNascimento, 'dd/MM/yyyy')],
-              phones: this.formBuilder.group({
-                ddd: [alunos.phones[0].ddd],
-                phoneNumber: [alunos.phones[0].phoneNumber],
-              }),
-            });
-          }
+        this.aluno = response;
+        let aluno = this.aluno;
 
+        this.form = this.formBuilder.group({
+          id: [aluno.id],
+          nome: [aluno.nome],
+          perfil: ['Aluno'],
+          turma: [''],
+          email: [aluno.email],
+          cpf: [aluno.cpf],
+          // dataNascimento: [new DatePipe('en-US').transform(aluno.dataNascimento, 'dd/MM/yyyy')],
+          // phones: this.formBuilder.group({
+          //   ddd: [aluno.phones[0].ddd],
+          //   phoneNumber: [aluno.phones[0].phoneNumber],
+          // }),
         });
-      });
+      }
 
+      );
 
-    this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      perfil: ['Aluno'],
-      turma: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      dataNascimento: ['', Validators.required],
-      phones: this.formBuilder.group({
-        ddd: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
-      }),
-    });
+    // this.form = this.formBuilder.group({
+    //   nome: ['', Validators.required],
+    //   perfil: ['Aluno'],
+    //   turma: ['', Validators.required],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    //   dataNascimento: ['', Validators.required],
+    //   phones: this.formBuilder.group({
+    //     ddd: ['', Validators.required],
+    //     phoneNumber: ['', Validators.required],
+    //   }),
+    // });
 
   }
 
   submit() {
     this.isLoading = true;
-    const result: usuario = Object.assign({}, this.form.value);
+    const result: aluno = Object.assign({}, this.form.value);
     this.InstituicaoService
-      .inserirAluno(result)
+      .editarAluno(result)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 
@@ -122,7 +122,7 @@ export class AlunosEditarComponent implements OnInit {
 
 }
 
-export class usuario {
+export class aluno {
   nome: string = ''
   perfil: string = 'Aluno'
   turma: string = ''

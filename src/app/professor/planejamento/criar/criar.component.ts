@@ -135,11 +135,6 @@ export class CriarComponent implements OnInit {
     this.planos.removeAt(index);
   }
 
-
-  dateF(event) {
-    console.log(event);
-  }
-
   private createForm() {
 
     this.form = this.formBuilder.group({

@@ -19,14 +19,14 @@ export class HomeComponent implements OnInit {
   aulas: any = [];
   atividades: any = [];
   materiais: any = [];
-
+  timeline;
+  setDisciplina;
 
   constructor(private alunoSerivce: AlunoService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
       this.turmaId = params.get('id');
       this.getDisciplinas(this.turmaId);
       this.getTimeline(this.turmaId);
-      //this.getSimulados(this.turmaId);
     });
 
   }
@@ -64,25 +64,17 @@ export class HomeComponent implements OnInit {
   // }
 
   getTimeline(turmaId) {
-    forkJoin(this.alunoSerivce
+    forkJoin([this.alunoSerivce
       .getAulas(turmaId), this.alunoSerivce
         .getAtividades(turmaId), this.alunoSerivce
-          .getMateriais(turmaId))
+          .getMateriais(turmaId)])
       .subscribe((response) => {
-        console.log(response);
         let aulas = response[0];
+        let atividades = response[1];
+        let materiais = response[2];
 
-        aulas.forEach(aula => {
-          aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
-        });
+        this.setTimeline(aulas, atividades, materiais);
 
-        this.aulas = aulas;
-        this.atividades = response[1];
-        this.materiais = response[2];
-
-        this.timelineLoading = false;
-
-        console.log('Aulas depois de comparar datas', this.aulas);
       });
   }
 
@@ -90,17 +82,19 @@ export class HomeComponent implements OnInit {
     this.alunoSerivce
       .getDisciplinas(idTurma)
       .subscribe((response) => {
-        console.log('Turma detalhe', response);
-        this.turmasLoading = false;
-        this.disciplinas = response;
-      });
-  }
+        let disciplinas = response;
+        let disciplinasFiltradas = [];
 
-  getSimulados(idTurma) {
-    this.alunoSerivce
-      .getSimulados(idTurma)
-      .subscribe((response) => {
-        this.simulados = response;
+        disciplinas.forEach(disciplina => {
+          console.log(disciplina);
+          console.log(disciplinasFiltradas);
+          if (!disciplinasFiltradas.some(disciplinaFiltrada => disciplinaFiltrada.nome === disciplina.nome)) {
+            disciplinasFiltradas.push(disciplina);
+          }
+        });
+
+        this.turmasLoading = false;
+        this.disciplinas = disciplinasFiltradas;
       });
   }
 
@@ -115,6 +109,33 @@ export class HomeComponent implements OnInit {
       return false;
     }
 
+  }
+
+  setTimeline(aulas, atividades, materiais) {
+    aulas.forEach(aula => {
+      aula.objeto.aovivo = this.compareDates(aula.objeto.dataInicio, aula.objeto.dataFim);
+    });
+
+    this.aulas = aulas;
+    this.atividades = atividades;
+    this.atividades = this.atividades.sort((a, b) => { return <any>new Date(b.objeto.prazoFinal) - <any>new Date(a.objeto.prazoFinal) })
+    this.materiais = materiais;
+    this.timelineLoading = false;
+
+    this.timeline = {
+      atividades: this.atividades,
+      aulas: this.aulas,
+      materiais: this.materiais
+    }
+  }
+
+  filterDisciplina(disciplina) {
+    if (disciplina.idProfessorDisciplina) {
+      this.setDisciplina = disciplina;
+      this.aulas = this.timeline.aulas.filter((aula) => aula.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+      this.atividades = this.timeline.atividades.filter((atividade) => atividade.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+      this.materiais = this.timeline.materiais.filter((material) => material.disciplina.idProfessorDisciplina == disciplina.idProfessorDisciplina);
+    }
   }
 
 }

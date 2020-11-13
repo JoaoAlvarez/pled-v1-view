@@ -201,6 +201,17 @@ export class ProfessorService {
     )
   }
 
+  getRespostasAlunos(idAtividade): Observable<any> {
+    return this.httpClient.get("/professor/simulado/poraluno/idsimulado/" + idAtividade).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    )
+  }
+
+
   enviarRespostas(idSimulado, respostas): Observable<any> {
     return this.httpClient.put("/professor/simulado/corrigir/" + idSimulado, respostas).pipe(
       map((response: any) => {

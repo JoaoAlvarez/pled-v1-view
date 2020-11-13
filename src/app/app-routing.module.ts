@@ -39,6 +39,10 @@ export const routes: Routes = [
     path: "auth",
     loadChildren: "./auth/auth.module#NgxAuthModule",
   },
+  {
+    path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
+    canActivate: [AuthGuard],
+  },
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "**", redirectTo: "home" },
 ];

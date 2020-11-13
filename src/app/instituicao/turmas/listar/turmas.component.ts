@@ -4,6 +4,8 @@ import { SmartTableData } from "../../../@core/data/smart-table";
 import { InstituicaoService } from "../../instituicao.service";
 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'turmas-listar',
@@ -19,10 +21,10 @@ export class TurmasListarComponent {
       add: false,
       edit: false,
       delete: false,
-      // custom: [
-      //   { name: 'edit', title: '<i class="nb-edit"></i>' },
-      //   { name: 'delete', title: '<i class="nb-trash"></i>' }
-      // ],
+      custom: [
+        // { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'delete', title: '<i class="nb-trash"></i>' }
+      ],
       position: "right",
       columnTitle: "Ações",
     },
@@ -132,10 +134,14 @@ export class TurmasListarComponent {
      } else {
        this.source.reset();
      }
-   }*/onCustomAction(event): void {
-    console.log(event);
-    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-    this.router.navigateByUrl("/instituicao/turmas/editar/" + event.data.id);
+   }*/
+
+  onCustomAction(event): void {
+    if (event.action == 'edit') {
+      this.router.navigateByUrl("/instituicao/turmas/editar/" + event.data.id);
+    } else if (event.action == 'delete') {
+      this.onDeleteConfirm(event);
+    }
   }
 
   onDeleteConfirm(event): void {
@@ -145,8 +151,13 @@ export class TurmasListarComponent {
         "Tem certeza que deseja exclulir esta turma?"
       )
     ) {
-    } else {
-      event.confirm.reject();
+      this.InstituicaoService
+        .deleteTurma(event.data.id)
+        .subscribe((response) => {
+          Swal.fire('Ok', 'Turma deletada com sucesso', 'success');
+
+          this.getTurmas();
+        });
     }
   }
 

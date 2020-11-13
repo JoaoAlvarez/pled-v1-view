@@ -18,6 +18,7 @@ import {
   NbCalendarRangeModule,
   NbSidebarModule,
   NbTabsetModule,
+  NbBadgeModule
 
 } from "@nebular/theme";
 import { NgxMaskModule } from 'ngx-mask';
@@ -66,8 +67,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbAccordionModule,
     DragDropModule,
     NbSidebarModule,
-    NbTabsetModule
-
+    NbTabsetModule,
+    NbBadgeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

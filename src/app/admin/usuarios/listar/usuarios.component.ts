@@ -1,12 +1,15 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { DatePipe } from '@angular/common';
 
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { UsuariosService } from "../usuarios.service";
 import { finalize } from "rxjs/operators";
+import { ViewCell } from 'ng2-smart-table';
+
 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -27,10 +30,10 @@ export class UsuariosListarComponent {
       add: false,
       edit: false,
       delete: false,
-      // custom: [
-      //   { name: 'edit', title: '<i class="nb-edit"></i>' },
-      //   { name: 'delete', title: '<i class="nb-trash"></i>' }
-      // ],
+      custom: [
+        // { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'delete', title: '<i class="nb-trash" ></i>' }
+      ],
 
     },
 
@@ -70,6 +73,11 @@ export class UsuariosListarComponent {
         title: "Perfil",
         type: "string",
       },
+      validated: {
+        title: "Validado",
+        type: "custom",
+        renderComponent: UsuariosValidatedComponent
+      },
       isAtivo: {
         title: "Status",
         type: "string",
@@ -97,6 +105,10 @@ export class UsuariosListarComponent {
     const data = this.service.getData();
     //this.source.load(data);
     this.getUsuarios();
+  }
+
+  reenviarValidacao() {
+    alert("oi");
   }
 
   getUsuarios() {
@@ -162,26 +174,40 @@ export class UsuariosListarComponent {
   }
 
   onDeleteConfirm(event): void {
+    console.log(event.data);
     if (
       window.confirm(
-        "Tem certeza que deseja excluir este usuário?"
+        "Tem certeza que deseja " + event.data.isAtivo + " este usuário?"
       )
     ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
-    } else {
-      event.confirm.reject();
+      this.UsuariosService
+        .deleteUser(event.data)
+        .pipe(finalize(() => { }))
+        .subscribe((response) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+          //Swal.fire('Ok', 'O usuário '+event.data.nome+' foi destivado com sucesso', 'success');
+          Toast.fire({
+            icon: 'success',
+            title: 'O usuário ' + event.data.nome + ' foi destivado com sucesso'
+          })
+
+          this.getUsuarios();
+        });
     }
   }
 
   onCustomAction(event): void {
-    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-    this.router.navigateByUrl("/admin/usuarios/listar/" + event.data.id);
+    console.log(event.action);
+    if (event.action == 'delete') {
+      console.log(event);
+      this.onDeleteConfirm(event);
+    }
   }
 
   /*onEditConfirm(event): void {
@@ -203,4 +229,38 @@ export class UsuariosListarComponent {
     }
 
   }*/
+}
+
+@Component({
+  templateUrl: './usuarios.validated.html',
+
+})
+export class UsuariosValidatedComponent implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: any;
+  @Input() rowData: any;
+
+  constructor(
+    private service: SmartTableData,
+    private UsuariosService: UsuariosService,
+    private router: Router,
+  ) {
+  }
+
+  ngOnInit() {
+    this.renderValue = this.value;
+  }
+
+  resendValidation() {
+    console.log('rowData', this.rowData);
+    this.UsuariosService
+      .resendValidation(this.rowData._id)
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        Swal.fire('Ok', 'E-mail de validação reenviado', 'success');
+
+      });
+    return false;
+  }
 }

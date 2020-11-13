@@ -28,7 +28,7 @@ export class GruposListarComponent {
       position: "right",
       columnTitle: "Ações",
       add: false,
-      edit: false,
+      edit: true,
       delete: false,
       /*custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
@@ -74,11 +74,7 @@ export class GruposListarComponent {
     private InstituicaoService: InstituicaoService,
     private router: Router,
   ) {
-    const data = this.service.getData();
-
-    //this.source.load(data);
     this.getGrupos();
-
   }
 
   getGrupos() {
@@ -136,16 +132,21 @@ export class GruposListarComponent {
     console.log(event);
     if (
       window.confirm(
-        "Tem certeza que deseja rejeitar a aprovação deste usuário?"
+        "Tem certeza que deseja deletar este grupo"
       )
     ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
+
+      let data = {
+        'nome': event.data
+      }
+
+      this.InstituicaoService
+        .deleteGrupo(data)
+        .pipe(finalize(() => { }))
+        .subscribe((response) => {
+          event.confirm.resolve();
+          this.getGrupos();
+        });
     } else {
       event.confirm.reject();
     }
@@ -154,37 +155,28 @@ export class GruposListarComponent {
     //console.log(event);
   }
   onEditConfirm(event): void {
-    //console.log(event.newData);
-    //event.data[0] = 'a';
-    event.source.data.forEach(element => {
-      if (element == event.data) {
-        event.confirm.resolve();
-        var nome = event.data;
-        var novoNome = event.newData.nome;
-        var editgroup = { nome, novoNome }
-        //event.newData=a;
-        console.log(editgroup);
-        event.confirm.resolve();
-        this.isLoading = true;
-        const result: grupo = Object.assign({}, editgroup);
-        this.InstituicaoService
-          .editarGrupo(result)
-          .pipe(finalize(() => { this.isLoading = false; }))
-          .subscribe((response) => {
 
-            this.isLoading = false;
+    console.log(event);
 
-            if (response) {
+    let data = {
+      'nome': event.data,
+      'novoNome': event.newData.nome
+    }
 
-              Swal.fire('Ok', 'Grupo atualizado com sucesso', 'success');
-              this.router.navigateByUrl("/instituicao/grupos/listar");
-            }
-          });
-      }
-    });
+    this.isLoading = true;
+    this.InstituicaoService
+      .editarGrupo(data)
+      .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((response) => {
 
+        this.isLoading = false;
 
+        if (response) {
 
+          Swal.fire('Ok', 'Grupo atualizado com sucesso', 'success');
+          this.getGrupos();
+        }
+      });
 
   }
 }

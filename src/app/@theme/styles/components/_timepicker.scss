@@ -1,0 +1,15 @@
+.timepicker__input {
+    opacity: 0;
+}
+
+.timepicker {
+    position: relative;
+}
+
+.timepicker__placeholder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}

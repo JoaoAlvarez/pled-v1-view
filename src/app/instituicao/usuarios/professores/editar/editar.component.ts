@@ -6,7 +6,7 @@ import { LocalDataSource } from "ng2-smart-table";
 
 
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -22,8 +22,15 @@ export class EditarProfessorComponent implements OnInit {
   productForm: FormGroup;
   turmas = [];
   disciplinas = [];
+  id;
 
-  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) {
+    this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      this.createForm();
+    });
+
+  }
 
   ngOnInit(): void {
     this.getDisciplinas();
@@ -37,7 +44,7 @@ export class EditarProfessorComponent implements OnInit {
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         //this.turmas = response;
-        this.isLoading=false;
+        this.isLoading = false;
         response.forEach(element => {
           element.series.forEach(element => {
             element.turmas.forEach(element => {
@@ -78,35 +85,31 @@ export class EditarProfessorComponent implements OnInit {
 
   private createForm() {
     this.InstituicaoService
-    .getProfessores()
-    .pipe(finalize(() => { }))
-    .subscribe((response) => {
-      this.isLoading=false;
-       response.forEach(professores => {
-         var t =this.router.url.split("/",5);
-        if(professores.id==t[4]){
+      .getProfessorId(this.id)
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        let professores = response;
 
-            //this.aluno.push(alunos)
+        this.form = this.formBuilder.group({
+          nome: [professores.nome],
+          //perfil: [professores.perfil],
+          email: [professores.email],
+          cpf: [professores.cpf],
+          //turmasDisciplinas: this.formBuilder.array([])
+        });
 
-            this.form = this.formBuilder.group({
-              nome: [professores.nome],
-              //perfil: [professores.perfil],
-              email: [professores.email],
-              cpf: [professores.cpf],
-              //turmasDisciplinas: this.formBuilder.array([])
-            });
-         
-        }
-        
-      });
-    });
-    this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      perfil: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-      turmasDisciplinas: this.formBuilder.array([])
-    });
+      }
+
+      );
+
+    // this.form = this.formBuilder.group({
+    //   nome: ['', Validators.required],
+    //   perfil: ['', Validators.required],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    //   turmasDisciplinas: this.formBuilder.array([])
+    // });
   }
 
   Adicionar() {
