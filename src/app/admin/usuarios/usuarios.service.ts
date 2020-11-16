@@ -35,12 +35,9 @@ export class UsuariosService {
 
   deleteUser(dados): Observable<any> {
 
-    let data = {
-      'id': dados._id,
-      'status': false
-    }
 
-    return this.httpClient.patch("/user/alterarstatus/", data).pipe(
+
+    return this.httpClient.patch("/user/alterarstatus/", dados).pipe(
       map((response: any) => {
 
         if (response) {

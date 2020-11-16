@@ -11,7 +11,8 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbTabsetModule
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -46,7 +47,8 @@ import {
     Ng2SmartTableModule,
     ReactiveFormsModule,
     NgxMaskModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbTabsetModule
   ],
   declarations: [...routedComponents],
 })

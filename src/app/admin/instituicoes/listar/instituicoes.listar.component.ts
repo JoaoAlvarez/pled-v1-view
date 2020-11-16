@@ -7,17 +7,13 @@ import { instituicoesService } from "../instituicoes.service";
 import { finalize } from "rxjs/operators";
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-
-import { BadgeComponent } from "../../../@theme/components/badge/badge.component";
-import { instituicoesAnexosComponent } from "../components/anexos.component";
-
 @Component({
   selector: "instituicoes-listar",
   templateUrl: "./instituicoes.listar.component.html",
   styleUrls: ["./instituicoes.listar.component.scss"],
 })
 export class instituicoesListarComponent {
-  settings = {
+  settingsDefault = {
     hideSubHeader: true,
     actions: {
       position: "right",
@@ -27,7 +23,6 @@ export class instituicoesListarComponent {
       delete: false,
       custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'status', title: '<i class="nb-trash"></i>' }
       ],
     },
     add: {
@@ -74,9 +69,31 @@ export class instituicoesListarComponent {
     },
   };
 
+  settings1 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        ...this.settingsDefault.actions.custom,
+        { name: 'status', title: '<i class="nb-trash" title="Desativar instituição"></i>' }
+      ]
+    }
+  };
+
+  settings2 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        ...this.settingsDefault.actions.custom,
+        { name: 'status', title: '<i class="nb-loop" title="Ativar instituição"></i>' }
+      ]
+    }
+  };
+
   source: LocalDataSource = new LocalDataSource();
+  source2: LocalDataSource = new LocalDataSource();
   newStatus: FormGroup;
-  //source;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,8 +101,6 @@ export class instituicoesListarComponent {
     private instituicoesService: instituicoesService,
     private router: Router,
   ) {
-    const data = this.service.getData();
-    //this.source.load(data);
     this.getInstituicoes();
   }
 
@@ -94,18 +109,14 @@ export class instituicoesListarComponent {
       .getInstituicoes()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        this.source.load(response);
-        this.source.setSort(
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
 
-          false
-        );
+        const ativos = response.filter((instituicao) => instituicao.ativa);
+        const inativos = response.filter((instituicao) => !instituicao.ativa);
+
+        this.source.load(ativos);
+        this.source2.load(inativos);
         this.source.refresh();
+        this.source2.refresh();
       });
   }
 
@@ -139,7 +150,8 @@ export class instituicoesListarComponent {
     }
   }
 
-  onCustomAction(event): void {
+  onCustomAction(event, source): void {
+    console.log(source);
     console.log(event);
     switch (event.action) {
       case 'edit':
@@ -148,9 +160,17 @@ export class instituicoesListarComponent {
 
       case 'status': {
 
+        let txtStatus = '';
+
+        if (source == 'source1') {
+          txtStatus = 'desativada';
+        } else if (source == 'source2') {
+          txtStatus = 'ativada';
+        }
+
         this.newStatus = this.formBuilder.group({
           instituicao: event.data.id,
-          status: false
+          status: !event.data.ativa
         });
         const result: status = Object.assign({}, this.newStatus.value);
         this.instituicoesService
@@ -158,8 +178,8 @@ export class instituicoesListarComponent {
           .pipe(finalize(() => { }))
           .subscribe((response) => {
             if (response) {
-              Swal.fire('Ok', 'Insituição removida com sucesso', 'success');
-              this.router.navigateByUrl("/admin/instituicoes/listar");
+              Swal.fire('Ok', 'Insituição <b>' + event.data.nome + '</b> ' + txtStatus + ' com sucesso', 'success');
+              this.getInstituicoes();
             }
           });
       }

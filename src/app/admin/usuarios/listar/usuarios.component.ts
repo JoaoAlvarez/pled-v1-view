@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 })
 export class UsuariosListarComponent {
 
-  settings = {
+  settingsDefault = {
 
     hideSubHeader: true,
 
@@ -29,12 +29,7 @@ export class UsuariosListarComponent {
       columnTitle: "Ações",
       add: false,
       edit: false,
-      delete: false,
-      custom: [
-        // { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'delete', title: '<i class="nb-trash" ></i>' }
-      ],
-
+      delete: false
     },
 
     add: {
@@ -94,7 +89,28 @@ export class UsuariosListarComponent {
     },
   };
 
+  settings1 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        { name: 'status', title: '<i class="nb-trash" title="Desativar usuário"></i>' }
+      ]
+    }
+  };
+
+  settings2 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        { name: 'status', title: '<i class="nb-loop" title="Ativar usuário"></i>' }
+      ]
+    }
+  };
+
   source: LocalDataSource = new LocalDataSource();
+  source2: LocalDataSource = new LocalDataSource();
   //source;
 
   constructor(
@@ -107,16 +123,19 @@ export class UsuariosListarComponent {
     this.getUsuarios();
   }
 
-  reenviarValidacao() {
-    alert("oi");
-  }
-
   getUsuarios() {
     this.UsuariosService
       .getUsuarios()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        this.source.load(response);
+
+        const ativos = response.filter((usuario) => usuario.isAtivo);
+        const inativos = response.filter((usuario) => !usuario.isAtivo);
+
+        this.source.load(ativos);
+        this.source2.load(inativos);
+        this.source.refresh();
+        this.source2.refresh();
         // this.source.addFilter( // Filtrar pendentes
         //   {
         //     field: "onboardStatus",
@@ -125,18 +144,17 @@ export class UsuariosListarComponent {
 
         //   false
         // );
-        this.source.setSort(
-          // Filtrar pendentes
-          [
-            {
-              field: "onboardStatus",
-              direction: "desc",
-            },
-          ],
+        // this.source.setSort(
+        //   // Filtrar pendentes
+        //   [
+        //     {
+        //       field: "onboardStatus",
+        //       direction: "desc",
+        //     },
+        //   ],
 
-          false
-        );
-        this.source.refresh();
+        //   false
+        // );
       });
   }
 
@@ -173,15 +191,28 @@ export class UsuariosListarComponent {
     }
   }
 
-  onDeleteConfirm(event): void {
-    console.log(event.data);
+  onDeleteConfirm(event, source): void {
     if (
       window.confirm(
-        "Tem certeza que deseja " + event.data.isAtivo + " este usuário?"
+        "Tem certeza que deseja " + (event.data.isAtivo ? 'desativar' : 'ativar') + " este usuário?"
       )
     ) {
+
+      let txtStatus = '';
+
+      if (source == 'source1') {
+        txtStatus = 'desativado';
+      } else if (source == 'source2') {
+        txtStatus = 'ativado';
+      }
+
+      let dados = {
+        'id': event.data._id,
+        'status': !event.data.isAtivo
+      }
+
       this.UsuariosService
-        .deleteUser(event.data)
+        .deleteUser(dados)
         .pipe(finalize(() => { }))
         .subscribe((response) => {
           const Toast = Swal.mixin({
@@ -191,44 +222,22 @@ export class UsuariosListarComponent {
             timer: 3000,
             timerProgressBar: true,
           })
-          //Swal.fire('Ok', 'O usuário '+event.data.nome+' foi destivado com sucesso', 'success');
           Toast.fire({
             icon: 'success',
-            title: 'O usuário ' + event.data.nome + ' foi destivado com sucesso'
+            title: 'O usuário ' + event.data.nome + ' ' + txtStatus + ' com sucesso'
           })
+          //Swal.fire('Ok', 'O usuário '+event.data.nome+' foi destivado com sucesso', 'success');
 
           this.getUsuarios();
         });
     }
   }
 
-  onCustomAction(event): void {
-    console.log(event.action);
-    if (event.action == 'delete') {
-      console.log(event);
-      this.onDeleteConfirm(event);
+  onCustomAction(event, source): void {
+    if (event.action == 'status') {
+      this.onDeleteConfirm(event, source);
     }
   }
-
-  /*onEditConfirm(event): void {
-    console.log(event);
-    if (
-      window.confirm(
-        "Tem certeza que deseja editar este usuário?"
-      )
-    ) {
-      this.UsuariosService
-        .inserirUsuarios(event.data.id)
-        .pipe(finalize(() => { }))
-        .subscribe((response) => {
-          event.confirm.resolve();
-          this.getUsuarios();
-        });
-    } else {
-      event.confirm.reject();
-    }
-
-  }*/
 }
 
 @Component({
@@ -258,7 +267,18 @@ export class UsuariosValidatedComponent implements ViewCell, OnInit {
       .resendValidation(this.rowData._id)
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        Swal.fire('Ok', 'E-mail de validação reenviado', 'success');
+        //Swal.fire('Ok', 'E-mail de validação reenviado', 'success');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'E-mail de validação reenviado com sucesso'
+        })
 
       });
     return false;
