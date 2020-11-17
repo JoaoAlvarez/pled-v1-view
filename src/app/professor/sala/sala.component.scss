@@ -1,0 +1,20 @@
+.iframe-jitsy {
+    width: 100%;
+    height: 100%;
+}
+
+.fullscreen {
+    position: fixed;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.btn-fullscreen {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    z-index: 100;
+}

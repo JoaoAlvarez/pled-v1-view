@@ -12,8 +12,15 @@
   </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-      (custom)="onCustomAction($event)">
-    </ng2-smart-table>
+    <nb-tabset>
+      <nb-tab tabTitle="Ativos">
+        <ng2-smart-table [settings]="settings1" [source]="source" (custom)="onCustomAction($event, 'source1')">
+        </ng2-smart-table>
+      </nb-tab>
+      <nb-tab tabTitle="Inativos">
+        <ng2-smart-table [settings]="settings2" [source]="source2" (custom)="onCustomAction($event, 'source2')">
+        </ng2-smart-table>
+      </nb-tab>
+    </nb-tabset>
   </nb-card-body>
 </nb-card>

@@ -124,6 +124,14 @@ export class ProfessorService {
     )
   }
 
+  deletarMaterial(id): Observable<any> {
+    return this.httpClient.delete("/professor/turma/material/" + id).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
+  }
+
   criarPlanejamento(dados: any): Observable<any> {
     return this.httpClient
       .post("/professor/turma/planodeaula", dados)

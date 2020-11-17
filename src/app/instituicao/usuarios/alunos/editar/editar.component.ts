@@ -21,6 +21,7 @@ export class AlunosEditarComponent implements OnInit {
   turmas = [];
   id: string;
   aluno: any = {};
+  inserirAlunoTurma = false;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
@@ -56,6 +57,10 @@ export class AlunosEditarComponent implements OnInit {
     return this.form.get('phones') as FormGroup;
   }
 
+  turmaChange(event) {
+    this.inserirAlunoTurma = true;
+  }
+
   private createForm() {
     this.InstituicaoService
       .getUserId(this.id)
@@ -67,16 +72,16 @@ export class AlunosEditarComponent implements OnInit {
 
         this.form = this.formBuilder.group({
           id: [aluno.id],
-          nome: [aluno.nome],
+          nome: [aluno.nome, Validators.required],
           perfil: ['Aluno'],
-          turma: [''],
-          email: [aluno.email],
-          cpf: [aluno.cpf],
-          // dataNascimento: [new DatePipe('en-US').transform(aluno.dataNascimento, 'dd/MM/yyyy')],
-          // phones: this.formBuilder.group({
-          //   ddd: [aluno.phones[0].ddd],
-          //   phoneNumber: [aluno.phones[0].phoneNumber],
-          // }),
+          turma: [(aluno.turmas[0] ? aluno.turmas[0].id : '')],
+          email: [aluno.email, Validators.required],
+          cpf: [aluno.cpf, Validators.required],
+          //dataNascimento: [new DatePipe('en-US').transform(aluno.dataNascimento, 'dd/MM/yyyy'), Validators.required],
+          phones: this.formBuilder.group({
+            ddd: [(aluno.phones[0] ? aluno.phones[0].ddd : ''), Validators.required],
+            phoneNumber: [(aluno.phones[0] ? aluno.phones[0].phoneNumber : ''), Validators.required],
+          }),
         });
       }
 
@@ -105,22 +110,44 @@ export class AlunosEditarComponent implements OnInit {
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 
+        if (this.inserirAlunoTurma) {
+          this.inserirAlunoNaTurma();
+
+          return false;
+        }
+
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Aluno atualizado com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/usuarios/alunos");
-
+          this.msgSuccesso();
         }
 
-
-
       });
-
   }
 
+  inserirAlunoNaTurma() {
+    this.isLoading = true;
+    const result: aluno = Object.assign({}, this.form.value);
+    this.InstituicaoService
+      .inserirAlunoNaTurma(result)
+      .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((response) => {
 
+        this.isLoading = false;
+
+        if (response) {
+          this.msgSuccesso();
+        }
+
+      });
+  }
+
+  msgSuccesso() {
+    Swal.fire('Ok', 'Aluno atualizado com sucesso', 'success');
+    this.router.navigateByUrl("/instituicao/usuarios/alunos");
+  }
 }
+
 
 export class aluno {
   nome: string = ''

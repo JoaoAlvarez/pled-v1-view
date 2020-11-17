@@ -4,4 +4,11 @@
   nb-card {
     transform: translate3d(0, 0, 0);
   }
+
+
+}
+
+:host nb-tab {
+  padding-left: 0;
+  padding-right: 0;
 }

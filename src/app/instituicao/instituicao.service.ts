@@ -98,7 +98,26 @@ export class InstituicaoService {
       );
   }
 
-  inserirInstituicao(dados: any): Observable<any> {
+  inserirAlunoNaTurma(dados: any): Observable<any> {
+
+    let data = {
+      'turmas': [dados.turma],
+      'idAluno': dados.id
+    }
+
+    return this.httpClient
+      .post("/instituicao/turma/aluno", data)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+  inserirProfessor(dados: any): Observable<any> {
     return this.httpClient
       .post("/instituicao/professor/salvar", dados)
       .pipe(
@@ -110,6 +129,31 @@ export class InstituicaoService {
         })
       );
   }
+
+  editarProfessor(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/instituicao/professor", dados)
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+  inserirProfessorDisciplina(dados: any): Observable<any> {
+    return this.httpClient
+      .post("/instituicao/professor/disciplina", dados)
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
 
   inserirTurma(dados: any): Observable<any> {
     return this.httpClient

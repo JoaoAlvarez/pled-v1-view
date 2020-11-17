@@ -6,7 +6,7 @@ import { LocalDataSource } from "ng2-smart-table";
 
 
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -22,13 +22,22 @@ export class ProfessoresAdicionarComponent implements OnInit {
   productForm: FormGroup;
   turmas = [];
   disciplinas = [];
+  id;
 
-  constructor(private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) {
+    this.route.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      this.getDisciplinas();
+      this.getTurmas();
+      if (this.id) {
+        this.getProfessorDetails();
+      } else {
+        this.createForm();
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.getDisciplinas();
-    this.getTurmas();
-    this.createForm();
   }
 
   getTurmas() {
@@ -65,54 +74,128 @@ export class ProfessoresAdicionarComponent implements OnInit {
     return this.form.get('turmasDisciplinas') as FormArray;
   }
 
-  addTurmasDisciplinas() {
+  addTurmasDisciplinas(dados?) {
+    console.log(dados);
     this.turmasDisciplinas.push(this.formBuilder.group({
-      turma: ['', Validators.required],
-      disciplina: ['', Validators.required]
+      turma: [dados ? dados.id : '', Validators.required],
+      disciplina: [dados ? dados.disciplinas[0].idDisciplina : '', Validators.required]
     }));
+
   }
 
   deleteTurmasDisciplinas(index) {
     this.turmasDisciplinas.removeAt(index);
   }
 
-  private createForm() {
+  getProfessorDetails() {
+    this.InstituicaoService
+      .getProfessorId(this.id)
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        let professor = response;
 
+        this.createForm(professor);
+
+        console.log(professor);
+
+        if (professor) {
+          professor.turmasDoProfessor.forEach(element => {
+            this.addTurmasDisciplinas(element);
+          });
+        }
+
+      }
+
+      );
+
+
+  }
+
+  private createForm(professor?) {
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      perfil: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      id: [professor ? professor.id : ''],
+      nome: [professor ? professor.nome : '', Validators.required],
+      perfil: [professor ? professor.perfil : '', Validators.required],
+      email: [professor ? professor.email : '', [Validators.required, Validators.email]],
+      cpf: [professor ? professor.cpf : '', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       turmasDisciplinas: this.formBuilder.array([])
     });
+
+    if (professor) {
+      this.turmasDisciplinas.push
+    }
   }
 
   Adicionar() {
     this.isLoading = true;
     const result: usuario = Object.assign({}, this.form.value);
+    console.log(result);
+
+    if (!this.id) {
+
+      this.InstituicaoService
+        .inserirProfessor(result)
+        .pipe(finalize(() => { this.isLoading = false; }))
+        .subscribe((response) => {
+
+          this.isLoading = false;
+
+          if (response) {
+            Swal.fire('Ok', 'Professor adicionada com sucesso', 'success');
+            this.router.navigateByUrl("/instituicao/usuarios/professores");
+
+          }
+
+
+
+        });
+    } else {
+
+      this.InstituicaoService
+        .editarProfessor(result)
+        .pipe(finalize(() => { this.isLoading = false; }))
+        .subscribe((response) => {
+
+
+          // result.turmasDisciplinas.forEach(element => {
+          //   console.log(element);
+          //   let data = {
+          //     "idProfessor": result.id,
+          //     "idDisciplina": element.disciplina
+          //   }
+
+          //   this.inserirProfessorDisciplina(data);
+          // });
+
+          if (response) {
+            Swal.fire('Ok', 'Professor editado com sucesso', 'success');
+            this.router.navigateByUrl("/instituicao/usuarios/professores");
+
+          }
+
+          this.isLoading = false;
+
+        });
+    }
+
+  }
+
+  inserirProfessorDisciplina(data) {
     this.InstituicaoService
-      .inserirInstituicao(result)
+      .inserirProfessorDisciplina(data)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 
-        this.isLoading = false;
-
-        if (response) {
-          Swal.fire('Ok', 'Professor adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/usuarios/professores");
-
-        }
-
-
-
+        console.log(response);
       });
-
   }
 
 
 }
 
 export class usuario {
+  id?: string = ''
   nome: string = ''
   cpf: string = ''
   email: string = '';

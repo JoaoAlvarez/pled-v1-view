@@ -22,8 +22,8 @@ const routes: Routes = [
                 component: ProfessoresAdicionarComponent,
             },
             {
-                path: "editar/:id",
-                component: EditarProfessorComponent,
+                path: "adicionar/:id",
+                component: ProfessoresAdicionarComponent,
             },
 
         ]

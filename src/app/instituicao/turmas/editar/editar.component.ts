@@ -23,7 +23,7 @@ export class TurmasEditarComponent implements OnInit {
   options = [];
   series = [];
   grupos = [];
-  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
 
@@ -44,7 +44,7 @@ export class TurmasEditarComponent implements OnInit {
       .subscribe((response) => {
         response.forEach(element => {
           this.grupos.push(element);
-          
+
         });
       });
   }
@@ -77,17 +77,26 @@ export class TurmasEditarComponent implements OnInit {
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         this.isLoading = false;
-        console.log(response);
+
+        console.log('TURMAS', response);
+
         response.forEach(turmas => {
 
-          if (turmas.id == this.id) {
-            this.form = this.formBuilder.group({
-              grupo: [turmas.series.grupo],
-              serie: [turmas.series.serie],
-              nome: [turmas.series.turmas.nome],
-              coordenador: [turmas.series.turmas.coordenador.nome],
-            });
-          }
+          turmas.series.forEach(serie => {
+            serie.turmas.forEach(turma => {
+
+              if (turma.id == this.id) {
+                console.log('turma', turma);
+                this.form = this.formBuilder.group({
+                  grupo: [turma.grupo],
+                  serie: [turmas.series.serie],
+                  nome: [turmas.series.turmas.nome],
+                  coordenador: [turmas.series.turmas.coordenador.nome],
+                });
+              }
+            })
+          })
+
 
         });
       });

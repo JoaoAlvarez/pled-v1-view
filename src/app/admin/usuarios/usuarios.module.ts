@@ -12,7 +12,8 @@ import {
   NbSelectModule,
   NbUserModule,
   NbSpinnerModule,
-  NbTooltipModule
+  NbTooltipModule,
+  NbTabsetModule
 } from "@nebular/theme";
 
 import { NgxMaskModule } from 'ngx-mask';
@@ -44,7 +45,8 @@ import {
     ReactiveFormsModule,
     NgxMaskModule,
     NbSpinnerModule,
-    NbTooltipModule
+    NbTooltipModule,
+    NbTabsetModule
   ],
   declarations: [...routedComponents],
 })

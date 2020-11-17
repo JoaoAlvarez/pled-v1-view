@@ -5,6 +5,7 @@ import { AlunosComponent } from './alunos.component';
 import { AlunosListarComponent } from './listar/alunos.component';
 import { AlunosAdicionarComponent } from './adicionar/adicionar.component';
 import { AlunosEditarComponent } from './editar/editar.component';
+import { UsuariosValidatedComponent } from '../../../admin/usuarios/listar/usuarios.component';
 const routes: Routes = [
     {
         path: "",
@@ -38,5 +39,6 @@ export const routedComponents = [
     AlunosComponent,
     AlunosListarComponent,
     AlunosAdicionarComponent,
-    AlunosEditarComponent
+    AlunosEditarComponent,
+    UsuariosValidatedComponent
 ];
