@@ -104,6 +104,9 @@ export class MateriaisListarComponent implements OnInit {
   }
 
   getMateriais(disciplinaId, turmaId) {
+
+
+
     this.ProfessorService
       .getMateriais(disciplinaId, turmaId)
       .pipe(finalize(() => { }))
@@ -144,9 +147,11 @@ export class MateriaisListarComponent implements OnInit {
     }
   }
   onCustomAction(event): void {
-    console.log(event);
-    // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-    this.router.navigateByUrl("/instituicao/disciplinas/editar/" + event.data._id);
+    if (event.action == 'edit') {
+      this.router.navigateByUrl("/instituicao/disciplinas/editar/" + event.data._id);
+    } else if (event.action == 'delete') {
+      this.onDeleteConfirm(event);
+    }
   }
 
   onDeleteConfirm(event): void {
@@ -156,15 +161,14 @@ export class MateriaisListarComponent implements OnInit {
         "Tem certeza que deseja rejeitar a aprovação deste usuário?"
       )
     ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
+      this.ProfessorService
+        .deletarMaterial(event.data._id)
+        .pipe(finalize(() => { }))
+        .subscribe((response) => {
+          this.getMateriais(this.selectedDisciplina, this.selectedTurma)
+        });
     } else {
-      event.confirm.reject();
+
     }
   }
 

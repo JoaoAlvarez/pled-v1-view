@@ -34,9 +34,6 @@ export class UsuariosService {
   }
 
   deleteUser(dados): Observable<any> {
-
-
-
     return this.httpClient.patch("/user/alterarstatus/", dados).pipe(
       map((response: any) => {
 

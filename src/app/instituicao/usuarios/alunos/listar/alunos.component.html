@@ -1,19 +1,26 @@
 <nb-card>
-    <nb-card-header>
-      <div class="row">
-        <div class="col-md-5">
-          <h4>Alunos</h4>
-        </div>
-        <div class="col-md-5 ml-auto text-right">
-          <input nbInput #search class="search" type="text" placeholder="Search..."
-            (keydown.enter)="onSearch(search.value)" />
-        </div>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Alunos</h4>
       </div>
-    </nb-card-header>
-  
-    <nb-card-body>
-      <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-      (custom)="onCustomAction($event)" (editConfirm)="onEditConfirm($event)">
-      </ng2-smart-table>
-    </nb-card-body>
-  </nb-card>
+      <div class="col-md-5 ml-auto text-right">
+        <input nbInput #search class="search" type="text" placeholder="Search..."
+          (keydown.enter)="onSearch(search.value)" />
+      </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="Ativos">
+        <ng2-smart-table [settings]="settings1" [source]="source" (custom)="onCustomAction($event, 'source1')">
+        </ng2-smart-table>
+      </nb-tab>
+      <nb-tab tabTitle="Inativos">
+        <ng2-smart-table [settings]="settings2" [source]="source2" (custom)="onCustomAction($event, 'source2')">
+        </ng2-smart-table>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>

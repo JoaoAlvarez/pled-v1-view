@@ -151,8 +151,6 @@ export class instituicoesListarComponent {
   }
 
   onCustomAction(event, source): void {
-    console.log(source);
-    console.log(event);
     switch (event.action) {
       case 'edit':
         this.router.navigateByUrl("/admin/instituicoes/editar/" + event.data.id);

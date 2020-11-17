@@ -111,15 +111,11 @@ export class UsuariosListarComponent {
 
   source: LocalDataSource = new LocalDataSource();
   source2: LocalDataSource = new LocalDataSource();
-  //source;
 
   constructor(
-    private service: SmartTableData,
     private UsuariosService: UsuariosService,
     private router: Router,
   ) {
-    const data = this.service.getData();
-    //this.source.load(data);
     this.getUsuarios();
   }
 
@@ -259,12 +255,16 @@ export class UsuariosValidatedComponent implements ViewCell, OnInit {
 
   ngOnInit() {
     this.renderValue = this.value;
+    console.log('renderValue', this.renderValue);
   }
 
   resendValidation() {
     console.log('rowData', this.rowData);
+
+    const id = this.rowData._id ? this.rowData._id : this.rowData.id;
+
     this.UsuariosService
-      .resendValidation(this.rowData._id)
+      .resendValidation(id)
       .pipe(finalize(() => { }))
       .subscribe((response) => {
         //Swal.fire('Ok', 'E-mail de validação reenviado', 'success');

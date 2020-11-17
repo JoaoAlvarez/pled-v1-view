@@ -18,7 +18,8 @@
             <div class="form-group row">
                 <label for="turma" class="label col-sm-2 col-form-label">Turma</label>
                 <div class="col-sm-10">
-                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turma" formControlName="turma">
+                    <nb-select fullWidth id="turma" placeholder="Selecione uma Turma"
+                        (selectedChange)="turmaChange($event)" formControlName="turma">
                         <nb-option *ngFor="let turma of turmas;" [value]="turma.id">
                             {{ turma.nome }}</nb-option>
                     </nb-select>

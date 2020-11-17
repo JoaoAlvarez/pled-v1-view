@@ -116,7 +116,7 @@ export class EditarProfessorComponent implements OnInit {
     this.isLoading = true;
     const result: usuario = Object.assign({}, this.form.value);
     this.InstituicaoService
-      .inserirInstituicao(result)
+      .inserirProfessor(result)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 

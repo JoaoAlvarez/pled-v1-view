@@ -7,6 +7,9 @@ import { InstituicaoService } from "../../../instituicao.service";
 import { finalize } from "rxjs/operators";
 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UsuariosService } from '../../../../admin/usuarios/usuarios.service';
+import { UsuariosValidatedComponent } from '../../../../admin/usuarios/listar/usuarios.component';
 
 
 @Component({
@@ -17,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class AlunosListarComponent {
 
-  settings = {
+  settingsDefault = {
 
     hideSubHeader: true,
 
@@ -29,7 +32,6 @@ export class AlunosListarComponent {
       delete: false,
       custom: [
         { name: 'edit', title: '<i class="nb-edit"></i>' },
-        { name: 'delete', title: '<i class="nb-trash"></i>' }
       ],
 
     },
@@ -57,9 +59,14 @@ export class AlunosListarComponent {
         editable: true,
       },
       email: {
-        title: "E-Mail",
+        title: "E-mail",
         type: "string",
         editable: false,
+      },
+      validated: {
+        title: "Validado",
+        type: "custom",
+        renderComponent: UsuariosValidatedComponent
       },
       turmas: {
         title: "Turma",
@@ -72,16 +79,36 @@ export class AlunosListarComponent {
     },
   };
 
+  settings1 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        ...this.settingsDefault.actions.custom,
+        { name: 'status', title: '<i class="nb-trash" title="Desativar usuário"></i>' }
+      ]
+    }
+  };
+
+  settings2 = {
+    ...this.settingsDefault,
+    actions: {
+      ...this.settingsDefault.actions,
+      custom: [
+        ...this.settingsDefault.actions.custom,
+        { name: 'status', title: '<i class="nb-loop" title="Ativar usuário"></i>' }
+      ]
+    }
+  };
+
   source: LocalDataSource = new LocalDataSource();
-  //source;
+  source2: LocalDataSource = new LocalDataSource();
 
   constructor(
-    private service: SmartTableData,
     private InstituicaoService: InstituicaoService,
+    private UsuarioService: UsuariosService,
     private router: Router,
   ) {
-    const data = this.service.getData();
-    //this.source.load(data);
     this.getAlunos();
   }
 
@@ -90,8 +117,14 @@ export class AlunosListarComponent {
       .getAlunos()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
-        let alunos = response.filter((aluno) => aluno.isAtivo);
-        this.source.load(alunos);
+        const ativos = response.filter((usuario) => usuario.isAtivo);
+        const inativos = response.filter((usuario) => !usuario.isAtivo);
+
+        this.source.load(ativos);
+        this.source2.load(inativos);
+        this.source.refresh();
+        this.source2.refresh();
+
       });
   }
 
@@ -128,46 +161,55 @@ export class AlunosListarComponent {
     }
   }
 
-  onDeleteConfirm(event): void {
-    console.log(event);
+  onDeleteConfirm(event, source): void {
     if (
       window.confirm(
-        "Tem certeza que deseja excluir este usuário?"
+        "Tem certeza que deseja " + (event.data.isAtivo ? 'desativar' : 'ativar') + " este usuário?"
       )
     ) {
-      // this.instituicoesService
-      //   .reprovarUsuario(event.data.id)
-      //   .pipe(finalize(() => { }))
-      //   .subscribe((response) => {
-      //     event.confirm.resolve();
-      //     this.getInstituicoes();
-      //   });
-    } else {
-      event.confirm.reject();
-    }
-  }
 
-  onCustomAction(event): void {
-    this.router.navigateByUrl("/instituicao/usuarios/alunos/editar/" + event.data.id);
-  }
+      let txtStatus = '';
 
-  onEditConfirm(event): void {
-    console.log(event);
-    if (
-      window.confirm(
-        "Tem certeza que deseja editar este usuário?"
-      )
-    ) {
-      this.InstituicaoService
-        .inserirAluno(event.data.id)
+      if (source == 'source1') {
+        txtStatus = 'desativado';
+      } else if (source == 'source2') {
+        txtStatus = 'ativado';
+      }
+
+      let dados = {
+        'id': event.data.id,
+        'status': !event.data.isAtivo
+      }
+
+      this.UsuarioService
+        .deleteUser(dados)
         .pipe(finalize(() => { }))
         .subscribe((response) => {
-          event.confirm.resolve();
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'O usuário ' + event.data.nome + ' ' + txtStatus + ' com sucesso'
+          })
+          //Swal.fire('Ok', 'O usuário '+event.data.nome+' foi destivado com sucesso', 'success');
+
           this.getAlunos();
         });
-    } else {
-      event.confirm.reject();
     }
-
   }
+
+  onCustomAction(event, source): void {
+    if (event.action == 'status') {
+      this.onDeleteConfirm(event, source);
+    } else if (event.action == 'edit') {
+      this.router.navigateByUrl("/instituicao/usuarios/alunos/editar/" + event.data.id);
+    }
+  }
+
+
 }
