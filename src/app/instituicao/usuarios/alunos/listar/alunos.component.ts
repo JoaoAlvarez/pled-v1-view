@@ -9,7 +9,7 @@ import { finalize } from "rxjs/operators";
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../../admin/usuarios/usuarios.service';
-import { UsuariosValidatedComponent } from '../../../../admin/usuarios/listar/usuarios.component';
+import { ValidatedComponent } from '../../../../miscellaneous/validated/validated.component';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class AlunosListarComponent {
       validated: {
         title: "Validado",
         type: "custom",
-        renderComponent: UsuariosValidatedComponent
+        renderComponent: ValidatedComponent
       },
       turmas: {
         title: "Turma",

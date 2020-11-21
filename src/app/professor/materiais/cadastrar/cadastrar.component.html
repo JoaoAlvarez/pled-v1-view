@@ -79,7 +79,7 @@
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" nbButton status="primary"
-                        [disabled]="form.invalid || isLoading || (!form.controls['file'].value && form.controls['material'].controls['url'].value) || (!form.controls['material'].controls['url'].value && form.controls['file'].value)">Adicionar</button>
+                        [disabled]="form.invalid || isLoading || (!form.controls['file'].value && form.controls['material'].value && form.controls['url'].value) || (!form.controls['material'].value && form.controls['url'].value && form.controls['file'].value)">Adicionar</button>
                 </div>
             </div>
         </form>

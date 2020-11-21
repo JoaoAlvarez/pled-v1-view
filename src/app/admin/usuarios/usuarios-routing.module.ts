@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { UsuariosComponent } from './usuarios.component';
-import { UsuariosListarComponent, UsuariosValidatedComponent } from './listar/usuarios.component';
+import { UsuariosListarComponent } from './listar/usuarios.component';
 const routes: Routes = [
     {
         path: "",
@@ -29,6 +29,5 @@ export class UsuariosRoutingModule { }
 
 export const routedComponents = [
     UsuariosComponent,
-    UsuariosListarComponent,
-    UsuariosValidatedComponent
+    UsuariosListarComponent
 ];

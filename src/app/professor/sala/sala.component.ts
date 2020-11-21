@@ -11,6 +11,7 @@ import { ProfessorService } from '../professor.service';
 export class SalaComponent implements OnInit {
 
   turmaId;
+  fullScreenMode;
   turmaDetalhe;
   isLoading: boolean = true;
   meetUrl: SafeResourceUrl;

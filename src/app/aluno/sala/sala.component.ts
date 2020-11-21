@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl, } from '@angular/platform-browser';
 export class SalaComponent implements OnInit {
 
   turmaId;
+  fullScreenMode;
   turmaDetalhe;
   isLoading: boolean = true;
   meetUrl: SafeResourceUrl;

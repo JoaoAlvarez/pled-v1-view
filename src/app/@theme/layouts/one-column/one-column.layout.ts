@@ -34,7 +34,7 @@ import { Router } from "@angular/router";
 })
 export class OneColumnLayoutComponent implements OnInit {
 
-  loggedUser = {};
+  loggedUser;
   user: any;
 
 

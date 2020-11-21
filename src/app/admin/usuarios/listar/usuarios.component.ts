@@ -10,6 +10,7 @@ import { ViewCell } from 'ng2-smart-table';
 
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ValidatedComponent } from '../../../miscellaneous/validated/validated.component';
 
 
 @Component({
@@ -71,7 +72,7 @@ export class UsuariosListarComponent {
       validated: {
         title: "Validado",
         type: "custom",
-        renderComponent: UsuariosValidatedComponent
+        renderComponent: ValidatedComponent
       },
       isAtivo: {
         title: "Status",
@@ -233,54 +234,5 @@ export class UsuariosListarComponent {
     if (event.action == 'status') {
       this.onDeleteConfirm(event, source);
     }
-  }
-}
-
-@Component({
-  templateUrl: './usuarios.validated.html',
-
-})
-export class UsuariosValidatedComponent implements ViewCell, OnInit {
-  renderValue: string;
-
-  @Input() value: any;
-  @Input() rowData: any;
-
-  constructor(
-    private service: SmartTableData,
-    private UsuariosService: UsuariosService,
-    private router: Router,
-  ) {
-  }
-
-  ngOnInit() {
-    this.renderValue = this.value;
-    console.log('renderValue', this.renderValue);
-  }
-
-  resendValidation() {
-    console.log('rowData', this.rowData);
-
-    const id = this.rowData._id ? this.rowData._id : this.rowData.id;
-
-    this.UsuariosService
-      .resendValidation(id)
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        //Swal.fire('Ok', 'E-mail de validação reenviado', 'success');
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'E-mail de validação reenviado com sucesso'
-        })
-
-      });
-    return false;
   }
 }

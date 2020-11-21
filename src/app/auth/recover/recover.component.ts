@@ -14,6 +14,7 @@ export class RecoverPasswordComponent implements OnInit {
 
   form!: FormGroup;
   isLoading = false;
+  erro;
 
 
   constructor(private route: ActivatedRoute, private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {

@@ -1,0 +1,5 @@
+<div *ngIf="renderValue">Validado <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+</div>
+<div *ngIf="!renderValue">Validação pendente <a href=""
+        nbTooltip="Clique para reenviar o email de validação para o usuário" nbTooltipStatus="primary"
+        (click)="resendValidation()"><small>Reenviar validação</small></a></div>
