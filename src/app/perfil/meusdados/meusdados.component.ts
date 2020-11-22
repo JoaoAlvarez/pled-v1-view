@@ -17,10 +17,10 @@ export class MeusdadosComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private PerfilService: PerfilService, protected router: Router,
 
-  ) { }
+  ) { this.userDetails; }
 
   ngOnInit(): void {
-    this.userDetails;
+
   }
 
   get userDetails() {
@@ -34,7 +34,7 @@ export class MeusdadosComponent implements OnInit {
   }
 
 
-  private createForm(res) {
+  createForm(res) {
     console.log(res);
     this.form = this.formBuilder.group({
       email: [res.email, Validators.required],
