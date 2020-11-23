@@ -17,13 +17,13 @@ export class MeusdadosComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private PerfilService: PerfilService, protected router: Router,
 
-  ) { this.userDetails; }
+  ) { this.userDetails(); }
 
   ngOnInit(): void {
 
   }
 
-  get userDetails() {
+  userDetails() {
     return this.PerfilService
       .getUserDetail()
       .pipe(finalize(() => { }))
