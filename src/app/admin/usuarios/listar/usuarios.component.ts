@@ -24,6 +24,7 @@ export class UsuariosListarComponent {
   settingsDefault = {
 
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
 
     actions: {
       position: "right",

@@ -5,8 +5,8 @@ import { Component } from "@angular/core";
   styleUrls: ["./footer.component.scss"],
   template: `
     <span class="created-by">
-      All rights reserved
+      Todos os direitos reservados
     </span>
   `,
 })
-export class FooterComponent {}
+export class FooterComponent { }

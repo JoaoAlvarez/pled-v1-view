@@ -24,6 +24,8 @@ export class AtividadeComponent implements OnInit {
 
   settings = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
+
     actions: {
       add: false,
       position: "right",

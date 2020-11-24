@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class instituicoesListarComponent {
   settingsDefault = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
     actions: {
       position: "right",
       columnTitle: "Ações",

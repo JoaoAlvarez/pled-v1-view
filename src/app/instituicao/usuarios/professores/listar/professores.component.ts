@@ -19,6 +19,7 @@ export class ProfessoresListarComponent {
 
   settingsDefault = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
     actions: {
       add: false,
       position: "right",

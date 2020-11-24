@@ -17,6 +17,8 @@ export class SimuladosComponent {
 
   settings = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
+
     actions: {
       add: false,
       position: "right",

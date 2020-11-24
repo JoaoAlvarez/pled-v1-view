@@ -23,6 +23,8 @@ export class MateriaisListarComponent implements OnInit {
 
   settings = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
+
     actions: {
       position: "right",
       columnTitle: "Ações",

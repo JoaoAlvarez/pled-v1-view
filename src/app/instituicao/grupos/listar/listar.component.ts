@@ -24,6 +24,8 @@ export class GruposListarComponent {
 
   settings = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
+
     actions: {
       position: "right",
       columnTitle: "Ações",

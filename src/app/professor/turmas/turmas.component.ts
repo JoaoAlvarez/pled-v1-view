@@ -15,6 +15,8 @@ export class TurmasComponent {
 
   settings = {
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
+
     actions: {
       add: false,
       edit: false,

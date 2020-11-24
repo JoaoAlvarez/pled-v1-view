@@ -23,6 +23,7 @@ export class AlunosListarComponent {
   settingsDefault = {
 
     hideSubHeader: true,
+    noDataMessage: 'Não há nenhum dado para exibir',
 
     actions: {
       position: "right",
