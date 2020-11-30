@@ -18,7 +18,23 @@
             <nb-card-header>
                 <h6>Sala de aula</h6>
             </nb-card-header>
+
+            <nb-card-body>
+                <div class="d-flex">
+                    <div class="mr-3">
+
+                        <nb-icon icon="people-outline"></nb-icon>
+
+                    </div>
+                    <div>
+                        <h6 class="subtitle-2">Turma</h6>
+                        <h6 class="subtitle"><strong>{{turmaDetalhe.nome}}</strong></h6>
+                    </div>
+                </div>
+            </nb-card-body>
+
             <nb-card-body *ngIf="aovivo">
+
                 <div class="d-flex">
                     <div class="mr-3">
 

@@ -162,11 +162,7 @@ export class UsuariosListarComponent {
         [
           // fields we want to include in the search
           {
-            field: "id",
-            search: query,
-          },
-          {
-            field: "name",
+            field: "nome",
             search: query,
           },
           {
@@ -174,11 +170,19 @@ export class UsuariosListarComponent {
             search: query,
           },
           {
-            field: "turma",
+            field: "email",
             search: query,
           },
           {
-            field: "onboardStatus",
+            field: "perfil",
+            search: query,
+          },
+          {
+            field: "validated",
+            search: query,
+          },
+          {
+            field: "isAtivo",
             search: query,
           },
         ],

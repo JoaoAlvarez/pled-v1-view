@@ -20,7 +20,7 @@
         <nb-accordion-item-header>{{list.grupo}}</nb-accordion-item-header>
         <nb-accordion-item-body>
           <div *ngFor="let serie of list.series; let i = index">
-            <h6>Serie {{serie.serie}}</h6>
+            <h6>Série / Turma {{serie.serie}}</h6>
             <br>
             <ng2-smart-table [settings]="settings" [source]="serie.turmas" (custom)="onCustomAction($event)">
             </ng2-smart-table>

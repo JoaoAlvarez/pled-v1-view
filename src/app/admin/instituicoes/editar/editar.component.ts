@@ -43,12 +43,12 @@ export class instituicoesEditarComponent implements OnInit {
 
           if (instituicoes.id == this.id) {
             this.form = this.formBuilder.group({
-              id:[instituicoes.id],
+              id: [instituicoes.id],
               nome: [instituicoes.nome],
               cnpj: [instituicoes.cnpj],
-              responsavel: this.formBuilder.group({
-                id: [instituicoes.responsavel.id],
-              }),
+              // responsavel: this.formBuilder.group({
+              //   id: [instituicoes.responsavel.id],
+              // }),
               endereco: this.formBuilder.group({
                 rua: [instituicoes.endereco.rua],
                 bairro: [instituicoes.endereco.bairro],
@@ -67,9 +67,9 @@ export class instituicoesEditarComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       cnpj: ['', Validators.required],
-      responsavel: this.formBuilder.group({
-        id: ['', Validators.required],
-      }),
+      // responsavel: this.formBuilder.group({
+      //   id: ['', Validators.required],
+      // }),
       endereco: this.formBuilder.group({
         rua: ['', Validators.required],
         bairro: ['', Validators.required],
@@ -108,7 +108,7 @@ export class instituicoesEditarComponent implements OnInit {
 export class instituicao {
   nome: string = ''
   cnpj: string = ''
-  responsavel: responsavel = new responsavel()
+  //responsavel: responsavel = new responsavel()
   endereco: endereco = new endereco()
 }
 

@@ -14,6 +14,7 @@ export class MeusdadosComponent implements OnInit {
 
   form!: FormGroup;
   isLoading: Boolean = false;
+  userDetail;
 
   constructor(private formBuilder: FormBuilder, private PerfilService: PerfilService, protected router: Router,
 
@@ -28,6 +29,7 @@ export class MeusdadosComponent implements OnInit {
       .getUserDetail()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
+        this.userDetail = response;
         this.createForm(response);
 
       });
@@ -35,28 +37,39 @@ export class MeusdadosComponent implements OnInit {
 
 
   createForm(res) {
-    console.log(res);
     this.form = this.formBuilder.group({
+      nome: [res.nome, Validators.required],
       email: [res.email, Validators.required],
       cpf: [res.cpf, Validators.required],
-      password: ['', Validators.required],
+      password: [''],
     });
   }
 
   submit() {
     this.isLoading = true;
     const result = Object.assign({}, this.form.value);
-    this.PerfilService
-      .atualizarSenha(result)
-      .pipe(finalize(() => { this.isLoading = false; }))
+
+    this.PerfilService.atualizarUsuario(result)
       .subscribe((response) => {
+
+        if (result.password) {
+          this.PerfilService
+            .atualizarSenha(result)
+            .pipe(finalize(() => { this.isLoading = false; }))
+            .subscribe((response) => {
+
+            });
+        }
 
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Senha alterada com sucesso', 'success');
+          Swal.fire('Ok', 'Dados alterados com sucesso', 'success');
         }
+
       });
+
+
   }
 
 }

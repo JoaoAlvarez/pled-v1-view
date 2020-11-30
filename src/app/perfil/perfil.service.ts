@@ -19,6 +19,15 @@ export class PerfilService {
       })
     );
   }
+  atualizarUsuario(data): Observable<any> {
+    return this.httpClient.put("/user/atualizar", data).pipe(
+      map((response: any) => {
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
   atualizarSenha(data): Observable<any> {
     return this.httpClient.put("/user/updatepassword", data).pipe(
       map((response: any) => {
