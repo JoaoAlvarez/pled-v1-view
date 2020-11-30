@@ -1,5 +1,11 @@
 <div class="row">
+
     <div class="col-sm-9" *ngIf="atividade">
+
+        <button nbButton hero status="basic" class="mb-3" (click)="goBack()">
+            <nb-icon icon="arrow-back-outline"></nb-icon> Voltar
+        </button>
+
         <form action="" #form='ngForm' (ngSubmit)="submitForm(form.value)" [nbSpinner]="isLoading" nbSpinnerSize="giant"
             nbSpinnerStatus="primary">
             <nb-card class="shadow" *ngFor="let questao of atividade.questoes; let i=index">

@@ -40,7 +40,7 @@ export class SalaComponent implements OnInit {
         this.isLoading = false;
         this.turmaDetalhe = response;
 
-        this.meetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.turmaDetalhe.meet.link);
+        this.meetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.turmaDetalhe.meet.link + '#config.disableDeepLinking=true ');
 
         console.log('Turma detalhe sala', this.turmaDetalhe);
 

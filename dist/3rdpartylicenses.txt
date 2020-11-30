@@ -508,6 +508,9 @@ terms above.
 nebular-icons
 MIT
 
+ng2-flatpickr
+ISC
+
 ng2-smart-table
 MIT
 

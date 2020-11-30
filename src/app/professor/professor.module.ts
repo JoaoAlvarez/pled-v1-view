@@ -32,6 +32,8 @@ import { ProfessorComponent } from './professor.component';
 import { MiscellaneousModule } from "../miscellaneous/miscellaneous.module";
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
@@ -64,6 +66,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbCalendarRangeModule,
     FormsModule,
     FlatpickrModule,
+    Ng2FlatpickrModule,
     NbAccordionModule,
     DragDropModule,
     NbSidebarModule,

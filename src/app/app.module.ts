@@ -21,6 +21,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 import {
   NbPasswordAuthStrategy,
@@ -47,6 +48,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserModule,
     FormsModule,
     FlatpickrModule.forRoot(),
+    Ng2FlatpickrModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

@@ -30,6 +30,7 @@ import {
 } from "./planejamento-routing.module";
 import { ListarComponent } from './listar/listar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbSpinnerModule,
     FormsModule,
     FlatpickrModule,
+    Ng2FlatpickrModule,
     NbAccordionModule,
     DragDropModule
   ],

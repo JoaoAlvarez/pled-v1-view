@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-9">
-        <nb-card size="giant" [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+        <nb-card size="giant" [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+            class="d-none d-md-flex">
             <nb-card-header>
                 <button nbButton status="primary" *ngIf="!fullScreenMode" (click)="fullScreenMode = true">Visualizar em
                     tela cheia</button>
@@ -10,6 +11,12 @@
             <nb-card-body *ngIf="turmaDetalhe">
                 <iframe allow="camera; microphone" [src]="meetUrl" class="iframe-jitsy"
                     [ngClass]="{'fullscreen': fullScreenMode}"></iframe>
+            </nb-card-body>
+        </nb-card>
+        <nb-card size="giant" [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+            class="d-block d-md-none">
+            <nb-card-body *ngIf="turmaDetalhe">
+                <iframe allow="camera; microphone" [src]="meetUrl" class="iframe-jitsy fullscreen"></iframe>
             </nb-card-body>
         </nb-card>
     </div>

@@ -40,6 +40,7 @@
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/flatpickr/dist/flatpickr.min.css",
               "src/app/@theme/styles/styles.scss"
             ],
             "scripts": [
@@ -109,6 +110,7 @@
               "node_modules/socicon/css/socicon.css",
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
+              "node_modules/flatpickr/dist/flatpickr.min.css",
               "src/app/@theme/styles/styles.scss"
             ],
             "assets": [

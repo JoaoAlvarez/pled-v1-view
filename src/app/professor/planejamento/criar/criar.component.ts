@@ -6,8 +6,8 @@ import { NbCalendarRange, NbDateService, } from '@nebular/theme';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
-
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import Portuguese from 'flatpickr/dist/l10n/pt.js';
 @Component({
   selector: 'ngx-criar',
   templateUrl: './criar.component.html',
@@ -22,6 +22,15 @@ export class CriarComponent implements OnInit {
   disciplinas = [];
   selectedDisciplina;
   selectedTurma;
+
+  exampleOptions: FlatpickrOptions = {
+    locale: Portuguese.pt,
+    dateFormat: 'd/m/Y h:m',
+    enableTime: true,
+    time_24hr: true,
+    altFormat: 'd/m/y h:m',
+    altInput: false
+  };
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router) {
 
@@ -124,8 +133,8 @@ export class CriarComponent implements OnInit {
       this.planos.push(this.formBuilder.group({
         titulo: [dados.titulo, Validators.required],
         descricao: [dados.descricao, Validators.required],
-        dataInicio: [dados.dataInicio, Validators.required],
-        dataFim: [dados.dataFim, Validators.required],
+        dataInicio: [new Date(dados.dataInicio), Validators.required],
+        dataFim: [new Date(dados.dataFim), Validators.required],
       }));
     }
   }

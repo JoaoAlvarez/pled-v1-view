@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlunoService } from '../aluno.service';
+import { Location } from '@angular/common';
 
 import Swal from 'sweetalert2';
 
@@ -17,7 +18,8 @@ export class AtividadeComponent implements OnInit {
   turmaId;
   atividade;
 
-  constructor(private route: ActivatedRoute, private alunoSerivce: AlunoService) {
+  constructor(private route: ActivatedRoute, private alunoSerivce: AlunoService, private _location: Location, protected router: Router,
+  ) {
     this.route.paramMap.subscribe((params: any) => {
       this.atividadeId = params.get('id');
       this.turmaId = params.get('turmaid');
@@ -28,6 +30,13 @@ export class AtividadeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  goBack() {
+    this.router.navigate(['/']);
+
+    return false;
+
   }
 
   getAtividade(atividadeId) {
