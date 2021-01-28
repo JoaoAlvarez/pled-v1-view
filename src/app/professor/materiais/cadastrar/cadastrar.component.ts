@@ -40,6 +40,7 @@ export class MateriaisCadastrarComponent implements OnInit {
 
     })
   }
+
   getTurmasProfessor() {
     this.ProfessorService
       .getTurmas()
@@ -48,6 +49,7 @@ export class MateriaisCadastrarComponent implements OnInit {
         this.turmas = response;
       });
   }
+
   getDetalhesProfessor() {
     this.ProfessorService
       .getProfessorDetalhes()
@@ -56,11 +58,10 @@ export class MateriaisCadastrarComponent implements OnInit {
         this.disciplinas = response.disciplinas;
       });
   }
+
   get material() {
     return this.form.get('material') as FormGroup;
   }
-
-
 
   fileChange(event: any) {
     // if (event.target.files.length > 0) {
@@ -113,6 +114,23 @@ export class MateriaisCadastrarComponent implements OnInit {
           this.router.navigateByUrl("/professor/materiais");
         }
       });
+  }
+
+  setRequired() {
+    return [Validators.required];
+  }
+
+  changeTipo(event: any) {
+    if (event === 'arquivo') {
+      this.form.controls.file.setValidators(this.setRequired());
+      this.form.controls.file.setValue('');
+
+    } else {
+      this.material.controls.url.setValidators(this.setRequired());
+      this.material.controls.url.setValue('');
+    }
+
+    this.form.updateValueAndValidity();
   }
 
 }

@@ -33,7 +33,7 @@
                 <label for="disciplinas" class="label col-sm-2 col-form-label">Tipo de material</label>
                 <div class="col-sm-10 d-flex">
                     <nb-select placeholder="Selecione o tipo de material" id="tipo_material"
-                        formControlName="tipo_material">
+                        formControlName="tipo_material" (selectedChange)="changeTipo($event)">
                         <nb-option value="arquivo">
                             Arquivo
                         </nb-option>
@@ -79,7 +79,7 @@
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" nbButton status="primary"
-                        [disabled]="form.invalid || isLoading || (!form.controls['file'].value && form.controls['material'].value && form.controls['url'].value) || (!form.controls['material'].value && form.controls['url'].value && form.controls['file'].value)">Adicionar</button>
+                        [disabled]="form.invalid || isLoading">Adicionar</button>
                 </div>
             </div>
         </form>
