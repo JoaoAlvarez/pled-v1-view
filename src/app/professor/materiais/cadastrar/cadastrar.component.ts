@@ -124,10 +124,16 @@ export class MateriaisCadastrarComponent implements OnInit {
     if (event === 'arquivo') {
       this.form.controls.file.setValidators(this.setRequired());
       this.form.controls.file.setValue('');
+      this.material.controls.url.clearValidators();
+      this.material.controls.url.setValue('');
+
 
     } else {
       this.material.controls.url.setValidators(this.setRequired());
       this.material.controls.url.setValue('');
+      this.form.controls.file.clearValidators();
+      this.form.controls.file.setValue('');
+
     }
 
     this.form.updateValueAndValidity();
