@@ -35,6 +35,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule,
     NbSidebarModule,
     NbTabsetModule,
-    NbBadgeModule
+    NbBadgeModule,
+    CKEditorModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

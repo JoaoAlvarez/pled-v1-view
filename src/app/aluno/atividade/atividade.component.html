@@ -31,7 +31,7 @@
                 </nb-card-header>
 
                 <nb-card-body>
-                    <h6 class="subtitle">{{questao.enunciado}}</h6>
+                    <div class="subtitle" [innerHTML]="questao.enunciado"></div>
                     <div *ngIf="questao.alternativas && questao.alternativas.length != 0">
                         <div *ngIf="questao.isMultiplaEscolha">
                             <div *ngIf="!atividade.isExecutado">

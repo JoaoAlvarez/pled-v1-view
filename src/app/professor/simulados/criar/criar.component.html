@@ -10,7 +10,6 @@
     <nb-card-body>
 
 
-
         <form [formGroup]="form" action="">
 
             <div class="form-group row">
@@ -139,7 +138,7 @@
 
                                 <div>
                                     <span>Questão {{i+1}}</span><br>
-                                    <small>{{item.controls.enunciado.value}}</small>
+                                    <!-- <small [innerHTML]="item.controls.enunciado.value"></small> -->
                                 </div>
                                 <button type="button" class="ml-auto mr-5" nbButton status="danger"
                                     (click)="deleteQuestoes(i)" size="tiny">
@@ -150,8 +149,11 @@
 
 
                                 <div class="form-group ">
-                                    <textarea type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
-                                        formControlName="enunciado"></textarea>
+                                    <ckeditor [editor]="Editor" [config]="ckeditorConfig" id="enunciado" placeholder="Enunciado"
+                                        formControlName="enunciado"></ckeditor>
+
+                                    <!-- <textarea type="text" nbInput fullWidth id="enunciado" placeholder="Enunciado"
+                                        formControlName="enunciado"></textarea> -->
 
                                 </div>
 

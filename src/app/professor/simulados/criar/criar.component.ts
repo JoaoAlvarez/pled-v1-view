@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ProfessorService } from "../../professor.service";
 import { finalize } from 'rxjs/operators';
 import { NbCalendarRange, NbDateService, } from '@nebular/theme';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -22,6 +23,27 @@ export class CriarComponent implements OnInit {
   turmas = [];
   turmasFiltered = [];
   disciplinas = [];
+  public Editor = ClassicEditor;
+  public ckeditorConfig = {
+    toolbar: [
+        'heading',
+        '|',
+        'bold',
+        'italic',
+        'link',
+        'bulletedList',
+        'numberedList',
+        '|',
+        'indent',
+        'outdent',
+        '|',
+        'blockQuote',
+        'insertTable',
+        'mediaEmbed',
+        'undo',
+        'redo'
+      ]
+  }
 
   constructor(private formBuilder: FormBuilder, private ProfessorService: ProfessorService, protected router: Router) {
 

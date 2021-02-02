@@ -22,6 +22,7 @@ import { ColorSketchModule } from 'ngx-color/sketch';
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import {
   NbPasswordAuthStrategy,
@@ -37,7 +38,7 @@ import {
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
-  NbWindowModule,
+  NbWindowModule
 } from "@nebular/theme";
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -113,6 +114,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         },
       },
     }),
+    CKEditorModule
   ],
   providers: [
     AuthGuard,

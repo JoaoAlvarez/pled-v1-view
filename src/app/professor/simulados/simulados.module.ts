@@ -31,6 +31,7 @@ import {
 } from "./simulados-routing.module";
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 
 
 
@@ -55,7 +56,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NbSpinnerModule,
     NbCalendarRangeModule,
     NbAccordionModule,
-    DragDropModule
+    DragDropModule,
+    CKEditorModule
   ],
   declarations: [...routedComponents],
 })
