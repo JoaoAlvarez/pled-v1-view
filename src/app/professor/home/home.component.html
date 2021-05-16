@@ -10,20 +10,20 @@
 
             <div *ngIf="aulas && aulas.length > 0 && !timelineLoading" class="p-4">
                 <div *ngFor="let aula of aulas">
-                    <div class="d-flex" *ngIf="!aula.objeto.aovivo">
+                    <div class="d-flex flex-wrap" *ngIf="!aula.objeto.aovivo">
                         <div class="mr-3">
 
                             <nb-icon icon="calendar-outline" class="text-disabled"></nb-icon>
 
                         </div>
-                        <div>
+                        <div >
 
                             <small class="badge badge-primary"
                                 [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
                             <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
                             <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
                         </div>
-                        <div class="ml-auto d-flex">
+                        <div class="ml-auto d-flex col-11 col-offset-1 col-sm-auto col-offset-auto">
 
                             <div>
                                 <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
@@ -34,7 +34,7 @@
                     </div>
 
                     <nb-card class="shadow" *ngIf="aula.objeto.aovivo" accent="danger">
-                        <nb-card-body class="d-flex align-items-center">
+                        <nb-card-body class="d-flex flex-wrap align-items-center">
                             <div class="mr-3">
 
                                 <nb-icon icon="play-circle-outline"></nb-icon>
@@ -44,17 +44,14 @@
                                 <small class="badge badge-primary"
                                     [style.background-color]="aula.disciplina.cor">{{aula.disciplina.nome}}</small>
                                 <div class="d-flex">
-
-
-
                                     <h6 class="subtitle">{{aula.objeto.titulo}}</h6>
                                 </div>
                                 <p class="paragraph-2 text-hint">{{aula.objeto.descricao}}</p>
 
                             </div>
-                            <div class="ml-auto">
+                            <div class="ml-auto col-11 col-offset-1 col-sm-auto col-offset-auto">
 
-                                <div class="mb-3 d-flex align-items-center">
+                                <div class="mb-3 d-flex-column d-sm-flex align-items-center">
                                     <small class="d-block mb-2 badge badge-danger mr-4 p-2">Ao vivo agora</small>
                                     <div>
                                         <small>{{aula.objeto.dataInicio | date: 'dd/MM/yyyy'}}</small><br>
@@ -63,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <div class="text-right">
+                                <div class="text-left text-sm-right">
                                     <button nbButton [routerLink]="['/professor/sala/'+selectedTurma.id]" size="small"
                                         class="shadow" shape="round" hero status="info">Acessar sala de
                                         aula</button>
@@ -107,7 +104,7 @@
                     <div *ngIf="atividades && atividades.length > 0 && !timelineLoading"
                         class="atividades__lista-itens">
                         <div [routerLink]="['/professor/atividade/'+atividade.objeto._id]"
-                            class="d-flex atividades__lista-item" *ngFor="let atividade of atividades"
+                            class="d-flex flex-wrap atividades__lista-item" *ngFor="let atividade of atividades"
                             [style.border-left-color]="atividade.disciplina.cor" style="cursor:pointer">
                             <div class="mr-3">
 
@@ -124,7 +121,7 @@
                                     {{atividade.objeto.titulo}}</h6>
                                 <p class="paragraph-2 text-hint">{{atividade.objeto.descricao}}</p>
                             </div>
-                            <div class="ml-auto d-flex">
+                            <div class="ml-auto col-11 col-offset-1 col-sm-offset-auto col-sm-auto d-flex">
 
                                 <div>
 

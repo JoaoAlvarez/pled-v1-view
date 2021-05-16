@@ -23,3 +23,9 @@
         background-color: rgb(255, 0, 76);
     }
 }
+
+::ng-deep .nb-theme-custom nb-tabset{
+    .tabset {
+        overflow-y: hidden !important;
+    }
+}
