@@ -43,16 +43,22 @@
 
                             <div class="questao-placeholder" *cdkDragPlaceholder></div>
 
-                            <nb-accordion-item-header>
-                                <nb-icon icon="move-outline" class="mr-4 text-disabled" cdkDragHandle></nb-icon>
+                            <nb-accordion-item-header class="flex-wrap">
+                                <div class="d-flex col-12 col-sm-auto p-0">
+                                    <nb-icon icon="move-outline" class="mr-4 text-disabled flex-grow" cdkDragHandle></nb-icon>
+                                    <button type="button" nbButton status="danger" size="tiny" (click)="deleteAula(i)"
+                                            class="d-block d-sm-none ml-auto"> Remover aula
+                                        <nb-icon icon="trash-2-outline"></nb-icon>
+                                    </button>
+                                </div>
 
-                                <div>
+                                <div class="col-12 col-sm-auto p-0 p-sm-auto my-2 my-sm-auto">
                                     <span>Aula {{i+1}}
                                         {{item.controls.titulo.value != '' ? '- ' + item.controls.titulo.value : ''}}</span><br>
                                     <small>{{item.controls.descricao.value}}</small>
                                 </div>
 
-                                <div class="ml-auto text-right mr-5 d-flex align-items-center">
+                                <div class="ml-auto text-left text-sm-right p-0 p-sm-auto mr-sm-5 d-flex align-items-center col-12 col-sm-auto ">
                                     <span class="mr-5 "
                                         *ngIf="item.controls.dataInicio.value != '' || item.controls.dataFim.value != ''">
                                         <div>
@@ -66,7 +72,7 @@
                                     </span>
 
                                     <button type="button" nbButton status="danger" size="tiny" (click)="deleteAula(i)"
-                                        class="">
+                                        class="d-none d-sm-block">
                                         <nb-icon icon="trash-2-outline"></nb-icon>
                                     </button>
                                 </div>
@@ -76,6 +82,7 @@
 
                             <nb-accordion-item-body>
 
+                                
                                 <div class="form-group ">
                                     <input type="text" nbInput fullWidth placeholder="Título" formControlName="titulo">
                                 </div>
@@ -89,8 +96,8 @@
                                     <label for="dataInicio" class="label col-sm-2 col-form-label">Inicio e fim
                                         da
                                         aula</label>
-                                    <div class="col-sm-10 d-flex">
-                                        <div class="mr-2 timepicker">
+                                    <div class="col-sm-10 d-flex flex-wrap">
+                                        <div class="col-12 col-sm-auto mr-2 timepicker">
                                             <div class="timepicker__placeholder btn btn-outline-secondary">
                                                 <div>
                                                     <div *ngIf="item.controls.dataInicio.value">
@@ -111,7 +118,7 @@
                                                 [time24hr]="true" class="timepicker__input">
                                             <!-- <nb-datepicker #formpicker></nb-datepicker> -->
                                         </div>
-                                        <div class="timepicker">
+                                        <div class="col-12 col-sm-auto timepicker">
                                             <div class="timepicker__placeholder btn btn-outline-secondary">
                                                 <div>
                                                     <div *ngIf="item.controls.dataFim.value">
