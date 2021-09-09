@@ -59,7 +59,7 @@
                     Professor
                 </div>
 
-                <div class="col-sm-10" *ngIf="turmas.length > 0 && disciplinas.length > 0">
+                <div class="col-sm-10" *ngIf="!id && turmas.length > 0 && disciplinas.length > 0">
                     <div *ngFor="let item of turmasDisciplinas.controls; let i=index" [formGroupName]="i"
                         class="row mb-2">
                         <div class="col-sm-10">
@@ -94,17 +94,60 @@
             </div>
             <!-- <div formArrayName="selling_points2" class="form-group row">
                 <label for="disciplina" class="label col-sm-2 col-form-label"  >
-                    Disciplina:</label> 
+                    Disciplina:</label>
                 <div  class="form-group row">
-                    
+
                     <div *ngFor="let item of sellingPoints2.controls; let pointIndex=index" [formGroupName]="pointIndex" class="offset-sm-2 col-sm-10">
-                        
+
                     </div>
                     <button type="submit" nbButton status="primary" (click)="addSellingPoint2()" ><nb-icon icon="plus-outline"></nb-icon></button>
                     <button type="submit" nbButton status="primary" (click)="deleteSellingPoint2(pointIndex)"><nb-icon icon="minus-outline"></nb-icon></button>
                 </div>
-                
+
             </div> -->
+
+
+            <div class="col-sm-10" >
+              <h3>Disciplinas</h3>
+              <div *ngFor="let item of professor?.disciplinas; let i=index" class="row mb-2">
+                  <div class="col-sm-10">
+                      <div class="row">
+                        {{item.nome}}
+                      </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                      <button type="button" nbButton status="primary" (click)="removerDisciplina(item)">
+                          <nb-icon icon="minus-outline"></nb-icon>
+                      </button>
+                  </div>
+
+              </div>
+
+              <div class="row mb-2">
+
+                <div class="col-sm-5">
+                    <div class="row" fullWidth>
+
+                        <nb-select fullWidth id="disciplina" [(selected)]="disciplinaToAdd" placeholder="Selecione uma Disciplina" class="col-sm-6">
+                            <nb-option *ngFor="let disciplina of disciplinas" [value]="disciplina._id">
+                                {{disciplina.nome}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <button type="button" nbButton status="primary" (click)="inserirDisciplina()">
+                        <nb-icon icon="plus-outline"></nb-icon>
+                    </button>
+                </div>
+
+
+              </div>
+          </div>
+
+
             <div class="form-group row">
 
 

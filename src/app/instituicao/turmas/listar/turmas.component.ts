@@ -22,7 +22,7 @@ export class TurmasListarComponent {
       edit: false,
       delete: false,
       custom: [
-        // { name: 'edit', title: '<i class="nb-edit"></i>' },
+        { name: 'edit', title: '<i class="nb-edit"></i>' },
         { name: 'delete', title: '<i class="nb-trash"></i>' }
       ],
       position: "right",
