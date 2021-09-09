@@ -172,12 +172,12 @@
                 <nb-tab tabTitle="Materiais">
                     <div *ngIf="materiais && materiais.length > 0">
                         <div class="d-flex flex-wrap align-items-center w-100 mb-4" *ngFor="let material of materiais">
-                            <h1 class="col-2 p-0">
+                            <h1 class="col-2 col-sm-auto p-0 mr-sm-4">
                                 <nb-actions size="small">
                                     <nb-action icon="download-outline" class="p-0" href="{{material.objeto.url}}"></nb-action>
                                 </nb-actions>
                             </h1>
-                            <div class="col-10 p-0">
+                            <div class="col-10 col-sm-auto p-0">
                                 <small class="badge badge-primary"
                                     [style.background-color]="material.disciplina.cor">{{material.disciplina.nome}}</small>
                                 <h6 class="subtitle">{{material.objeto.nome}}</h6>

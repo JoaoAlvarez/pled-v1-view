@@ -8,72 +8,66 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <form [formGroup]="form" (ngSubmit)="submit()" action="" *ngIf="form">
-            <div class="form-group row">
-                <label for="nome" class="label col-sm-2 col-form-label">Nome</label>
-                <div class="col-sm-10">
-                    <input type="text" nbInput fullWidth id="nome" placeholder="Nome" formControlName="nome">
+      <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="">
+        <nb-card-header>
+            <div class="row">
+                <div class="col-md-5">
+                    <h4>Professores/Disciplinas</h4>
                 </div>
+
+            </div>
+        </nb-card-header>
+
+        <div *ngFor="let item of turma?.disciplinas; let i=index" class="row mb-2">
+
+          <div class="col-sm-10">
+
+            <div class="row">
+                <div class="col">{{item.nome}}</div>
+                <div class="col">{{item.professor.nome}}</div>
             </div>
 
-            <div class="form-group row">
-                <label for="grupo" class="label col-sm-2 col-form-label">Grupo</label>
+          </div>
 
-                <div class="col-sm-10" *ngIf="grupos.length == 0">Você
-                    precisa
-                    cadastrar um
-                    <a routerLink="/instituicao/grupos/cadastrar">grupo</a>
-                </div>
-
-                <div class="col-sm-10" *ngIf="grupos != '' && grupos.length > 0">
-                    <nb-select fullWidth id="grupo" placeholder="Selecione um Grupo" [(selected)]="selectedItem"
-                        formControlName="grupo">
-                        <nb-option *ngFor="let grupo of grupos;" [value]="grupo">
-                            {{ grupo }}</nb-option>
-                    </nb-select>
-                </div>
+            <div class="col-sm-2">
+                <button type="button" nbButton status="primary" (click)="removerDisciplina(item)">
+                    <nb-icon icon="minus-outline"></nb-icon>
+                </button>
             </div>
 
-            <div class="form-group row">
-                <label for="serie" class="label col-sm-2 col-form-label">Serie</label>
-                <div class="col-sm-10">
-                    <input type="number" nbInput id="serie" placeholder="Serie" formControlName="serie">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="turno" class="label col-sm-2 col-form-label">Turno</label>
-                <div class="col-sm-10">
-                    <nb-select placeholder="Select Showcase" id="turno" formControlName="turno" placeholder="Selecione um Turno">
-                        <nb-option value="Manhã">Manhã</nb-option>
-                        <nb-option value="Tarde">Tarde</nb-option>
-                        <nb-option value="Noite">Noite</nb-option>
-                    </nb-select>
-                </div>
+        </div>
+
+        <!-- NOVO -->
+
+        <div class="row mb-2">
+
+          <div class="col-sm-10">
+
+            <div class="row">
+                <nb-select fullWidth id="disciplina" [(selected)]="selectedDisciplina" placeholder="Selecione uma Disciplina" class="col-sm-6" (selectedChange)="filtrarProfessores()">
+                    <nb-option *ngFor="let disciplina of disciplinas" [value]="disciplina._id">
+                        {{disciplina.nome}}
+                    </nb-option>
+                </nb-select>
+                <nb-select fullWidth id="prof" placeholder="Selecione um professor" [(selected)]="selectedProfessorDisciplina" class="col-sm-6">
+
+                    <nb-option *ngFor="let prof of professores" [value]="prof.idProfessorDisciplina">
+                        {{prof.nome}}
+                    </nb-option>
+                </nb-select>
             </div>
 
-            <div class="form-group row">
-                <label for="coordenador" class="label col-sm-2 col-form-label">Coordenador</label>
-                <div class="col-sm-10" *ngIf="options.length == 0">Você
-                    precisa
-                    cadastrar um
-                    <a routerLink="/instituicao/usuarios/professores/adicionar">Coordenador</a>
-                </div>
-                <div class="col-sm-10" *ngIf="options.length > 0">
-                    <nb-select placeholder="Select Showcase" id="coordenador" formControlName="coordenador"
-                        placeholder="Coordenador">
-                        <nb-option *ngFor="let o of options" [value]="o.id">
-                            {{ o.nome }}</nb-option>
-                    </nb-select>
-                </div>
+          </div>
+
+            <div class="col-sm-2">
+                <button type="button" nbButton status="primary" (click)="inserirProfessor()">
+                    <nb-icon icon="plus-outline"></nb-icon>
+                </button>
             </div>
 
+        </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" nbButton status="primary"
-                        [disabled]="form.invalid || isLoading">Atualizar</button>
-                </div>
-            </div>
-        </form>
+      </nb-card>
+
     </nb-card-body>
 </nb-card>

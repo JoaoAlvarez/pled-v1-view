@@ -142,7 +142,12 @@ export class InstituicaoService {
       );
   }
 
-  inserirProfessorDisciplina(dados: any): Observable<any> {
+  inserirProfessorDisciplina(professorId: string, disciplinaId:  string): Observable<any> {
+    const dados = {
+      idProfessor : professorId,
+      idDisciplina : disciplinaId
+    };
+
     return this.httpClient
       .post("/instituicao/professor/disciplina", dados)
       .pipe(
@@ -152,6 +157,14 @@ export class InstituicaoService {
           }
         })
       );
+  }
+
+  deleteProfessorDisciplina(professorDisciplinaId: string): Observable<any> {
+    return this.httpClient.delete("/instituicao/professor/disciplina/" + professorDisciplinaId).pipe(
+      map((response: any) => {
+        return response;
+      })
+    )
   }
 
 
@@ -170,6 +183,44 @@ export class InstituicaoService {
 
   getTurmas(): Observable<any> {
     return this.httpClient.get("/instituicao/turma/listar").pipe(
+      map((response: any) => {
+        console.log("response", response);
+        if (response) {
+          return response;
+        }
+      })
+    );
+  }
+
+  inserirProfessorNaTurma(idTurma: string, idProfessorDisciplina : string) : Observable<any> {
+    return this.httpClient
+      .post("/instituicao/turma/professor", {idTurma , idProfessorDisciplina})
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+  removerProfessorNaTurma(idTurma: string, idProfessorDisciplina : string) : Observable<any> {
+    const body = {idTurma , idProfessorDisciplina};
+    return this.httpClient
+      .delete("/instituicao/turma/professor", { params: body})
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
+  getProfessoresPorDisciplina(idDisciplina): Observable<any> {
+    return this.httpClient.get("/instituicao/professor/disciplina/"+ idDisciplina).pipe(
       map((response: any) => {
         console.log("response", response);
         if (response) {
@@ -199,6 +250,7 @@ export class InstituicaoService {
         })
       );
   }
+
   editarDisciplina(dados: any): Observable<any> {
     return this.httpClient
       .put("/instituicao/disciplina", dados)

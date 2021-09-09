@@ -1,3 +1,4 @@
+import { disciplina } from './../../../disciplinas/editar/editar.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { InstituicaoService } from "../../../instituicao.service";
@@ -24,7 +25,11 @@ export class ProfessoresAdicionarComponent implements OnInit {
   disciplinas = [];
   id;
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router) {
+  //joao
+  professor;
+  disciplinaToAdd;
+
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private instituicaoService: InstituicaoService, protected router: Router) {
     this.route.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
       this.getDisciplinas();
@@ -41,7 +46,7 @@ export class ProfessoresAdicionarComponent implements OnInit {
   }
 
   getTurmas() {
-    this.InstituicaoService
+    this.instituicaoService
       .getTurmas()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
@@ -62,7 +67,7 @@ export class ProfessoresAdicionarComponent implements OnInit {
   }
 
   getDisciplinas() {
-    this.InstituicaoService
+    this.instituicaoService
       .getDisciplinas()
       .pipe(finalize(() => { }))
       .subscribe((response) => {
@@ -88,28 +93,34 @@ export class ProfessoresAdicionarComponent implements OnInit {
   }
 
   getProfessorDetails() {
-    this.InstituicaoService
+    this.professor = undefined;
+    this.isLoading = true;
+    this.instituicaoService
       .getProfessorId(this.id)
-      .pipe(finalize(() => { }))
+      .pipe(finalize(() => { this.isLoading = false;}))
       .subscribe((response) => {
         this.isLoading = false;
-        let professor = response;
-
-        this.createForm(professor);
-
-        console.log(professor);
-
-        if (professor) {
-          professor.turmasDoProfessor.forEach(element => {
-            this.addTurmasDisciplinas(element);
-          });
-        }
+        this.carregarDadosProfessor(response);
 
       }
 
       );
 
 
+  }
+
+  private carregarDadosProfessor(response: any) {
+    this.professor = response;
+
+    this.createForm(this.professor);
+
+    console.log(this.professor);
+
+    if (this.professor) {
+      this.professor.turmasDoProfessor.forEach(element => {
+        this.addTurmasDisciplinas(element);
+      });
+    }
   }
 
   private createForm(professor?) {
@@ -134,7 +145,7 @@ export class ProfessoresAdicionarComponent implements OnInit {
 
     if (!this.id) {
 
-      this.InstituicaoService
+      this.instituicaoService
         .inserirProfessor(result)
         .pipe(finalize(() => { this.isLoading = false; }))
         .subscribe((response) => {
@@ -152,7 +163,7 @@ export class ProfessoresAdicionarComponent implements OnInit {
         });
     } else {
 
-      this.InstituicaoService
+      this.instituicaoService
         .editarProfessor(result)
         .pipe(finalize(() => { this.isLoading = false; }))
         .subscribe((response) => {
@@ -165,7 +176,13 @@ export class ProfessoresAdicionarComponent implements OnInit {
           //     "idDisciplina": element.disciplina
           //   }
 
-          //   this.inserirProfessorDisciplina(data);
+      //     this.instituicaoService
+      // .inserirProfessorDisciplina(data)
+      // .pipe(finalize(() => { this.isLoading = false; }))
+      // .subscribe((response) => {
+
+      //   console.log(response);
+      // });
           // });
 
           if (response) {
@@ -181,15 +198,29 @@ export class ProfessoresAdicionarComponent implements OnInit {
 
   }
 
-  inserirProfessorDisciplina(data) {
-    this.InstituicaoService
-      .inserirProfessorDisciplina(data)
-      .pipe(finalize(() => { this.isLoading = false; }))
+  removerDisciplina(professorDisciplina){
+    console.log(professorDisciplina);
+    this.isLoading = true;
+    this.instituicaoService
+    .deleteProfessorDisciplina(professorDisciplina.idProfessorDisciplina)
+    .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
-
-        console.log(response);
+        alert(response.message);
+        this.getProfessorDetails();
       });
   }
+
+  inserirDisciplina(){
+    this.isLoading = true;
+    this.instituicaoService
+    .inserirProfessorDisciplina(this.id, this.disciplinaToAdd )
+    .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((response) => {
+        this.carregarDadosProfessor(response);
+        this.disciplinaToAdd = undefined;
+      });
+  }
+
 
 
 }

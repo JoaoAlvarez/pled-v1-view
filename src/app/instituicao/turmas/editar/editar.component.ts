@@ -1,3 +1,4 @@
+import { disciplina } from './../../disciplinas/cadastrar/cadastrar.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstituicaoService } from "../../instituicao.service";
@@ -5,9 +6,6 @@ import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
-import { instituicao } from '../../../admin/instituicoes/adicionar/adicionar.component';
-import { isNgContainer } from '@angular/compiler';
-
 
 @Component({
   selector: 'turmas-editar',
@@ -20,79 +18,59 @@ export class TurmasEditarComponent implements OnInit {
   id: string;
   form!: FormGroup;
   isLoading: Boolean = true;
-  options = [];
-  series = [];
-  grupos = [];
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private InstituicaoService: InstituicaoService, protected router: Router,
+  disciplinas = [];
+  turma;
+
+  selectedDisciplina;
+  selectedProfessorDisciplina;
+  professores;
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private instituicaoService: InstituicaoService, protected router: Router,
 
   ) { }
 
 
   ngOnInit(): void {
-    //this.getSeries();
-    this.getCoordenadores();
-    this.getGrupos();
+    this.instituicaoService
+    .getDisciplinas()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.disciplinas = response;
+      });
+    // this.getSeries();
+    // this.getCoordenadores();
+    // this.getGrupos();
     this.route.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
       this.createForm();
     });
   }
-  getGrupos() {
-    this.InstituicaoService
-      .getGrupos()
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        response.forEach(element => {
-          this.grupos.push(element);
-
-        });
-      });
-  }
-
-  getSeries() {
-    this.InstituicaoService
-      .getSeries()
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        console.log(response);
-        this.series = response;
-      });
-  }
-
-  getCoordenadores() {
-    this.InstituicaoService
-      .getCoordenadores()
-      .pipe(finalize(() => { }))
-      .subscribe((response) => {
-        this.isLoading = false;
-        console.log(response);
-        this.options = response;
-
-      });
-  }
 
   private createForm() {
-    this.InstituicaoService
+    this.isLoading = true;
+    this.instituicaoService
       .getTurmas()
-      .pipe(finalize(() => { }))
+      .pipe(finalize(() => { this.isLoading = false;}))
       .subscribe((response) => {
         this.isLoading = false;
 
         console.log('TURMAS', response);
 
         response.forEach(turmas => {
-
           turmas.series.forEach(serie => {
+            let grupo = serie.grupo;
+            let numSerie = serie.serie;
             serie.turmas.forEach(turma => {
 
               if (turma.id == this.id) {
                 console.log('turma', turma);
-                this.form = this.formBuilder.group({
-                  grupo: [turma.grupo],
-                  serie: [turmas.series.serie],
-                  nome: [turmas.series.turmas.nome],
-                  coordenador: [turmas.series.turmas.coordenador.nome],
-                });
+                this.turma = turma;
+                // this.form = this.formBuilder.group({
+                //   nome: [turma.nome],
+                //   grupo : [grupo],
+                //   serie: [numSerie],
+                //   coordenador: [turma.coordenador.id],
+                // });
               }
             })
           })
@@ -110,7 +88,42 @@ export class TurmasEditarComponent implements OnInit {
     });
   }
 
-  submit() {
+  inserirProfessor() {
+    this.isLoading = true;
+    this.instituicaoService
+    .inserirProfessorNaTurma(this.id, this.selectedProfessorDisciplina)
+    .pipe(finalize(() => { this.isLoading = false;}))
+      .subscribe((response) => {
+        console.log("response", response);
+        this.createForm();
+      });
+  }
+
+  filtrarProfessores(){
+    this.isLoading = true;
+    this.instituicaoService
+    .getProfessoresPorDisciplina(this.selectedDisciplina)
+    .pipe(finalize(() => { this.isLoading = false;}))
+      .subscribe((response) => {
+        console.log("response", response);
+        this.professores = response;
+      });
+  }
+
+  removerDisciplina(disciplina){
+    console.log("remover", disciplina);
+    this.isLoading = true;
+    this.instituicaoService
+    .removerProfessorNaTurma(this.id, disciplina.idProfessorDisciplina)
+    .pipe(finalize(() => { this.isLoading = false;}))
+      .subscribe((response) => {
+        console.log("response", response);
+        this.professores = response;
+        this.createForm();
+      });
+  }
+
+  /*submit() {
 
     console.log("response", this.form.value)
 
@@ -133,19 +146,7 @@ export class TurmasEditarComponent implements OnInit {
 
       });
 
-  }
+  }*/
 
 
 }
-export class SelectShowcaseComponent {
-
-}
-export class turmas {
-  grupo: string = '';
-  serie: number = 1;
-  nome: string = '';
-  turno: string = '';
-  coordenador: string = '';
-
-}
-
