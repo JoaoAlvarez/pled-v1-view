@@ -19,6 +19,7 @@ export class TurmasEditarComponent implements OnInit {
   form!: FormGroup;
   isLoading: Boolean = true;
   disciplinas = [];
+  coordenadorOptions = [];
   turma;
 
   selectedDisciplina;
@@ -38,7 +39,7 @@ export class TurmasEditarComponent implements OnInit {
         this.disciplinas = response;
       });
     // this.getSeries();
-    // this.getCoordenadores();
+    this.getCoordenadores();
     // this.getGrupos();
     this.route.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
@@ -65,12 +66,13 @@ export class TurmasEditarComponent implements OnInit {
               if (turma.id == this.id) {
                 console.log('turma', turma);
                 this.turma = turma;
-                // this.form = this.formBuilder.group({
-                //   nome: [turma.nome],
-                //   grupo : [grupo],
-                //   serie: [numSerie],
-                //   coordenador: [turma.coordenador.id],
-                // });
+                this.form = this.formBuilder.group({
+                  id: [this.turma.id, Validators.required],
+                  serie: [1, Validators.required],
+                  nome: [this.turma.nome, Validators.required],
+                  turno: [this.turma.turno, Validators.required],
+                  coordenador: [this.turma.coordenador.id, Validators.required],
+                });
               }
             })
           })
@@ -79,13 +81,7 @@ export class TurmasEditarComponent implements OnInit {
         });
       });
 
-    this.form = this.formBuilder.group({
-      grupo: ['', Validators.required],
-      serie: [1, Validators.required],
-      nome: ['', Validators.required],
-      turno: ['', Validators.required],
-      coordenador: ['', Validators.required],
-    });
+  
   }
 
   inserirProfessor() {
@@ -123,22 +119,31 @@ export class TurmasEditarComponent implements OnInit {
       });
   }
 
-  /*submit() {
+  getCoordenadores() {
+    this.instituicaoService
+      .getCoordenadores()
+      .pipe(finalize(() => { }))
+      .subscribe((response) => {
+        this.isLoading = false;
+        console.log(response);
+        this.coordenadorOptions = response;
+        this.createForm();
+      });
+  }
 
-    console.log("response", this.form.value)
-
+  submit() {
     this.isLoading = true;
-    const result: turmas = Object.assign({}, this.form.value);
-    this.InstituicaoService
-      .inserirTurma(result)
+    const result = Object.assign({}, this.form.value);
+    this.instituicaoService
+      .atualizarTurma(result)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((response) => {
 
         this.isLoading = false;
 
         if (response) {
-          Swal.fire('Ok', 'Turma adicionada com sucesso', 'success');
-          this.router.navigateByUrl("/instituicao/turmas");
+          Swal.fire('Ok', response.message, 'success');
+          //this.router.navigateByUrl("/instituicao/turmas");
 
         }
 
@@ -146,7 +151,6 @@ export class TurmasEditarComponent implements OnInit {
 
       });
 
-  }*/
-
+  }
 
 }

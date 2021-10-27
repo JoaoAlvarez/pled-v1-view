@@ -56,6 +56,11 @@ export class TurmasListarComponent {
         type: "string",
         editable: false,
       },*/
+      turno: {
+        title: 'Turno',
+         type: "string",
+        editable: false,
+      },
       coordenador: {
         title: 'Coordenador',
         type: "string",

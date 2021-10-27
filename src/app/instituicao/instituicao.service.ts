@@ -181,6 +181,19 @@ export class InstituicaoService {
       );
   }
 
+  atualizarTurma(dados: any): Observable<any> {
+    return this.httpClient
+      .put("/instituicao/turma", dados)
+      .pipe(
+        map((response: any) => {
+          console.log("response", response);
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
+
   getTurmas(): Observable<any> {
     return this.httpClient.get("/instituicao/turma/listar").pipe(
       map((response: any) => {
