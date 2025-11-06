@@ -13,17 +13,22 @@ COPY . .
 ARG BUILD_CONFIGURATION=production
 RUN npm run build -- --configuration=${BUILD_CONFIGURATION}
 
-# Runtime stage without Nginx
+# Runtime stage with Express
 FROM node:18-alpine AS runtime
 
 WORKDIR /srv/app
 
-ENV PORT=4200
+ENV NODE_ENV=production \
+    PORT=4200 \
+    HOST=0.0.0.0
 
-RUN npm install -g http-server
+RUN npm init -y \
+    && npm install express@4 \
+    && rm package.json package-lock.json
 
-COPY --from=build /app/dist/ngx-admin-demo ./
+COPY server.js .
+COPY --from=build /app/dist/ngx-admin-demo ./dist
 
 EXPOSE ${PORT}
 
-CMD ["http-server", ".", "-p", "${PORT}", "-c-1", "--gzip"]
+CMD ["node", "server.js"]
