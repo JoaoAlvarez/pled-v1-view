@@ -29,7 +29,7 @@ RUN npm init -y \
     && rm package.json package-lock.json
 
 COPY server.js .
-COPY --from=build /app/dist/ngx-admin-demo ./dist
+COPY --from=build /app/dist ./dist
 
 EXPOSE ${PORT}
 
