@@ -5,5 +5,5 @@
  */
 export const environment = {
   production: true,
-  url: "https://api.plededucacao.com.br",
+  url: "https://pled-api.fnjruu.easypanel.host",
 };
