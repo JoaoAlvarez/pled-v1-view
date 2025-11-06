@@ -10,7 +10,6 @@
 
 export const environment = {
   production: false,
-  url: "https://pled-api.fnjruu.easypanel.host",
-  //url: "https://api.plededucacao.com.br",
+  url: "https://api.plededucacao.com.br",
   //url: "http://localhost:3000",
 };
