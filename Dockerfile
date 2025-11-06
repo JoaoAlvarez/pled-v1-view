@@ -4,9 +4,9 @@ FROM node:14-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
-RUN apk add --no-cache --virtual .build-deps python2 make g++ \
-    && ln -sf python2 /usr/bin/python \
-    && npm config set python python2 \
+RUN apk add --no-cache --virtual .build-deps python3 make g++ \
+    && ln -sf python3 /usr/bin/python \
+    && npm config set python python3 \
     && npm ci \
     && apk del .build-deps
 
