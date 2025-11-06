@@ -1,10 +1,12 @@
 # Build stage
-FROM node:18-alpine AS build
+FROM node:14-alpine AS build
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN apk add --no-cache --virtual .build-deps python3 make g++ \
+RUN apk add --no-cache --virtual .build-deps python2 make g++ \
+    && ln -sf python2 /usr/bin/python \
+    && npm config set python python2 \
     && npm ci \
     && apk del .build-deps
 
@@ -14,7 +16,7 @@ ARG BUILD_CONFIGURATION=production
 RUN npm run build -- --configuration=${BUILD_CONFIGURATION}
 
 # Runtime stage with Express
-FROM node:18-alpine AS runtime
+FROM node:16-alpine AS runtime
 
 WORKDIR /srv/app
 
