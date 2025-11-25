@@ -59,4 +59,16 @@ export class AuthService {
         })
       );
   }
+
+  resetPassword(payload: { token: string, password: string }): Observable<any> {
+    return this.httpClient
+      .put("/user/forgotPassword", payload)
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            return response;
+          }
+        })
+      );
+  }
 }

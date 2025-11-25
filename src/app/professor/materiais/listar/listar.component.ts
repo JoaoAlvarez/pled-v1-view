@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
+import { Router } from '@angular/router';
+import { finalize } from "rxjs/operators";
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { ProfessorService } from "../../professor.service";
-import { finalize } from "rxjs/operators";
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'materiais-listar',
@@ -66,9 +65,16 @@ export class MateriaisListarComponent implements OnInit {
         editable: false,
       },
       url: {
-        title: "Link",
-        type: "string",
+        title: "Acessar/Baixar",
+        type: "html",
         editable: false,
+        valuePrepareFunction: (url) => {
+          if (!url) {
+            return '';
+          }
+          const safeUrl = encodeURI(url);
+          return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">Abrir</a>`;
+        },
       },
     },
   };
